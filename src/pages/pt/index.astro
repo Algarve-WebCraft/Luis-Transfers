@@ -1,0 +1,81 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import heroImage from "@assets/hero-image.jpg";
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const aboutUrl = getRelativeLocaleUrl("pt", "about");
+const pageTitle = "Home | Bueni Restaurant";
+const pageDescription = "Page Description";
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="home">
+  <section class="cmp-hero-section cmp-hero-section--no-bottom" aria-labelledby="hero-section">
+    <div class="wrapper wrapper--tablet-48">
+      <div class="cmp-header-text-container cmp-header-text-container--pg1-hero">
+        <span class="cmp-topper-heading">PORA Pora</span>
+        <h1 id="hero-section" class="cmp-hero-heading">
+          Hero Portuguese
+          <br />
+          <span class="cmp-heading-span cmp-heading-span--hero cmp-gradient-text">Portuguese Span</span>
+        </h1>
+        <p class="cmp-main-text">Hero Poras</p>
+        <div class="hero-btn-container">
+          <a href="" class="cmp-main-btn">
+            <svg class="btn-svg-one" viewBox="0 0 20.633 20.633">
+              <path d="M5.015,10.79l9.646,9.646c0.13,0.133,0.302,0.197,0.471,0.197c0.173,0,0.344-0.064,0.473-0.197l0.013-0.011 c0.127-0.12,0.198-0.293,0.198-0.473v-4.68c0-0.182-0.07-0.347-0.198-0.475l-4.479-4.477l4.479-4.483 c0.127-0.123,0.198-0.294,0.198-0.473V0.682c0-0.176-0.07-0.345-0.198-0.474l-0.013-0.012C15.483,0.071,15.313,0,15.132,0 c-0.173,0-0.346,0.071-0.471,0.196L5.015,9.845C4.75,10.104,4.75,10.532,5.015,10.79z"></path>
+            </svg>
+            <span>Button P</span>
+            <svg class="btn-svg-two" viewBox="0 0 20.633 20.633">
+              <path d="M5.015,10.79l9.646,9.646c0.13,0.133,0.302,0.197,0.471,0.197c0.173,0,0.344-0.064,0.473-0.197l0.013-0.011 c0.127-0.12,0.198-0.293,0.198-0.473v-4.68c0-0.182-0.07-0.347-0.198-0.475l-4.479-4.477l4.479-4.483 c0.127-0.123,0.198-0.294,0.198-0.473V0.682c0-0.176-0.07-0.345-0.198-0.474l-0.013-0.012C15.483,0.071,15.313,0,15.132,0 c-0.173,0-0.346,0.071-0.471,0.196L5.015,9.845C4.75,10.104,4.75,10.532,5.015,10.79z"></path>
+            </svg>
+          </a>
+          <a href="" class="cmp-main-btn cmp-main-btn--dark-btn">
+            Button O
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-image-container">
+        <!-- <Image src={heroImage} alt="Restaurant interior" width={[1200]} format="webp" layout="constrained" /> -->
+
+        <!-- Set image this way if more specific sizes are needed -->
+        <!-- <Image
+          src={heroImage}
+          alt="Restaurant interior"
+          layout="constrained"
+          format="webp"
+          widths={[360, 500, 720, 1000, 1200]}
+          sizes="(max-width: 720px) 100vw, (max-width: 1000px) 50vw, 500px"
+        /> -->
+
+        <!-- Use Picture if you need to change the image based on screen size -->
+        <!-- <Picture
+          sources={[
+            {
+              src: mobileImage,
+              media: "(max-width: 720px)",
+              width: 600,
+              format: "webp",
+            },
+          ]}
+          src={desktopImage}
+          alt="Restaurant interior"
+          widths={[800, 1200, 1600]}
+          sizes="100vw"
+          format="webp"
+        /> -->
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style></style>
+
+<script>
+  import { gsapOpeningHomeAnimations } from "@scripts/gsapHomeAnimations.js";
+
+  document.addEventListener("astro:page-load", () => {
+    gsapOpeningHomeAnimations();
+  });
+</script>

@@ -1,0 +1,124 @@
+:root {
+  --clr-dark-theme-100: #60a5fa;
+  --clr-dark-theme-200: #3b82c4;
+  --clr-dark-theme-300: #1e5abf;
+  --clr-dark-theme-400: #111827;
+  --clr-white-100: #fff;
+  --clr-white-200: #f4f6fc;
+  --clr-white-300: #e5e7eb;
+}
+
+html.dark-mode .cmp-main-btn {
+  background-color: var(--clr-dark-theme-100);
+}
+
+html.dark-mode .header__container {
+  box-shadow: 0 3px 25px var(--clr-dark-theme-200);
+}
+
+html.dark-mode .hamburger-btn {
+  box-shadow:
+    inset 0 1px 2px #ffffff50,
+    0 2px 4px #00000030,
+    0 4px 8px #00000030;
+}
+
+html.dark-mode #footer {
+  background-color: var(--clr-dark-theme-300);
+}
+
+html.dark-mode body,
+html.dark-mode .header__container,
+html.dark-mode .nav-bar {
+  background-color: var(--clr-dark-theme-100);
+}
+
+html.dark-mode p,
+html.dark-mode li,
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode a {
+  color: var(--bodyTextWhite);
+}
+
+html.dark-mode .business-logo {
+  transform: rotateY(360deg);
+  filter: invert(1) hue-rotate(200deg);
+}
+
+html.dark-mode .nav-bar .active-link {
+  color: var(--clr-blue-100);
+
+  @media (width > 62.5rem) {
+    color: var(--bodyTextWhite);
+  }
+}
+
+/*-- -------------------------- -->
+<---      Dark Mode Toggle      -->
+<--- -------------------------- -*/
+
+html.dark-mode .dark-mode-hidden {
+  display: none;
+}
+
+html.dark-mode .dark-mode-show {
+  display: block;
+}
+
+html.dark-mode #dark-mode-toggle #svg-sun {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+html.dark-mode #dark-mode-toggle #svg-moon {
+  transform: translate(-200%, -50%);
+  opacity: 0;
+}
+
+#dark-mode-toggle {
+  display: block;
+  right: 5.25rem;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 1.5s ease-in-out;
+  /* prettier-ignore */
+  transition-timing-function: linear(0, 0.618 4.6%, 1.072 9.7%, 1.358 15.3%, 1.446 18.4%, 1.497 21.7%, 1.512 23.9%, 1.514 26.2%, 1.481 31.5%, 1.421 36.4%, 1.174 53.4%, 1.108 59.5%, 1.059 65.7%, 1.028 71.9%, 1.009 78.9%, 1);
+
+  svg {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  #svg-moon {
+    z-index: 2;
+    transition:
+      transform 0.75s,
+      opacity 0.5s;
+  }
+
+  #svg-sun {
+    z-index: 1;
+    transform: translate(-50%, 100%);
+    opacity: 0;
+    transition:
+      transform 0.75s,
+      opacity 0.5s;
+
+    /* prettier-ignore */
+    transition-timing-function: linear(0, 0.504 20.5%, 1 37.8%, 0.863 44.4%, 0.831 47.4%, 0.821 50.3%, 0.83 53%, 0.856 55.8%, 1 65.5%, 0.959 69.4%, 0.947 73.2%, 0.955 76.6%, 1 84.5%, 0.991 89.3%, 1);
+  }
+
+  @media (width > 64rem) {
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
