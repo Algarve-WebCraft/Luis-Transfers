@@ -1,0 +1,187 @@
+---
+const routesInfo = [
+  {
+    name: "Aljezur",
+    price: "€79",
+    distance: "62km",
+    time: "46m",
+  },
+  {
+    name: "Alvor",
+    price: "€49",
+    distance: "74km",
+    time: "48m",
+  },
+  {
+    name: "Armação de Pêra",
+    price: "€37",
+    distance: "51km",
+    time: "36m",
+  },
+  {
+    name: "Burgau",
+    price: "€69",
+    distance: "94km",
+    time: "1h 06m",
+  },
+  {
+    name: "Carvoeiro",
+    price: "€49",
+    distance: "62km",
+    time: "46m",
+  },
+  {
+    name: "Ferragudo",
+    price: "€49",
+    distance: "63km",
+    time: "49m",
+  },
+  {
+    name: "Lagoa",
+    price: "€47",
+    distance: "57km",
+    time: "39m",
+  },
+  {
+    name: "Lagos",
+    price: "€59",
+    distance: "85km",
+    time: "57m",
+  },
+  {
+    name: "Luz",
+    price: "€64",
+    distance: "91km",
+    time: "1h 03m",
+  },
+  {
+    name: "Portimão",
+    price: "€49",
+    distance: "66km",
+    time: "45m",
+  },
+  {
+    name: "Salema",
+    price: "€69",
+    distance: "101km",
+    time: "1h 11m",
+  },
+  {
+    name: "Sagres",
+    price: "€79",
+    distance: "115km",
+    time: "1h 23m",
+  },
+  {
+    name: "Silves",
+    price: "€47",
+    distance: "59km",
+    time: "42m",
+  },
+];
+---
+
+<div class="popular-routes-container">
+  {routesInfo.map((routes) => (
+    <div class="routes-card">
+      <h2>{routes.name}</h2>
+      <span class="price">{routes.price}</span>
+      <p class="airport-text">
+        <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+          <path
+            d="M3.33333 12L0 8.66667L3.33333 5.33333L4.28333 6.26667L2.55 8H12.6667V9.33333H2.55L4.28333 11.0667L3.33333 12ZM10 6.66667L9.05 5.73333L10.7833 4H0.666667V2.66667H10.7833L9.05 0.933333L10 0L13.3333 3.33333L10 6.66667Z"
+            fill="#44474A"
+          />
+        </svg>
+        Aeroporto de Faro (FAO)
+      </p>
+
+      <div class="price-distance">
+        <span>{routes.distance}</span>
+        <span>•</span>
+        <span>{routes.time}</span>
+      </div>
+
+      <a href="#" class="cmp-main-btn">
+        SELECIONAR ROTA
+      </a>
+    </div>
+  ))}
+</div>
+
+<style>
+  .popular-routes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+  }
+
+  .routes-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    max-width: 19rem;
+    margin-inline: auto;
+    padding: 1.25rem;
+    background: #f3f4f5;
+    border: 1px solid #e1e3e6;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow-20);
+    white-space: nowrap;
+
+    h2 {
+      grid-column: 1 / 2;
+      font-size: var(--fs-16);
+      font-weight: var(--fw-semibold);
+      color: var(--clr-black-10);
+      line-height: var(--lh-145);
+    }
+
+    .price {
+      grid-column: 2 / 3;
+      justify-self: end;
+      width: fit-content;
+      font-size: var(--fs-12);
+      font-weight: var(--fw-semibold);
+      color: var(--clr-brown-10);
+      background-color: #edeeef;
+      line-height: var(--lh-145);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .airport-text {
+      grid-column: 1 / -1;
+      font-size: var(--fs-13);
+      font-weight: var(--fw-regular);
+      margin-bottom: 0.25rem;
+      color: var(--clr-black-30);
+      line-height: var(--lh-145);
+
+      svg {
+        margin-right: 0.25rem;
+      }
+    }
+
+    .price-distance {
+      display: flex;
+      gap: 0.45rem;
+      grid-column: 1 / 2;
+      font-size: var(--fs-13);
+      font-weight: var(--fw-semibold);
+      margin-bottom: 0.5rem;
+      color: var(--clr-black-30);
+      line-height: var(--lh-145);
+      opacity: 0.7;
+    }
+
+    .cmp-main-btn {
+      grid-column: 1 / -1;
+      border: none;
+      color: var(--clr-black-10);
+      background-color: transparent;
+    }
+  }
+</style>

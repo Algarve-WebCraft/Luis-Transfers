@@ -1,0 +1,408 @@
+---
+const { locale } = Astro.props;
+---
+
+<form class="transfer-form" id="booking-form" data-locale={locale} data-astro-reload>
+  <div class="form-top-layer">
+    <div>
+      <label for="name">NOME COMPLETO *</label>
+      <input type="text" id="name" name="name" placeholder="Ex: Gonçalo Ribeiro" required />
+    </div>
+
+    <div>
+      <label for="email">E-MAIL *</label>
+      <input type="email" id="email" name="email" placeholder="goncalo@exemplo.com" required />
+    </div>
+
+    <div class="form-phone-field">
+      <label for="phone">TELEFONE / WHATSAPP *</label>
+      <input type="tel" id="phone" name="phone" required />
+    </div>
+  </div>
+
+  <div>
+    <label for="pickup">PONTO DE PARTIDA (ORIGEM) *</label>
+    <input
+      type="text"
+      id="pickup"
+      name="pickup"
+      placeholder="Comece a digitar um local de retirada..."
+      autocomplete="off"
+      required
+    />
+    <ul id="pickup-suggestions" class="form-maps-dropdown"></ul>
+  </div>
+
+  <div>
+    <label for="dropoff">PONTO DE CHEGADA *</label>
+    <input
+      type="text"
+      id="dropoff"
+      name="dropoff"
+      placeholder="Comece a digitar um local de entrega..."
+      autocomplete="off"
+      required
+    />
+    <ul id="dropoff-suggestions" class="form-maps-dropdown"></ul>
+  </div>
+
+  <div>
+    <label for="date">DATA *</label>
+    <input type="date" id="date" name="date" required />
+  </div>
+
+  <div>
+    <label for="time">HORA *</label>
+    <input type="time" id="time" name="time" required />
+  </div>
+
+  <div>
+    <label for="passengers">PASSAGEIROS *</label>
+    <select id="passengers" name="passengers" required>
+      <option value="" selected disabled>
+        Selecionar passageiros
+      </option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="bags">BAGAGEM (OPCIONAL)</label>
+    <select id="bags" name="bags">
+      <option value="" selected>
+        Sem bagagem
+      </option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="depart-time">HORA DE PARTIDA DO VOO (OPCIONAL)</label>
+    <input type="time" id="depart-time" name="depart-time" />
+  </div>
+
+  <div>
+    <label for="arrive-time">HORA DE CHEGADA DO VOO (OPCIONAL)</label>
+    <input type="time" id="arrive-time" name="arrive-time" />
+  </div>
+
+  <div>
+    <label for="notes">INFORMAÇÕES ADICIONAIS / NOTAS ESPECIAIS (OPCIONAL)</label>
+    <textarea
+      id="notes"
+      name="notes"
+      placeholder="Necessita de cadeiras para criança (ISOFIX), paragem intermédia ou transporte de animais de estimação em caixa?"
+    ></textarea>
+  </div>
+
+  <div>
+    <span>Tarifa Estimada (ESTIMATIVA TRANSPARENTE):</span>
+    <output id="price">--</output>
+  </div>
+
+  <button class="cmp-main-btn" type="submit">
+    PEDIR RESERVA DE TRANSFER
+  </button>
+
+  <a
+    class="go-back-button"
+    href="https://wa.me/351966831360"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contact us on WhatsApp"
+  >
+    <svg viewBox="0 0 17 17">
+      <path
+        d="M3.33333 10H10V8.33333H3.33333V10ZM3.33333 7.5H13.3333V5.83333H3.33333V7.5ZM3.33333 5H13.3333V3.33333H3.33333V5ZM0 16.6667V1.66667C0 1.20833 0.163194 0.815972 0.489583 0.489583C0.815972 0.163194 1.20833 0 1.66667 0H15C15.4583 0 15.8507 0.163194 16.1771 0.489583C16.5035 0.815972 16.6667 1.20833 16.6667 1.66667V11.6667C16.6667 12.125 16.5035 12.5174 16.1771 12.8438C15.8507 13.1701 15.4583 13.3333 15 13.3333H3.33333L0 16.6667ZM2.625 11.6667H15V1.66667H1.66667V12.6042L2.625 11.6667ZM1.66667 11.6667V1.66667V11.6667Z"
+        fill="#25D366"
+      />
+    </svg>
+    WHATSAPP DIRETO
+  </a>
+</form>
+
+<style>
+  .transfer-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    overflow: clip;
+
+    @media (width > 53.75rem) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    label,
+    span {
+      font-family: var(--ff-jakarta);
+      font-size: var(--fs-11);
+      font-weight: var(--fw-semibold);
+      color: var(--clr-black-10);
+      line-height: var(--lh-145);
+      letter-spacing: var(--ls-pos-1);
+      text-transform: capitalize;
+    }
+
+    input,
+    select {
+      font-size: var(--fs-13);
+      background: #31333506;
+      padding: 0.5rem 1rem;
+      border: none;
+      outline: none;
+    }
+
+    input {
+      font-family: var(--ff-jakarta);
+      font-weight: var(--fw-semibold);
+      color: var(--clr-black-10);
+      line-height: var(--lh-145);
+      border-radius: 4px;
+      letter-spacing: var(--ls-pos-1);
+      text-transform: capitalize;
+    }
+
+    textarea {
+      font-family: var(--ff-jakarta);
+      font-weight: var(--fw-semibold);
+      min-height: 6rem;
+      padding: 1rem;
+      outline: none;
+    }
+
+    .form-maps-dropdown {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      scrollbar-width: none;
+      padding: 1rem;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      border-radius: 8px;
+      box-shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.03),
+        0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      transform: translateY(-6px);
+      transition:
+        max-height 1s ease-out,
+        opacity 0.6s ease,
+        transform 1s ease-out;
+    }
+
+    .form-maps-dropdown.is-open {
+      max-height: 300px;
+      opacity: 1;
+      transform: translateY(0);
+      overflow-y: auto;
+    }
+
+    .form-maps-dropdown li {
+      width: fit-content;
+      font-size: var(--fs-14);
+      list-style: circle;
+      list-style-position: inside;
+      cursor: pointer;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: var(--clr-brown-10);
+      }
+    }
+
+    > div:nth-of-type(6) select,
+    > div:nth-of-type(7) select {
+      cursor: pointer;
+      font-weight: var(--fw-semibold);
+    }
+
+    > div:not(.form-top-layer) {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .form-top-layer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+      grid-column: 1 / 3;
+
+      @media (width > 53.75rem) {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        gap: 2rem;
+      }
+
+      .form-phone-field {
+        font-size: var(--fs-13);
+        font-family: var(--ff-jakarta);
+        font-weight: var(--fw-semibold);
+      }
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        min-width: 33%;
+      }
+    }
+
+    > div:nth-of-type(2) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(3) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(4) {
+      grid-column: 1 / 2;
+      max-width: 90%;
+    }
+
+    > div:nth-of-type(5) {
+      position: relative;
+      grid-column: 2 / 3;
+      right: 0.75rem;
+    }
+
+    > div:nth-of-type(6) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(7) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(8) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(9) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(10) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(11) {
+      grid-column: 1 / 2;
+      font-size: var(--fs-40);
+      font-family: var(--ff-news);
+      letter-spacing: var(--ls-neg-1);
+    }
+
+    .cmp-main-btn {
+      grid-column: 1 / 3;
+      margin-top: -1rem;
+    }
+
+    @media (width > 53.75rem) {
+      > div:nth-of-type(2) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(3) {
+        grid-column: 3 / 5;
+      }
+
+      > div:nth-of-type(4) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(5) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(6) {
+        grid-column: 3 / 4;
+      }
+
+      > div:nth-of-type(7) {
+        grid-column: 4 / 5;
+      }
+
+      > div:nth-of-type(8) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(9) {
+        grid-column: 3 / 5;
+      }
+
+      > div:nth-of-type(10) {
+        grid-column: 1 / -1;
+      }
+
+      > div:nth-of-type(11) {
+        grid-column: 1 / 3;
+        font-size: var(--fs-56);
+      }
+
+      .cmp-main-btn {
+        grid-column: 3 / 4;
+        align-self: center;
+        height: 50%;
+      }
+
+      .go-back-button {
+        font-size: var(--fs-13);
+        font-weight: var(--fw-semibold);
+        background-color: #edeeef;
+        padding-block: 1.16rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        text-align: center;
+        align-self: center;
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow:
+            inset 0 1px 2px #ffffffa0,
+            0 4px 10px #00000036;
+        }
+
+        svg {
+          max-width: 0.75rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  ["pickup-suggestions", "dropoff-suggestions"].forEach((id) => {
+    const dropdown = document.getElementById(id);
+    let timeout;
+
+    const observer = new MutationObserver(() => {
+      clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        const shouldBeOpen = dropdown.children.length > 0;
+        const isOpen = dropdown.classList.contains("is-open");
+
+        if (shouldBeOpen !== isOpen) {
+          dropdown.classList.toggle("is-open", shouldBeOpen);
+        }
+      }, 300);
+    });
+
+    observer.observe(dropdown, {
+      childList: true,
+      subtree: true,
+    });
+  });
+</script>

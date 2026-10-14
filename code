@@ -1,0 +1,810 @@
+const CONFIG = {
+  OWNER_EMAIL: PropertiesService
+    .getScriptProperties()
+    .getProperty("OWNER_EMAIL"),
+
+  SHEET_ID: PropertiesService
+    .getScriptProperties()
+    .getProperty("SHEET_ID"),
+
+  WEB_APP_URL: PropertiesService
+    .getScriptProperties()
+    .getProperty("WEB_APP_URL"),
+
+  WHATSAPP_PHONE_NUMBER_ID: PropertiesService
+    .getScriptProperties()
+    .getProperty("WHATSAPP_PHONE_NUMBER_ID"),
+
+  WHATSAPP_ACCESS_TOKEN: PropertiesService
+    .getScriptProperties()
+    .getProperty("WHATSAPP_ACCESS_TOKEN"),
+
+  WHATSAPP_OWNER_NUMBER: PropertiesService
+    .getScriptProperties()
+    .getProperty("WHATSAPP_OWNER_NUMBER"),
+};
+
+function validateBooking(data) {
+  const requiredFields = [
+    "name",
+    "email",
+    "phone",
+    "pickup",
+    "dropoff",
+    "date",
+    "time",
+    "passengers",
+    "pickupPlaceId",
+    "dropoffPlaceId",
+  ];
+
+  const email = String(data.email).trim();
+  const passengers = Number(data.passengers);
+  const price = Number(data.price);
+  const requestedDate = new Date(`${data.date}T${data.time}`);
+
+  const coordinates = [
+    data.pickupLatitude,
+    data.pickupLongitude,
+    data.dropoffLatitude,
+    data.dropoffLongitude,
+  ];
+
+  const latitudeValues = [
+    Number(data.pickupLatitude),
+    Number(data.dropoffLatitude),
+  ];
+
+  const longitudeValues = [
+    Number(data.pickupLongitude),
+    Number(data.dropoffLongitude),
+  ];
+
+  for (const field of requiredFields) {
+    if (!data[field] || String(data[field]).trim() === "") {
+      return `Missing required field: ${field}`;
+    }
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return "Invalid email address.";
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.date)) {
+    return "Invalid date.";
+  }
+  if (!/^\d{2}:\d{2}$/.test(data.time)) {
+    return "Invalid time.";
+  }
+  if (!Number.isInteger(passengers) || passengers < 1 || passengers > 4) {
+    return "Invalid passenger count.";
+  }
+  if (!Number.isFinite(price) || price < 0) {
+    return "Invalid price.";
+  }
+  if (isNaN(requestedDate.getTime())) {
+    return "Invalid date or time.";
+  }
+  if (data.pickupPlaceId === data.dropoffPlaceId) {
+    return "Pickup and drop-off locations cannot be the same.";
+  }
+  if (
+    latitudeValues.some((value) => value < -90 || value > 90) ||
+    longitudeValues.some((value) => value < -180 || value > 180) ||
+    coordinates.some((value) => !Number.isFinite(Number(value)))
+  ) {
+    return "Invalid location coordinates.";
+  }
+
+  return null;
+}
+
+function sendWhatsAppOwnerMessage(data, approveUrl, declineUrl) {
+  const url =
+    `https://graph.facebook.com/v26.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+
+  const payload = {
+    messaging_product: "whatsapp",
+    to: CONFIG.WHATSAPP_OWNER_NUMBER,
+    type: "template",
+    template: {
+      name: "luis_transfer_template",
+      language: {
+        code: "en"
+      },
+      components: [
+        {
+          type: "body",
+          parameters: [
+            { type: "text", text: data.requestId },
+            { type: "text", text: data.name },
+            { type: "text", text: data.phone },
+            { type: "text", text: data.email },
+            { type: "text", text: data.pickup },
+            { type: "text", text: data.dropoff },
+            { type: "text", text: data.date },
+            { type: "text", text: data.time },
+            { type: "text", text: String(data.passengers) },
+            { type: "text", text: `${data.price}` },
+            { type: "text", text: data.departTime || "-" },
+            { type: "text", text: data.arriveTime || "-" },
+            { type: "text", text: data.bags || "-" },
+            { type: "text", text: data.notes || "-" }
+          ]
+        },
+        {
+          type: "button",
+          sub_type: "url",
+          index: "0",
+          parameters: [
+            {
+              type: "text",
+              text: approveUrl.replace(CONFIG.WEB_APP_URL, "")
+            }
+          ]
+        },
+        {
+          type: "button",
+          sub_type: "url",
+          index: "1",
+          parameters: [
+            {
+              type: "text",
+              text: declineUrl.replace(CONFIG.WEB_APP_URL, "")
+            }
+          ]
+        }
+      ]
+    }
+  };
+
+  const response = UrlFetchApp.fetch(url, {
+    method: "post",
+    contentType: "application/json",
+    headers: {
+      Authorization: `Bearer ${CONFIG.WHATSAPP_ACCESS_TOKEN}`
+    },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  });
+
+  const responseCode = response.getResponseCode();
+  const responseText = response.getContentText();
+
+  const sheet = SpreadsheetApp
+    .openById(CONFIG.SHEET_ID)
+    .getSheetByName("Sheet1");
+
+  sheet.getRange(sheet.getLastRow(), 25).setValue(
+    `WhatsApp ${responseCode}: ${responseText}`
+  );
+}
+
+function sendWhatsAppClientMessage(phone, templateName, parameters) {
+  const url =
+    `https://graph.facebook.com/v26.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+
+  const payload = {
+    messaging_product: "whatsapp",
+    to: phone,
+    type: "template",
+    template: {
+      name: templateName,
+      language: {
+        code: "en"
+      },
+      components: [
+        {
+          type: "body",
+          parameters: parameters.map((value) => ({
+            type: "text",
+            text: String(value)
+          }))
+        }
+      ]
+    }
+  };
+
+  const response = UrlFetchApp.fetch(url, {
+    method: "post",
+    contentType: "application/json",
+    headers: {
+      Authorization: `Bearer ${CONFIG.WHATSAPP_ACCESS_TOKEN}`
+    },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  });
+
+  const responseCode = response.getResponseCode();
+  const responseText = response.getContentText();
+
+  const sheet = SpreadsheetApp
+    .openById(CONFIG.SHEET_ID)
+    .getSheetByName("Sheet1");
+
+  sheet.getRange(sheet.getLastRow(), 26).setValue(
+    `TO: [${phone}] | Client WhatsApp ${templateName} ${responseCode}: ${responseText}`
+  );
+}
+
+function doPost(e) {
+  const data = JSON.parse(e.postData.contents);
+  const validationError = validateBooking(data);
+
+  if (validationError) {
+    return ContentService
+      .createTextOutput(
+        JSON.stringify({
+          success: false,
+          error: validationError
+        })
+      )
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  const sheet = SpreadsheetApp
+    .openById(CONFIG.SHEET_ID)
+    .getSheetByName("Sheet1");
+
+  const requestId =
+    "TR-" +
+    Utilities.formatDate(
+      new Date(),
+      Session.getScriptTimeZone(),
+      "ddMM"
+    ) +
+    "-" +
+    Utilities.getUuid().slice(0, 6).toUpperCase();
+
+  const approvalToken = Utilities.getUuid();
+
+  data.requestId = requestId;
+
+  sheet.appendRow([
+    requestId,               
+    new Date(),               
+    data.name,                  
+    data.email,                
+    data.phone,              
+    data.pickup,              
+    data.dropoff,             
+    data.date,                    
+    data.time,                 
+    data.passengers,            
+    data.bags || "",         
+    data.departTime || "",       
+    data.arriveTime || "",      
+    data.price,                   
+    data.notes,              
+    "PENDING",                  
+    data.pickupLatitude,          
+    data.pickupLongitude,       
+    data.dropoffLatitude,          
+    data.dropoffLongitude,         
+    data.pickupPlaceId,            
+    data.dropoffPlaceId,            
+    "",                             
+    approvalToken,                  
+  ]);
+
+  const webAppUrl = CONFIG.WEB_APP_URL;
+
+  const approveUrl =
+    webAppUrl +
+    "?action=approve&requestId=" +
+    encodeURIComponent(requestId) +
+    "&token=" +
+    encodeURIComponent(approvalToken);
+
+  const declineUrl =
+    webAppUrl +
+    "?action=decline&requestId=" +
+    encodeURIComponent(requestId) +
+    "&token=" +
+    encodeURIComponent(approvalToken);
+
+  /* MailApp.sendEmail({
+    to: CONFIG.OWNER_EMAIL,
+    subject: `New transfer request: ${requestId}`,
+    htmlBody: `
+      <h2>New Transfer Request</h2>
+
+      <p><strong>Name:</strong> ${data.name}</p>
+      <p><strong>Email:</strong> ${data.email}</p>
+      <p><strong>Phone:</strong> ${data.phone}</p>
+
+      <p><strong>Pickup:</strong> ${data.pickup}</p>
+      <p><strong>Dropoff:</strong> ${data.dropoff}</p>
+
+      <p><strong>Date:</strong> ${data.date}</p>
+      <p><strong>Time:</strong> ${data.time}</p>
+
+      <p><strong>Passengers:</strong> ${data.passengers}</p>
+      <p><strong>Luggage:</strong> ${data.bags || "-"}</p>
+      <p><strong>Flight Departure Time:</strong> ${data.departTime || "-"}</p>
+      <p><strong>Flight Arrival Time:</strong> ${data.arriveTime || "-"}</p>
+
+      <p><strong>Estimated Price:</strong> €${data.price}</p>
+      <p><strong>Notes:</strong> ${data.notes || "None"}</p>
+      <br>
+
+      <p>
+        <a href="${approveUrl}">APPROVE REQUEST</a>
+      </p>
+
+      <p>
+        <a href="${declineUrl}">DECLINE REQUEST</a>
+      </p>
+    `
+  }); */
+
+  sendWhatsAppOwnerMessage(
+    data,
+    approveUrl,
+    declineUrl
+  );
+
+  return ContentService
+    .createTextOutput("OK")
+    .setMimeType(ContentService.MimeType.TEXT);
+}
+
+function doGet(e) {
+  const lock = LockService.getScriptLock();
+
+  try {
+    lock.waitLock(10000);
+
+    const action = e.parameter.action;
+    const requestId = e.parameter.requestId;
+    const token = e.parameter.token;
+
+    if (!action || !requestId || !token) {
+      return HtmlService
+        .createHtmlOutput("<h2>Invalid request</h2>");
+    }
+
+    const sheet = SpreadsheetApp
+      .openById(CONFIG.SHEET_ID)
+      .getSheetByName("Sheet1");
+
+    const data = sheet.getDataRange().getValues();
+
+    for (let i = 1; i < data.length; i++) {
+      const row = data[i];
+
+      const storedRequestId = row[0];
+      const status = row[15];
+      const storedToken = row[23];
+
+      if (storedRequestId === requestId && storedToken === token) {
+
+        if (status !== "PENDING") {
+          return HtmlService
+            .createHtmlOutput(
+              `<h2>This request has already been ${status.toLowerCase()}.</h2>`
+            );
+        }
+
+        if (action === "approve") {
+          const date = row[7];
+          const time = row[8];
+
+          const start = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            time.getHours(),
+            time.getMinutes(),
+            0,
+            0
+          );
+
+          const end = new Date(start.getTime() + 60 * 60 * 1000);
+
+          const event = Calendar.Events.insert({
+            summary: `Transfer - ${row[2]}`,
+            description:
+              `Request ID: ${row[0]}\n` +
+              `Customer: ${row[2]}\n` +
+              `Pick-up: ${row[5]}\n` +
+              `Drop-off: ${row[6]}\n` +
+              `Phone: ${row[4]}\n` +
+              `Email: ${row[3]}\n` +
+              `Passengers: ${row[9]}\n` +
+              `Luggage: ${row[10] || "-"}\n` +
+              `Flight Departure Time: ${row[11] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
+              `Flight Arrival Time: ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
+              `Notes: ${row[14] || "None"}`,
+            start: {
+              dateTime: start.toISOString()
+            },
+            end: {
+              dateTime: end.toISOString()
+            }
+          }, "primary");
+
+          sheet.getRange(i + 1, 16).setValue("APPROVED");
+          sheet.getRange(i + 1, 23).setValue(event.id);
+
+          MailApp.sendEmail({
+            to: row[3],
+            subject: `Transfer request ${requestId} confirmed`,
+            htmlBody: `
+              <h2>Transfer Confirmed</h2>
+
+              <p>Hi ${row[2]},</p>
+
+              <p>Your transfer request has been confirmed.</p>
+
+              <p><strong>Pickup:</strong> ${row[5]}</p>
+              <p><strong>Dropoff:</strong> ${row[6]}</p>
+              <p><strong>Date:</strong> ${Utilities.formatDate(row[7], Session.getScriptTimeZone(), "dd/MM/yyyy")}</p>
+              <p><strong>Time:</strong> ${Utilities.formatDate(row[8], Session.getScriptTimeZone(), "HH:mm")}</p>
+              <p><strong>Passengers:</strong> ${row[9]}</p>
+              <p><strong>Luggage:</strong> ${row[10] || "-"}</p>
+              <p><strong>Flight Departure Time:</strong> ${row[11] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
+              <p><strong>Flight Arrival Time:</strong> ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
+              <p><strong>Estimated Price:</strong> €${row[13]}</p>
+
+              <p>If there are any issues or changes to your trip, please call or Whatsapp (+351) 911 891 011</p>
+            `
+          });
+
+          sendWhatsAppClientMessage(
+            row[4],
+            "luis_client_confirm_template",
+            [
+              row[5],
+              row[6],
+              Utilities.formatDate(
+                row[7],
+                Session.getScriptTimeZone(),
+                "dd/MM/yyyy"
+              ),
+              Utilities.formatDate(
+                row[8],
+                Session.getScriptTimeZone(),
+                "HH:mm"
+              ),
+              row[9],
+              row[10] || "-",
+              row[11]
+                ? Utilities.formatDate(
+                    row[11],
+                    Session.getScriptTimeZone(),
+                    "HH:mm"
+                  )
+                : "-",
+              row[12]
+                ? Utilities.formatDate(
+                    row[12],
+                    Session.getScriptTimeZone(),
+                    "HH:mm"
+                  )
+                : "-",
+              row[13]
+            ]
+          );
+
+          return HtmlService
+            .createHtmlOutput(`
+              <html>
+                <head>
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <style>
+                    body {
+                      font-family: Arial, sans-serif;
+                      font-size: 1.5rem; 
+                      text-align: center;
+                      padding: 40px 20px;
+                      margin-top: 3rem;
+                    }
+
+                    button {
+                      padding: 12px 24px;
+                      font-size: 16px;
+                      cursor: pointer;
+                    }
+                  </style>
+                </head>
+
+                <body>
+                  <h2>✓ Request approved</h2>
+                  <p>${requestId}</p>
+                  <p>${row[2]}</p>
+                </body>
+              </html>
+            `);
+        }
+
+        if (action === "decline") {
+          sheet.getRange(i + 1, 16).setValue("DECLINED");
+
+          MailApp.sendEmail({
+            to: row[3],
+            subject: `Transfer request ${requestId} declined`,
+            htmlBody: `
+              <h2>Transfer Request</h2>
+
+              <p>Hi ${row[2]},</p>
+
+              <p>Unfortunately, we are unable to accept your transfer request for the following journey:</p>
+
+              <p><strong>Pickup:</strong> ${row[5]}</p>
+              <p><strong>Dropoff:</strong> ${row[6]}</p>
+              <p><strong>Date:</strong> ${Utilities.formatDate(row[7], Session.getScriptTimeZone(), "dd/MM/yyyy")}</p>
+              <p><strong>Time:</strong> ${Utilities.formatDate(row[8], Session.getScriptTimeZone(), "HH:mm")}</p>
+              <p><strong>Passengers:</strong> ${row[9]}</p>
+              <p><strong>Luggage:</strong> ${row[10] || "-"}</p>
+              <p><strong>Flight Departure Time:</strong> ${row[11] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
+              <p><strong>Flight Arrival Time:</strong> ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
+
+              <p>Please feel free to contact us if you would like to discuss an alternative (+351) 911 891 011.</p>
+            `
+          });
+
+          sendWhatsAppClientMessage(
+            row[4],
+            "luis_client_decline_template",
+            [
+              row[5],
+              row[6],
+              Utilities.formatDate(
+                row[7],
+                Session.getScriptTimeZone(),
+                "dd/MM/yyyy"
+              ),
+              Utilities.formatDate(
+                row[8],
+                Session.getScriptTimeZone(),
+                "HH:mm"
+              ),
+              row[9],
+              row[10] || "-",
+              row[11]
+                ? Utilities.formatDate(
+                    row[11],
+                    Session.getScriptTimeZone(),
+                    "HH:mm"
+                  )
+                : "-",
+              row[12]
+                ? Utilities.formatDate(
+                    row[12],
+                    Session.getScriptTimeZone(),
+                    "HH:mm"
+                  )
+                : "-"
+            ]
+          );
+
+          return HtmlService
+            .createHtmlOutput(`
+              <html>
+                <head>
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                </head>
+
+                <body style="font-family: Arial; font-size: 2rem; text-align:center; padding:40px 20px; margin-top: 3rem;">
+                  <h2>✓ Request declined</h2>
+                  <p>${requestId}</p>
+                  <p>${row[2]}</p>
+                </body>
+              </html>
+            `);
+        }
+
+        return HtmlService
+          .createHtmlOutput("<h2>Invalid action</h2>");
+      }
+    }
+
+    return HtmlService
+      .createHtmlOutput("<h2>Request not found.</h2>");
+
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function initializeCalendarSync() {
+  const calendarId = "primary";
+  let pageToken;
+  let nextSyncToken;
+
+  do {
+    const response = Calendar.Events.list(calendarId, {
+      maxResults: 250,
+      showDeleted: true,
+      pageToken: pageToken,
+    });
+
+    pageToken = response.nextPageToken;
+
+    if (response.nextSyncToken) {
+      nextSyncToken = response.nextSyncToken;
+    }
+  } while (pageToken);
+
+  if (!nextSyncToken) {
+    throw new Error("No sync token was returned.");
+  }
+
+  PropertiesService
+    .getScriptProperties()
+    .setProperty("CALENDAR_SYNC_TOKEN", nextSyncToken);
+
+  Logger.log("Calendar sync initialized.");
+}
+
+function syncCalendarChanges(e) {
+  const lock = LockService.getScriptLock();
+
+  if (!lock.tryLock(30000)) {
+    console.log("Could not acquire sync lock.");
+    return;
+  }
+
+  try {
+    const calendarId = e?.calendarId || "primary";
+    const properties = PropertiesService.getScriptProperties();
+    const syncToken = properties.getProperty("CALENDAR_SYNC_TOKEN");
+    let pageToken;
+    let latestSyncToken;
+
+    const sheet = SpreadsheetApp
+      .openById(CONFIG.SHEET_ID)
+      .getSheetByName("Sheet1");
+
+    if (!syncToken) {
+      console.log("No Calendar sync token found.");
+      return;
+    }
+
+    do {
+      const options = {
+        maxResults: 250,
+        showDeleted: true,
+        syncToken: syncToken,
+      };
+
+      if (pageToken) {
+        options.pageToken = pageToken;
+      }
+
+      let response;
+
+      try {
+        response = Calendar.Events.list(calendarId, options);
+      } catch (error) {
+        if (
+          String(error.message).includes("Sync token is no longer valid")
+        ) {
+          properties.deleteProperty("CALENDAR_SYNC_TOKEN");
+          initializeCalendarSync();
+
+          return;
+        }
+
+        throw error;
+      }
+
+      const events = response.items || [];
+
+      for (const event of events) {
+        syncCalendarEventToSheet(event, sheet);
+      }
+
+      pageToken = response.nextPageToken;
+
+      if (response.nextSyncToken) {
+        latestSyncToken = response.nextSyncToken;
+      }
+
+    } while (pageToken);
+
+    if (latestSyncToken) {
+      properties.setProperty(
+        "CALENDAR_SYNC_TOKEN",
+        latestSyncToken
+      );
+    }
+
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function syncCalendarEventToSheet(event, sheet) {
+  const eventId = event.id;
+  const lastRow = sheet.getLastRow();
+  let sheetRow = null;
+
+  if (!eventId || lastRow < 2) {
+    return;
+  }
+
+  const eventIdValues = sheet
+    .getRange(2, 23, lastRow - 1, 1)
+    .getValues();
+
+  for (let i = 0; i < eventIdValues.length; i++) {
+    const sheetEventId = String(eventIdValues[i][0]).trim();
+
+    if (sheetEventId === String(eventId).trim()) {
+      sheetRow = i + 2;
+      break;
+    }
+  }
+
+  if (!sheetRow) {
+    return;
+  }
+
+  if (event.status === "cancelled") {
+    sheet.getRange(sheetRow, 16).setValue("CANCELLED");
+    return;
+  }
+
+  const start = event.start?.dateTime;
+  const startDate = new Date(start);
+  const descriptionData = parseCalendarDescription(
+    event.description || ""
+  );
+
+  if (!start) {
+    return;
+  } else if (isNaN(startDate.getTime())) return;
+
+  const timeZone = Session.getScriptTimeZone();
+
+  const date = Utilities.formatDate(
+    startDate,
+    timeZone,
+    "yyyy-MM-dd"
+  );
+
+  const time = Utilities.formatDate(
+    startDate,
+    timeZone,
+    "HH:mm"
+  );
+
+  const updates = [
+    [3, descriptionData.Customer],
+    [4, descriptionData.Email],
+    [5, descriptionData.Phone],
+    [6, descriptionData["Pick-up"]],
+    [7, descriptionData["Drop-off"]],
+    [8, date],
+    [9, time],
+    [10, descriptionData.Passengers],
+    [11, descriptionData.Luggage],
+    [12, descriptionData["Flight Departure Time"]],
+    [13, descriptionData["Flight Arrival Time"]],
+    [15, descriptionData.Notes],
+    [16, "APPROVED"],
+  ];
+
+  for (const [column, value] of updates) {
+    if (value !== null && value !== undefined) {
+      sheet.getRange(sheetRow, column).setValue(value);
+    }
+  }
+}
+
+function parseCalendarDescription(description) {
+  const fields = {};
+
+  description
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]*>/g, "")
+    .split("\n")
+    .forEach(line => {
+      const [key, ...value] = line.split(":");
+      fields[key.trim()] = value.join(":").trim();
+    });
+
+  return fields;
+}
+
