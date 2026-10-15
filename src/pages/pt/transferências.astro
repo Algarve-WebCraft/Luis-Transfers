@@ -1,20 +1,102 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import RoutesCards from "@components/other/RoutesCards.astro";
+import TransferForm from "@components/other/TransferForm.astro";
+import RoutesCardsTransfers from "@components/other/RoutesCardsTransfers.astro";
+
+const { locale } = Astro.props;
 
 const pageTitle = "About | Bueni Restaurant";
 const pageDescription = "Page Description";
 ---
 
-<BaseLayout
-  pageTitle={pageTitle}
-  pageDescription={pageDescription}
-  bodyClass="secondary-page"
->
-  <section class="" aria-labelledby="">
-    <div class="wrapper wrapper--mobile-m">
-      <h1>Sobre</h1>
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
+  <section class="cmp-hero-section" aria-labelledby="hero-section">
+    <div class="wrapper wrapper--mobile-40">
+      <div class="hero__text-container">
+        <span class="cmp-topper-heading">SERVIÇO OFICIAL CARVOEIRO • RNAVT 11744</span>
+        <h1 id="hero-section" class="cmp-hero-heading">
+          Transfers Privados & Executivos
+        </h1>
+        <p class="cmp-main-text">
+          Pontualidade exemplar, conforto de primeira classe e motoristas dedicados com base na Praia do Carvoeiro para
+          todo o Algarve e Península Ibérica.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp-main-section" aria-labelledby="transfer-section">
+    <div class="wrapper wrapper--mobile-40">
+      <div class="transfer-form-container">
+        <span class="cmp-topper-heading">COTAÇÃO IMEDIATA • CONFIRMAÇÃO DIRETA</span>
+        <h2 id="transfer-section" class="cmp-main-heading">
+          Pedir Reserva de Transfer Executivo
+        </h2>
+
+        <TransferForm locale={locale} />
+        <p id="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp-main-section" aria-labelledby="popular-routes-section">
+    <div class="wrapper wrapper--mobile-40">
+      <div class="popular-routes-container">
+        <div class="popular-routes__text">
+          <span class="cmp-topper-heading">TABELA TRANSPARENTE</span>
+          <h2 id="popular-routes-section" class="cmp-main-heading">
+            13 Destinos Populares a partir de Faro
+          </h2>
+        </div>
+
+        <p class="cmp-body-text">
+          Valores fixos até 4 passageiros com bagagem. Selecione qualquer rota para carregar de imediato no formulário
+          de reserva acima.
+        </p>
+      </div>
+
+      <RoutesCardsTransfers />
     </div>
   </section>
 </BaseLayout>
 
-<style></style>
+<style>
+  .transfer-form-container {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0);
+    margin-top: -2rem;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow-10);
+
+    @media (width > 47.5rem) {
+      margin-top: unset;
+      padding: 3rem;
+    }
+  }
+
+  .popular-routes-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+
+    @media (width > 47.5rem) {
+      flex-direction: row;
+      margin-bottom: 5rem;
+      gap: 4rem;
+    }
+
+    p {
+      @media (width > 47.5rem) {
+        max-width: 40%;
+        align-self: end;
+      }
+    }
+  }
+</style>
+
+<script>
+  import "@scripts/formLogic.js";
+</script>

@@ -63,7 +63,7 @@ const navItems = [
         </a>
       </div>
 
-      <div class="cmp-main-btn">Reservar</div>
+      <a class="cmp-main-btn">Reservar</a>
 
       <div class="hamburger-btn-box">
         <button
@@ -100,12 +100,21 @@ const navItems = [
     .wrapper--header {
       min-height: clamp(4.5rem, 11vw, 5.25rem);
       display: flex;
-      justify-content: space-between;
+      justify-content: start;
       align-items: center;
+
+      .cmp-main-btn {
+        font-size: var(--fs-11);
+
+        @media (width > 47.5rem) {
+          font-size: var(--fs-13);
+        }
+      }
     }
 
     .business-logo-container {
       max-width: clamp(4rem, 9vw + 2rem, 8rem);
+      margin-right: auto;
 
       svg {
         width: 60%;
@@ -129,7 +138,11 @@ const navItems = [
     position: relative;
     display: flex;
     gap: 0.5rem;
-    right: 2rem;
+    right: 0.75rem;
+
+    @media (width > 47.5rem) {
+      right: 2rem;
+    }
 
     a {
       transition: opacity 0.2s ease-out;
@@ -145,6 +158,7 @@ const navItems = [
     align-items: center;
     gap: 1.2rem;
     order: 1;
+    margin-left: 0.75rem;
   }
 
   .hamburger-btn {
@@ -199,7 +213,7 @@ const navItems = [
       background: #fff;
     }
 
-    @media (width > 62.5rem) {
+    @media (width > 68.75rem) {
       & {
         display: none;
       }
@@ -235,7 +249,7 @@ const navItems = [
     transition: transform 1s
       linear(0, 1 44.7%, 0.898 51.8%, 0.874 55.1%, 0.866 58.4%, 0.888 64.3%, 1 77.4%, 0.98 84.5%, 1);
 
-    @media (width > 62.5rem) {
+    @media (width > 68.75rem) {
       position: relative;
       width: 100%;
       background-color: inherit;
@@ -259,9 +273,9 @@ const navItems = [
       margin-inline: auto;
       margin-bottom: 0;
 
-      @media (width > 62.5rem) {
+      @media (width > 68.75rem) {
         flex-direction: row;
-        gap: 3rem;
+        gap: 2.5rem;
       }
     }
 

@@ -450,12 +450,14 @@ const pageDescription = "Portuguese";
       align-items: flex-start;
       justify-content: space-between;
       order: 1;
+      margin-top: 1.25rem;
 
       @media (width > 47.5rem) {
         flex-direction: row;
         align-items: flex-end;
         gap: 2rem;
         order: 0;
+        margin-top: unset;
       }
 
       h1 {
@@ -492,7 +494,7 @@ const pageDescription = "Portuguese";
   .transfer-form-container {
     padding: 1.5rem;
     background: rgba(255, 255, 255, 0);
-    margin-top: -1.5rem;
+    margin-top: -2rem;
     border-radius: 8px;
     box-shadow: var(--box-shadow-10);
 
@@ -566,6 +568,11 @@ const pageDescription = "Portuguese";
         border-radius: 8px;
         border: 2px solid #edeeef;
         box-shadow: var(--box-shadow-20);
+        transition: translate 0.2s ease-out;
+
+        &:hover {
+          translate: 0 -0.15rem;
+        }
 
         @media (width > 47.5rem) {
           flex-direction: column;
@@ -580,10 +587,11 @@ const pageDescription = "Portuguese";
         }
 
         svg {
-          padding: 0.75rem;
+          padding: 0.6rem;
           background: #e7e8e9d8;
           border-radius: 4px;
           max-width: 2.5rem;
+          min-width: 2.25rem;
         }
       }
     }
@@ -623,6 +631,11 @@ const pageDescription = "Portuguese";
       border-radius: 8px;
       border: 2px solid #edeeef;
       box-shadow: var(--box-shadow-20);
+      transition: translate 0.2s ease-out;
+
+      &:hover {
+        translate: 0 -0.15rem;
+      }
 
       @media (width > 62.5rem) {
         padding: 3rem;
