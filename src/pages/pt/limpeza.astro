@@ -647,10 +647,14 @@ const pageDescription = "Page Description";
         .image-card__content {
           position: relative;
           align-self: end;
-          padding: 1.5rem;
+          padding: 1em;
           color: var(--clr-white-10);
           z-index: 999;
           background: linear-gradient(transparent, rgb(0 0 0 / 95%));
+
+          @media (width > 47.5rem) {
+            padding: 1.5em;
+          }
 
           span {
             color: var(--clr-beige-10);
