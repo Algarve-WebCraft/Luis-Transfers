@@ -1,5 +1,5 @@
 ---
-import { ClientRouter } from "astro:transitions";
+import { ClientRouter, fade } from "astro:transitions";
 import "../styles/global.css";
 import Head from "../components/base/Head.astro";
 import Header from "../components/base/Header.astro";
@@ -18,8 +18,8 @@ const { bodyClass, pageTitle, pageDescription } = Astro.props;
 
   <body class={bodyClass}>
     <Header transition:persist />
-
-    <main transition:animate="fade">
+    <!-- transition:animate={fade({ duration: "0.75s" })} -->
+    <main>
       <slot />
     </main>
 

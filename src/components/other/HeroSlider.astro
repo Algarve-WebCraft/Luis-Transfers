@@ -1,0 +1,227 @@
+---
+import { Image } from "astro:assets";
+import "swiper/css";
+import "swiper/css/navigation";
+
+import heroOne from "@assets/images/car-one.jpg";
+import heroTwo from "@assets/images/car-two.jpeg";
+import heroThree from "@assets/images/car-one.webp";
+
+const slides = [
+  {
+    src: heroOne,
+    alt: "Viagem confortável numa carrinha executiva no Algarve",
+  },
+  {
+    src: heroTwo,
+    alt: "Paisagem costeira do Algarve",
+  },
+  {
+    src: heroThree,
+    alt: "Alojamento preparado para uma estadia no Algarve",
+  },
+];
+---
+
+<div class="hero-slider" aria-label="Galeria de imagens">
+  <div class="hero-slider__controls">
+    <button class="hero-slider__prev" type="button" aria-label="Imagem anterior">
+      <span aria-hidden="true">&larr;</span>
+    </button>
+
+    <button class="hero-slider__next" type="button" aria-label="Imagem seguinte">
+      <span aria-hidden="true">&rarr;</span>
+    </button>
+  </div>
+
+  <div class="swiper hero-slider__swiper">
+    <div class="swiper-wrapper">
+      {slides.map((slide, index) => (
+        <div class="swiper-slide">
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            format="webp"
+            loading={index === 0 ? "eager" : "lazy"}
+            class="hero-slider__image"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="text-container">
+    <div>
+      <span class="cmp-topper-heading">NOSSA FROTA</span>
+      <span class="cmp-small-heading">Mercedes-Benz Classe V Executiva Extra-Longo</span>
+      <p class="cmp-body-mini-text">Ar condicionado • Até 8 passageiros • Wi-Fi a bordo • Assentos em pele</p>
+    </div>
+
+    <div class="text-container__side-block">
+      <svg viewBox="0 0 8 8">
+        <rect width="8" height="8" rx="4" fill="#25d366" />
+      </svg>
+
+      <span>DISPONIBILIDADE IMEDIATA 24/7</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-slider {
+    display: grid;
+    grid-template: 1fr / 1fr;
+    place-items: end start;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow-10);
+  }
+
+  .hero-slider__swiper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-slider__swiper,
+  .text-container {
+    grid-area: 1 / 1;
+  }
+
+  .hero-slider__swiper .swiper-slide {
+    height: 100%;
+    overflow: clip;
+  }
+
+  .hero-slider__swiper .swiper-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgb(0 0 0 / 75%) 0%,
+      rgb(0 0 0 / 45%) 30%,
+      rgb(0 0 0 / 10%) 45%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-slider__controls {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .hero-slider__controls button {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid rgb(255 255 255 / 40%);
+    border-radius: 50%;
+    background: rgb(0 0 0 / 35%);
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+
+    @media (width > 47.5rem) {
+      width: 2.75rem;
+      height: 2.75rem;
+      font-size: 2rem;
+    }
+  }
+
+  .hero-slider__controls button:hover {
+    background: rgb(0 0 0 / 70%);
+  }
+
+  .hero-slider__controls button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+  }
+
+  :global(.hero-slider__image) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 100% 60%;
+  }
+
+  @media (max-width: 47.5rem) {
+    .hero-slider__controls {
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    padding: 1em;
+    color: var(--clr-white-10);
+    z-index: 99;
+
+    @media (width > 47.5rem) {
+      flex-direction: row;
+      padding: 2em;
+    }
+
+    .cmp-topper-heading {
+      display: block;
+      font-size: clamp(0.6rem, 0.55vw + 0.3rem, var(--fs-11));
+      color: var(--clr-beige-10);
+    }
+
+    .cmp-small-heading {
+      font-family: var(--ff-news);
+      font-size: clamp(var(--fs-16), 1.5vw + 0.6rem, var(--fs-28));
+      font-weight: var(--fw-regular);
+      color: var(--clr-white-10);
+    }
+
+    .cmp-body-mini-text {
+      display: none;
+      color: #e7e8e9;
+      opacity: 0.9;
+
+      @media (width > 47.5rem) {
+        display: block;
+      }
+    }
+
+    .text-container__side-block {
+      display: none;
+      align-self: end;
+      padding: 0.6em;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 4px;
+
+      @media (width > 47.5rem) {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      svg {
+        width: 0.6rem;
+      }
+
+      span {
+        font-size: var(--fs-11);
+        font-weight: var(--fw-semibold);
+        color: var(--clr-black-10);
+        white-space: nowrap;
+        letter-spacing: var(--ls-pos-5);
+      }
+    }
+  }
+</style>

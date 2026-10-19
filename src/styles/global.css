@@ -235,6 +235,7 @@
     /* Colours */
 
     --clr-white-10: #f3f4f5;
+    --clr-white-20: #e7e8e9;
     --clr-black-10: #000;
     --clr-black-20: #151d23;
     --clr-black-30: #313335;
@@ -245,6 +246,7 @@
     --clr-beige-10: #fecf9d;
     --box-shadow-10: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --box-shadow-20: 0 20px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    --box-shadow-30: 0 20px 25px -5px rgba(0, 0, 0, 0.02), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
 
     :focus-visible {
       outline: 2px solid var(--clr-black-20);
@@ -259,6 +261,7 @@
     color: var(--clr-brown-10);
     line-height: var(--lh-145);
     letter-spacing: var(--ls-pos-1);
+    text-transform: uppercase;
   }
 
   .cmp-hero-heading {
@@ -300,7 +303,7 @@
   }
 
   .cmp-main-text {
-    font-size: clamp(var(--fs-15), 0.9rem + 0.3vw, var(--fs-17));
+    font-size: clamp(var(--fs-15), 0.85rem + 0.3vw, var(--fs-17));
     line-height: var(--lh-160);
     letter-spacing: var(--ls-0);
     opacity: 0.72;
@@ -396,9 +399,7 @@
       opacity: 0 !important;
     }
 
-    &.has-smooth-scroll {
-      scroll-behavior: smooth;
-    }
+    scroll-behavior: auto !important;
   }
 
   html,
@@ -458,10 +459,14 @@
     }
   }
 
-  .wrapper--1190 {
+  .wrapper--1150 {
     @media (width > 62.5rem) {
-      max-width: calc(74.375rem + 2rem);
+      max-width: calc(71.875rem + 2rem);
     }
+  }
+
+  .wrapper--narrow {
+    max-width: calc(80rem + 2rem);
   }
 
   .wrapper--wide {
@@ -480,9 +485,21 @@
     }
   }
 
+  .wrapper--mobile-40-standard {
+    @media (width < 47.5rem) {
+      max-width: calc(40rem + 2rem);
+    }
+  }
+
   .wrapper--mobile-40 {
     @media (width < 53.75rem) {
       max-width: calc(40rem + 2rem);
+    }
+  }
+
+  .wrapper--mobile-36 {
+    @media (width < 47.5rem) {
+      max-width: calc(36rem + 2rem);
     }
   }
 
@@ -540,21 +557,21 @@
 @layer page-transitions {
   /* Animation change for dark-mode */
 
-  @media (prefers-reduced-motion: no-preference) {
+  /* @media (prefers-reduced-motion: no-preference) {
     ::view-transition-old(root) {
       animation-delay: 1s;
     }
 
     ::view-transition-new(root) {
-      animation: circle-in-S 1s ease-out;
+      animation: curtain-down 1s ease-out;
     }
 
     @media (width > 47.5rem) {
       ::view-transition-new(root) {
-        animation: circle-in-L 1s ease-out;
+        animation: curtain-down 1s ease-out;
       }
     }
-  }
+  } */
 }
 
 @layer animations {
@@ -578,7 +595,7 @@
     }
   }
 
-  @keyframes circle-in-S {
+  @keyframes curtain-down {
     /* For mobile screens */
     from {
       clip-path: circle(0% at 50% 0%);

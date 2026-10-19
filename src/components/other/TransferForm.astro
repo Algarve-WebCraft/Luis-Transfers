@@ -1,8 +1,8 @@
 ---
-const { locale } = Astro.props;
+const { layout, locale } = Astro.props;
 ---
 
-<form class="transfer-form" id="booking-form" data-locale={locale} data-astro-reload>
+<form class:list={[`transfer-form--${layout}`]} id="booking-form" data-locale={locale} data-astro-reload>
   <div class="form-top-layer">
     <div>
       <label for="name">NOME COMPLETO *</label>
@@ -128,7 +128,7 @@ const { locale } = Astro.props;
 </form>
 
 <style>
-  .transfer-form {
+  .transfer-form--full {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
@@ -184,7 +184,6 @@ const { locale } = Astro.props;
       opacity: 0;
       overflow: hidden;
       scrollbar-width: none;
-      padding: 1rem;
       border: 1px solid rgba(0, 0, 0, 0.03);
       border-radius: 8px;
       box-shadow:
@@ -200,6 +199,7 @@ const { locale } = Astro.props;
     .form-maps-dropdown.is-open {
       max-height: 300px;
       opacity: 1;
+      padding: 1em;
       transform: translateY(0);
       overflow-y: auto;
     }
@@ -394,6 +394,209 @@ const { locale } = Astro.props;
       .go-back-button {
         grid-column: 4 / 5;
         padding-block: 1.25rem;
+      }
+    }
+  }
+
+  .transfer-form--compact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    overflow: clip;
+
+    label,
+    span {
+      font-family: var(--ff-jakarta);
+      font-size: var(--fs-11);
+      font-weight: var(--fw-semibold);
+      color: var(--clr-black-10);
+      line-height: var(--lh-145);
+      letter-spacing: var(--ls-pos-1);
+      text-transform: capitalize;
+    }
+
+    input,
+    select {
+      font-size: var(--fs-13);
+      background: #31333506;
+      padding: 0.5rem 1rem;
+      border: none;
+      outline: none;
+    }
+
+    input {
+      font-family: var(--ff-jakarta);
+      font-weight: var(--fw-semibold);
+      color: var(--clr-black-10);
+      line-height: var(--lh-145);
+      border-radius: 4px;
+      letter-spacing: var(--ls-pos-1);
+      text-transform: capitalize;
+    }
+
+    textarea {
+      font-family: var(--ff-jakarta);
+      font-weight: var(--fw-semibold);
+      min-height: 6rem;
+      padding: 1rem;
+      outline: none;
+    }
+
+    .form-maps-dropdown {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      scrollbar-width: none;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      border-radius: 8px;
+      box-shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.03),
+        0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      transform: translateY(-6px);
+      transition:
+        max-height 1s ease-out,
+        opacity 0.6s ease,
+        transform 1s ease-out;
+    }
+
+    .form-maps-dropdown.is-open {
+      max-height: 300px;
+      opacity: 1;
+      padding: 1em;
+      transform: translateY(0);
+      overflow-y: auto;
+    }
+
+    .form-maps-dropdown li {
+      width: fit-content;
+      font-size: var(--fs-14);
+      list-style: circle;
+      list-style-position: inside;
+      cursor: pointer;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: var(--clr-brown-10);
+      }
+    }
+
+    > div:nth-of-type(6) select,
+    > div:nth-of-type(7) select {
+      cursor: pointer;
+      font-weight: var(--fw-semibold);
+    }
+
+    > div:not(.form-top-layer) {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .form-top-layer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+      grid-column: 1 / 3;
+
+      .form-phone-field {
+        font-size: var(--fs-13);
+        font-family: var(--ff-jakarta);
+        font-weight: var(--fw-semibold);
+      }
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        min-width: 33%;
+      }
+    }
+
+    > div:nth-of-type(2) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(3) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(4) {
+      grid-column: 1 / 2;
+      max-width: 90%;
+    }
+
+    > div:nth-of-type(5) {
+      position: relative;
+      grid-column: 2 / 3;
+      right: 0.75rem;
+    }
+
+    > div:nth-of-type(6) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(7) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(8) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(9) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(10) {
+      grid-column: 1 / 3;
+    }
+
+    > div:nth-of-type(11) {
+      grid-column: 1 / 2;
+      font-size: var(--fs-40);
+      font-family: var(--ff-news);
+      letter-spacing: var(--ls-neg-1);
+    }
+
+    .cmp-main-btn {
+      grid-column: 1 / 3;
+      width: 100%;
+      max-width: 25rem;
+      margin-top: -1rem;
+      place-self: center;
+    }
+
+    .go-back-button {
+      grid-column: 1 / 3;
+      display: inline-block;
+      width: 100%;
+      max-width: 25rem;
+      font-size: var(--fs-13);
+      font-weight: var(--fw-semibold);
+      background-color: #edeeef;
+      margin-inline: auto;
+      margin-bottom: 1rem;
+      padding-block: 0.75rem;
+      border-radius: 8px;
+      text-align: center;
+      align-self: center;
+      text-transform: uppercase;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          inset 0 1px 2px #ffffffa0,
+          0 4px 10px #00000036;
+      }
+
+      svg {
+        position: relative;
+        padding-inline: 0.25rem;
+        max-width: 1.35rem;
+        margin-right: 0.5rem;
+        top: 0.15rem;
       }
     }
   }
