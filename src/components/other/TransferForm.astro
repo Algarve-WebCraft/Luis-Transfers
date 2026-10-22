@@ -2,21 +2,80 @@
 const { layout, locale } = Astro.props;
 ---
 
-<form class:list={[`transfer-form--${layout}`]} id="booking-form" data-locale={locale} data-astro-reload>
-  <div class="form-top-layer">
-    <div>
-      <label for="name">NOME COMPLETO *</label>
-      <input type="text" id="name" name="name" placeholder="Ex: Gonçalo Ribeiro" required />
-    </div>
+<form class:list={[`transfer-form transfer-form--${layout}`]} id="booking-form" data-locale={locale} data-astro-reload>
+  <div>
+    <label for="name">NOME COMPLETO *</label>
+    <input type="text" id="name" name="name" placeholder="Ex: Gonçalo Ribeiro" required />
+  </div>
 
-    <div>
-      <label for="email">E-MAIL *</label>
-      <input type="email" id="email" name="email" placeholder="goncalo@exemplo.com" required />
-    </div>
+  <div>
+    <label for="email">E-MAIL *</label>
+    <input type="email" id="email" name="email" placeholder="goncalo@exemplo.com" required />
+  </div>
 
-    <div class="form-phone-field">
-      <label for="phone">TELEFONE / WHATSAPP *</label>
-      <input type="tel" id="phone" name="phone" required />
+  <div class="form-phone-field">
+    <label for="phone">TELEFONE / WHATSAPP *</label>
+    <input type="tel" id="phone" name="phone" required />
+  </div>
+
+  <div class="popular-routes-container">
+    <label for="popular-routes">Rotas Frequentes Selecionáveis:</label>
+    <!-- <input type="checkbox"> -->
+    <div class="popular-routes-box">
+      <ul id="popular-routes">
+        <li>
+          <span>Aljezur</span>
+          <span>(€79)</span>
+        </li>
+        <li>
+          <span>Alvor</span>
+          <span>(€49)</span>
+        </li>
+        <li>
+          <span>Armação de Pêra</span>
+          <span>(€37)</span>
+        </li>
+        <li>
+          <span>Burgau</span>
+          <span>(€69)</span>
+        </li>
+        <li>
+          <span>Carvoeiro</span>
+          <span>(€49)</span>
+        </li>
+        <li>
+          <span>Ferragudo</span>
+          <span>(€49)</span>
+        </li>
+        <li>
+          <span>Lagoa</span>
+          <span>(€47)</span>
+        </li>
+        <li>
+          <span>Lagos</span>
+          <span>(€59)</span>
+        </li>
+        <li>
+          <span>Luz</span>
+          <span>(€64)</span>
+        </li>
+        <li>
+          <span>Portimão</span>
+          <span>(€49)</span>
+        </li>
+        <li>
+          <span>Salema</span>
+          <span>(€69)</span>
+        </li>
+        <li>
+          <span>Sagres</span>
+          <span>(€79)</span>
+        </li>
+        <li>
+          <span>Silves</span>
+          <span>(€47)</span>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -93,7 +152,7 @@ const { layout, locale } = Astro.props;
   </div>
 
   <div>
-    <label for="notes">INFORMAÇÕES ADICIONAIS / NOTAS ESPECIAIS (OPCIONAL)</label>
+    <label for="notes">INFORMAÇÕES ADICIONAIS / NOTAS ESPECIAIS</label>
     <textarea
       id="notes"
       name="notes"
@@ -128,17 +187,16 @@ const { layout, locale } = Astro.props;
 </form>
 
 <style>
-  .transfer-form--full {
+  .transfer-form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
+    row-gap: 2rem;
     margin-top: 2.5rem;
     overflow: clip;
 
-    @media (width > 53.75rem) {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      margin-top: 4rem;
+    @media (width > 47.5rem) {
+      grid-template-columns: 1fr 1fr;
     }
 
     label,
@@ -149,16 +207,20 @@ const { layout, locale } = Astro.props;
       color: var(--clr-black-10);
       line-height: var(--lh-145);
       letter-spacing: var(--ls-pos-1);
-      text-transform: capitalize;
+      text-transform: uppercase;
     }
 
     input,
     select {
-      font-size: var(--fs-13);
+      font-size: var(--fs-16);
       background: #31333506;
       padding: 0.5rem 1rem;
       border: none;
       outline: none;
+
+      @media (width > 47.5rem) {
+        font-size: var(--fs-15);
+      }
     }
 
     input {
@@ -169,6 +231,7 @@ const { layout, locale } = Astro.props;
       border-radius: 4px;
       letter-spacing: var(--ls-pos-1);
       text-transform: capitalize;
+      border: none;
     }
 
     textarea {
@@ -207,8 +270,8 @@ const { layout, locale } = Astro.props;
     .form-maps-dropdown li {
       width: fit-content;
       font-size: var(--fs-14);
+      margin-left: 1rem;
       list-style: circle;
-      list-style-position: inside;
       cursor: pointer;
       transition: color 0.2s ease-in-out;
 
@@ -217,101 +280,80 @@ const { layout, locale } = Astro.props;
       }
     }
 
+    .popular-routes-box {
+      padding: 0.5em;
+      border-radius: 4px;
+
+      ul {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+
+        li {
+          display: flex;
+          gap: 0.25rem;
+
+          padding: 0.5em;
+          border: 1px solid rgba(0, 0, 0, 0.075);
+          border-radius: 8px;
+          box-shadow: var(--box-shadow-25);
+          cursor: pointer;
+          transition:
+            transform 0.2s ease-in-out,
+            box-shadow 0.2s ease-in-out,
+            opacity 0.2s ease-in-out;
+
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow:
+              inset 0 1px 2px #ffffffa0,
+              0 4px 10px #00000018;
+            opacity: 0.75;
+          }
+
+          span {
+            font-size: 0.625rem;
+          }
+        }
+      }
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
     > div:nth-of-type(6) select,
     > div:nth-of-type(7) select {
       cursor: pointer;
       font-weight: var(--fw-semibold);
     }
 
-    > div:not(.form-top-layer) {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .form-top-layer {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 1.5rem;
-      grid-column: 1 / 3;
-
-      @media (width > 53.75rem) {
-        grid-column: 1 / -1;
-        flex-direction: row;
-        gap: 2rem;
-      }
-
-      .form-phone-field {
-        font-size: var(--fs-13);
-        font-family: var(--ff-jakarta);
-        font-weight: var(--fw-semibold);
-      }
-
-      > div {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        min-width: 33%;
-      }
-    }
-
-    > div:nth-of-type(2) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(3) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(4) {
-      grid-column: 1 / 2;
-      max-width: 90%;
-    }
-
-    > div:nth-of-type(5) {
-      position: relative;
-      grid-column: 2 / 3;
-      right: 0.75rem;
-    }
-
-    > div:nth-of-type(6) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(7) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(8) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(9) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(10) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(11) {
-      grid-column: 1 / 2;
+    > div:nth-of-type(14) {
       font-size: var(--fs-40);
       font-family: var(--ff-news);
       letter-spacing: var(--ls-neg-1);
     }
 
+    .form-phone-field {
+      font-size: var(--fs-13);
+      font-family: var(--ff-jakarta);
+      font-weight: var(--fw-semibold);
+    }
+
     .cmp-main-btn {
-      grid-column: 1 / 3;
       width: 100%;
       max-width: 25rem;
       margin-top: -1rem;
       place-self: center;
+
+      @media (width > 47.5rem) {
+        grid-column: 1 / 3;
+      }
     }
 
     .go-back-button {
-      grid-column: 1 / 3;
       display: inline-block;
       width: 100%;
       max-width: 25rem;
@@ -340,46 +382,95 @@ const { layout, locale } = Astro.props;
         margin-right: 0.5rem;
         top: 0.15rem;
       }
+
+      @media (width > 47.5rem) {
+        grid-column: 1 / 3;
+      }
+    }
+
+    .iti__selected-dial-code {
+      font-size: var(--fs-16);
+
+      @media (width > 47.5rem) {
+        font-size: var(--fs-15);
+      }
+    }
+  }
+
+  .transfer-form--full {
+    @media (width > 53.75rem) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
     }
 
     @media (width > 53.75rem) {
-      > div:nth-of-type(2) {
+      > div:nth-of-type(1) {
         grid-column: 1 / 3;
+        grid-row: 1 / 2;
+        max-width: 68%;
+      }
+
+      > div:nth-of-type(2) {
+        grid-column: 2 / 4;
+        grid-row: 1 / 2;
+        margin-left: 6rem;
+        max-width: 80%;
       }
 
       > div:nth-of-type(3) {
-        grid-column: 3 / 5;
+        grid-column: 4 / 5;
+        grid-row: 1 / 2;
       }
 
       > div:nth-of-type(4) {
-        grid-column: 1 / 2;
+        grid-column: 3 / 5;
+        grid-row: 2 / 4;
+
+        span {
+          font-size: var(--fs-11);
+        }
       }
 
       > div:nth-of-type(5) {
-        grid-column: 2 / 3;
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
       }
 
       > div:nth-of-type(6) {
-        grid-column: 3 / 4;
+        grid-column: 1 / 3;
+        grid-row: 3 / 4;
       }
 
       > div:nth-of-type(7) {
-        grid-column: 4 / 5;
+        grid-column: 1 / 2;
       }
 
       > div:nth-of-type(8) {
-        grid-column: 1 / 3;
+        grid-column: 2 / 3;
       }
 
       > div:nth-of-type(9) {
-        grid-column: 3 / 5;
+        grid-column: 3 / 4;
       }
 
       > div:nth-of-type(10) {
-        grid-column: 1 / -1;
+        grid-column: 4 / 5;
       }
 
       > div:nth-of-type(11) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(12) {
+        grid-column: 3 / 5;
+      }
+
+      > div:nth-of-type(13) {
+        grid-column: 1 / -1;
+      }
+
+      > div:nth-of-type(14) {
         grid-column: 1 / 3;
         font-size: var(--fs-56);
       }
@@ -399,204 +490,62 @@ const { layout, locale } = Astro.props;
   }
 
   .transfer-form--compact {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-    overflow: clip;
-
-    label,
-    span {
-      font-family: var(--ff-jakarta);
-      font-size: var(--fs-11);
-      font-weight: var(--fw-semibold);
-      color: var(--clr-black-10);
-      line-height: var(--lh-145);
-      letter-spacing: var(--ls-pos-1);
-      text-transform: capitalize;
-    }
-
-    input,
-    select {
-      font-size: var(--fs-13);
-      background: #31333506;
-      padding: 0.5rem 1rem;
-      border: none;
-      outline: none;
-    }
-
-    input {
-      font-family: var(--ff-jakarta);
-      font-weight: var(--fw-semibold);
-      color: var(--clr-black-10);
-      line-height: var(--lh-145);
-      border-radius: 4px;
-      letter-spacing: var(--ls-pos-1);
-      text-transform: capitalize;
-    }
-
-    textarea {
-      font-family: var(--ff-jakarta);
-      font-weight: var(--fw-semibold);
-      min-height: 6rem;
-      padding: 1rem;
-      outline: none;
-    }
-
-    .form-maps-dropdown {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      scrollbar-width: none;
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      border-radius: 8px;
-      box-shadow:
-        0 20px 25px -5px rgba(0, 0, 0, 0.03),
-        0 8px 10px -6px rgba(0, 0, 0, 0.03);
-      transform: translateY(-6px);
-      transition:
-        max-height 1s ease-out,
-        opacity 0.6s ease,
-        transform 1s ease-out;
-    }
-
-    .form-maps-dropdown.is-open {
-      max-height: 300px;
-      opacity: 1;
-      padding: 1em;
-      transform: translateY(0);
-      overflow-y: auto;
-    }
-
-    .form-maps-dropdown li {
-      width: fit-content;
-      font-size: var(--fs-14);
-      list-style: circle;
-      list-style-position: inside;
-      cursor: pointer;
-      transition: color 0.2s ease-in-out;
-
-      &:hover {
-        color: var(--clr-brown-10);
-      }
-    }
-
-    > div:nth-of-type(6) select,
-    > div:nth-of-type(7) select {
-      cursor: pointer;
-      font-weight: var(--fw-semibold);
-    }
-
-    > div:not(.form-top-layer) {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .form-top-layer {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 1.5rem;
-      grid-column: 1 / 3;
-
-      .form-phone-field {
-        font-size: var(--fs-13);
-        font-family: var(--ff-jakarta);
-        font-weight: var(--fw-semibold);
+    @media (width > 47.5rem) {
+      > div:nth-of-type(1) {
+        grid-column: 1 / 3;
       }
 
-      > div {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        min-width: 33%;
-      }
-    }
-
-    > div:nth-of-type(2) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(3) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(4) {
-      grid-column: 1 / 2;
-      max-width: 90%;
-    }
-
-    > div:nth-of-type(5) {
-      position: relative;
-      grid-column: 2 / 3;
-      right: 0.75rem;
-    }
-
-    > div:nth-of-type(6) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(7) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(8) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(9) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(10) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(11) {
-      grid-column: 1 / 2;
-      font-size: var(--fs-40);
-      font-family: var(--ff-news);
-      letter-spacing: var(--ls-neg-1);
-    }
-
-    .cmp-main-btn {
-      grid-column: 1 / 3;
-      width: 100%;
-      max-width: 25rem;
-      margin-top: -1rem;
-      place-self: center;
-    }
-
-    .go-back-button {
-      grid-column: 1 / 3;
-      display: inline-block;
-      width: 100%;
-      max-width: 25rem;
-      font-size: var(--fs-13);
-      font-weight: var(--fw-semibold);
-      background-color: #edeeef;
-      margin-inline: auto;
-      margin-bottom: 1rem;
-      padding-block: 0.75rem;
-      border-radius: 8px;
-      text-align: center;
-      align-self: center;
-      text-transform: uppercase;
-
-      &:hover {
-        transform: translateY(-1px);
-        box-shadow:
-          inset 0 1px 2px #ffffffa0,
-          0 4px 10px #00000036;
+      > div:nth-of-type(2) {
+        grid-column: 1 / 2;
       }
 
-      svg {
+      > div:nth-of-type(3) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(4) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(5) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(6) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(7) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(8) {
         position: relative;
-        padding-inline: 0.25rem;
-        max-width: 1.35rem;
-        margin-right: 0.5rem;
-        top: 0.15rem;
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(9) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(10) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(11) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(12) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(13) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(14) {
+        grid-column: 1 / 2;
       }
     }
   }
