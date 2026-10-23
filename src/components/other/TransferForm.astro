@@ -20,7 +20,7 @@ const { layout, locale } = Astro.props;
 
   <div class="popular-routes-container">
     <p class="popular-routes-label" id="popular-routes-label">
-      Rotas Frequentes Selecionáveis:
+      Seleção de rota fixa:
     </p>
 
     <div class="popular-routes-box">
@@ -253,7 +253,8 @@ const { layout, locale } = Astro.props;
     }
 
     label,
-    span {
+    span,
+    .popular-routes-label {
       font-family: var(--ff-jakarta);
       font-size: var(--fs-11);
       font-weight: var(--fw-semibold);
