@@ -486,14 +486,8 @@
     }
   }
 
-  .wrapper--mobile-40-standard {
-    @media (width < 47.5rem) {
-      max-width: calc(40rem + 2rem);
-    }
-  }
-
   .wrapper--mobile-40 {
-    @media (width < 53.75rem) {
+    @media (width < 47.5rem) {
       max-width: calc(40rem + 2rem);
     }
   }

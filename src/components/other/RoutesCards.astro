@@ -38,7 +38,7 @@ const routesInfo = [
     placeId: "ChIJUTdJ9BbWGg0Rfe-LY8sDUj4",
   },
   {
-    name: "Ferragudo",
+    name: "Ferragudo, Portugal",
     price: "€49",
     distance: "63km",
     time: "49m",
@@ -122,7 +122,10 @@ const routesInfo = [
         <span>{routes.time}</span>
       </div>
 
-      <a href={`/transfers/?route=${encodeURIComponent(routes.name)}#booking-form`} class="cmp-main-btn">
+      <a
+        href={`${Astro.currentLocale === "pt" ? "/pt/transferências/" : "/transfers/"}?route=${encodeURIComponent(routes.name)}#booking-form`}
+        class="cmp-main-btn"
+      >
         SELECIONAR ROTA
       </a>
     </div>
