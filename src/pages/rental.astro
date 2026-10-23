@@ -1,20 +1,38 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-const pageTitle = "About | Bueni Restaurant";
+const pageTitle = "Alojemento | Luis Ferreira Transferências e Serviços";
 const pageDescription = "Page Description";
 ---
 
-<BaseLayout
-  pageTitle={pageTitle}
-  pageDescription={pageDescription}
-  bodyClass="secondary-page"
->
-  <section class="" aria-labelledby="">
-    <div class="wrapper wrapper--mobile-m">
-      <h1>About</h1>
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
+  <section class="cmp-hero-section" aria-labelledby="hero-section">
+    <div class="wrapper">
+      <div class="hero-container">
+        <div class="hero__text-container">
+          <div>
+            <span class="cmp-topper-heading">Em andamento</span>
+            <h1 id="hero-section" class="cmp-hero-heading">
+              Em Breve
+            </h1>
+          </div>
+
+          <div>
+            <p class="cmp-main-text"></p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
-<style></style>
+<style>
+  .hero__text-container {
+    text-align: center;
+    border-radius: 12px;
+    background-color: rgb(45, 45, 45);
+    h1 {
+      color: white;
+    }
+  }
+</style>

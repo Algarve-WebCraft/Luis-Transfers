@@ -1,4 +1,8 @@
 ---
+import { getLocalizedPath } from "@i18n/utils";
+import { routes, Page } from "@i18n/routes";
+
+const locale = Astro.currentLocale === "pt" ? "pt" : "en";
 const currentYear = new Date().getFullYear();
 ---
 
@@ -43,7 +47,10 @@ const currentYear = new Date().getFullYear();
         <div class="footer-block">
           <h2 class="cmp-small-heading">Descubra o Algarve</h2>
 
-          <p>Viaje com conforto, beneficie de serviços de limpeza cuidados e descubra alojamentos para a sua estadia no Algarve.</p>
+          <p>
+            Viaje com conforto, beneficie de serviços de limpeza cuidados e descubra alojamentos para a sua estadia no
+            Algarve.
+          </p>
         </div>
 
         <div class="footer-block">
@@ -95,11 +102,17 @@ const currentYear = new Date().getFullYear();
           <span>©&nbsp;{currentYear}&nbsp;Luis Ferreira Transfers & Serviços. Todos os direitos reservados.</span>
 
           <div class="footer-bottom__links">
-            <a href="">Política de Privacidade</a>
+            <a href={locale === "pt" ? "/pt/privacidade" : "/privacy"}>
+              {locale === "pt" ? "Política de Privacidade" : "Privacy Policy"}
+            </a>
 
-            <a href="">Termos & Condições</a>
+            <a href={locale === "pt" ? "/pt/termos" : "/terms"}>
+              {locale === "pt" ? "Termos & Condições" : "Terms & Conditions"}
+            </a>
 
-            <a href="">Livro de Reclamações</a>
+            <a href="https://www.livroreclamacoes.pt/Inicio/">
+              {locale === "pt" ? "Livro de Reclamações" : "Complaints Book"}
+            </a>
           </div>
         </div>
       </div>

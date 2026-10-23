@@ -1,20 +1,540 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-const pageTitle = "Contact | Bueni Restaurant";
+const pageTitle = "Contacto | Luis Ferreira Transferências e Serviços";
 const pageDescription = "Page Description";
 ---
 
-<BaseLayout
-  pageTitle={pageTitle}
-  pageDescription={pageDescription}
-  bodyClass="secondary-page"
->
-  <section class="" aria-labelledby="">
-    <div class="wrapper wrapper--mobile-m">
-      <h1>Contact</h1>
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
+  <section class="cmp-hero-section" aria-labelledby="hero-section">
+    <div class="wrapper">
+      <div class="hero__text-container">
+        <div class="hero-text-top-container">
+          <span class="cmp-topper-heading">• ATENDIMENTO DIRETO & PERMANENTE</span>
+
+          <h1 id="hero-section" class="cmp-hero-heading">
+            Entre em Contacto com
+            <br />
+            Luis Ferreira
+          </h1>
+
+          <p class="cmp-main-text">
+            Disponibilidade 24 horas por dia, 7 dias por semana para transfers privados executivos, manutenção e apoio
+            de governança em Carvoeiro e por todo o Algarve. Sem formulários morosos: contacto direto com o próprio
+            responsável.
+          </p>
+        </div>
+
+        <div class="hero-text-side-container">
+          <div>
+            <span class="cmp-topper-heading">GARANTIA DE RESPOSTA</span>
+            <p class="cmp-main-text">
+              <svg viewBox="0 0 15 19">
+                <path d="M6.37083 12.4208L11.55 7.24167L10.2437 5.93542L6.37083 9.80833L4.44583 7.88333L3.13958 9.18958L6.37083 12.4208ZM7.33333 18.3333C5.20972 17.7986 3.4566 16.5802 2.07396 14.6781C0.691319 12.776 0 10.6639 0 8.34167V2.75L7.33333 0L14.6667 2.75V8.34167C14.6667 10.6639 13.9753 12.776 12.5927 14.6781C11.2101 16.5802 9.45694 17.7986 7.33333 18.3333ZM7.33333 16.4083C8.92222 15.9042 10.2361 14.8958 11.275 13.3833C12.3139 11.8708 12.8333 10.1903 12.8333 8.34167V4.01042L7.33333 1.94792L1.83333 4.01042V8.34167C1.83333 10.1903 2.35278 11.8708 3.39167 13.3833C4.43056 14.8958 5.74444 15.9042 7.33333 16.4083Z" />
+              </svg>
+
+              <span>Confirmação direta em 4h</span>
+            </p>
+          </div>
+
+          <div>
+            <span class="cmp-topper-heading">IDIOMAS OFICIAIS</span>
+            <p class="cmp-main-text">
+              <svg viewBox="0 0 21 19">
+                <path d="M9.99167 18.3333L14.1625 7.33333H16.0875L20.2583 18.3333H18.3333L17.3479 15.5375H12.9021L11.9167 18.3333H9.99167ZM2.75 15.5833L1.46667 14.3L6.09583 9.67083C5.56111 9.13611 5.07604 8.525 4.64062 7.8375C4.20521 7.15 3.80417 6.37083 3.4375 5.5H5.3625C5.66806 6.09583 5.97361 6.61528 6.27917 7.05833C6.58472 7.50139 6.95139 7.94444 7.37917 8.3875C7.88333 7.88333 8.4066 7.17674 8.94896 6.26771C9.49132 5.35868 9.9 4.49167 10.175 3.66667H0V1.83333H6.41667V0H8.25V1.83333H14.6667V3.66667H12.0083C11.6875 4.76667 11.2063 5.89722 10.5646 7.05833C9.92292 8.21944 9.28889 9.10556 8.6625 9.71667L10.8625 11.9625L10.175 13.8417L7.37917 10.9771L2.75 15.5833ZM13.475 13.9333H16.775L15.125 9.25833L13.475 13.9333Z" />
+              </svg>
+
+              <span>Português • English (Motorista Bilingue)</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp-main-section" aria-labelledby="contact-section">
+    <div class="wrapper wrapper--mobile-32">
+      <div>
+        <span class="cmp-topper-heading">CANAIS OFICIAIS & DISPONIBILIDADE</span>
+        <h2 id="contact-section" class="cmp-main-heading">
+          Cartões de Contacto Direto
+        </h2>
+      </div>
+
+      <div class="contact-blocks-text-container">
+        <div class="contact-blocks__block">
+          <svg viewBox="0 0 18 18">
+            <path d="M16.95 18C14.8667 18 12.8083 17.5458 10.775 16.6375C8.74167 15.7292 6.89167 14.4417 5.225 12.775C3.55833 11.1083 2.27083 9.25833 1.3625 7.225C0.454167 5.19167 0 3.13333 0 1.05C0 0.75 0.1 0.5 0.3 0.3C0.5 0.1 0.75 0 1.05 0H5.1C5.33333 0 5.54167 0.0791667 5.725 0.2375C5.90833 0.395833 6.01667 0.583333 6.05 0.8L6.7 4.3C6.73333 4.56667 6.725 4.79167 6.675 4.975C6.625 5.15833 6.53333 5.31667 6.4 5.45L3.975 7.9C4.30833 8.51667 4.70417 9.1125 5.1625 9.6875C5.62083 10.2625 6.125 10.8167 6.675 11.35C7.19167 11.8667 7.73333 12.3458 8.3 12.7875C8.86667 13.2292 9.46667 13.6333 10.1 14L12.45 11.65C12.6 11.5 12.7958 11.3875 13.0375 11.3125C13.2792 11.2375 13.5167 11.2167 13.75 11.25L17.2 11.95C17.4333 12.0167 17.625 12.1375 17.775 12.3125C17.925 12.4875 18 12.6833 18 12.9V16.95C18 17.25 17.9 17.5 17.7 17.7C17.5 17.9 17.25 18 16.95 18ZM3.025 6L4.675 4.35L4.25 2H2.025C2.10833 2.68333 2.225 3.35833 2.375 4.025C2.525 4.69167 2.74167 5.35 3.025 6ZM11.975 14.95C12.625 15.2333 13.2875 15.4583 13.9625 15.625C14.6375 15.7917 15.3167 15.9 16 15.95V13.75L13.65 13.275L11.975 14.95Z" />
+          </svg>
+
+          <span class="cmp-topper-heading">WHATSAPP & TELEFONE</span>
+          <span class="contact-span-link">+351 966 831 360</span>
+
+          <p class="cmp-body-text">
+            Resposta imediata para transfers de urgência no Aeroporto de Faro, recolhas rápidas em hotelaria ou ajustes
+            de última hora em voos.
+          </p>
+
+          <div class="contact-buttons-block">
+            <a
+              href="https://wa.me/351966831360"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contact us on WhatsApp"
+              class="cmp-main-btn"
+            >
+              <svg viewBox="0 0 15 15">
+                <path
+                  d="M3 9H9V7.5H3V9ZM3 6.75H12V5.25H3V6.75ZM3 4.5H12V3H3V4.5ZM0 15V1.5C0 1.0875 0.146875 0.734375 0.440625 0.440625C0.734375 0.146875 1.0875 0 1.5 0H13.5C13.9125 0 14.2656 0.146875 14.5594 0.440625C14.8531 0.734375 15 1.0875 15 1.5V10.5C15 10.9125 14.8531 11.2656 14.5594 11.5594C14.2656 11.8531 13.9125 12 13.5 12H3L0 15ZM2.3625 10.5H13.5V1.5H1.5V11.3438L2.3625 10.5ZM1.5 10.5V1.5V10.5Z"
+                  fill="#25d366"
+                />
+              </svg>
+
+              <span>WHATSAPP DIRETO</span>
+            </a>
+
+            <a href="tel:+351966831360" class="cmp-main-btn">
+              <svg viewBox="0 0 14 14">
+                <path d="M12 6.75C12 5.2875 11.4906 4.04688 10.4719 3.02813C9.45312 2.00938 8.2125 1.5 6.75 1.5V0C7.6875 0 8.56562 0.178125 9.38437 0.534375C10.2031 0.890625 10.9156 1.37188 11.5219 1.97812C12.1281 2.58437 12.6094 3.29688 12.9656 4.11562C13.3219 4.93437 13.5 5.8125 13.5 6.75H12ZM9 6.75C9 6.125 8.78125 5.59375 8.34375 5.15625C7.90625 4.71875 7.375 4.5 6.75 4.5V3C7.7875 3 8.67188 3.36563 9.40312 4.09688C10.1344 4.82812 10.5 5.7125 10.5 6.75H9ZM12.7125 13.5C11.15 13.5 9.60625 13.1594 8.08125 12.4781C6.55625 11.7969 5.16875 10.8313 3.91875 9.58125C2.66875 8.33125 1.70312 6.94375 1.02188 5.41875C0.340625 3.89375 0 2.35 0 0.7875C0 0.5625 0.075 0.375 0.225 0.225C0.375 0.075 0.5625 0 0.7875 0H3.825C4 0 4.15625 0.059375 4.29375 0.178125C4.43125 0.296875 4.5125 0.4375 4.5375 0.6L5.025 3.225C5.05 3.425 5.04375 3.59375 5.00625 3.73125C4.96875 3.86875 4.9 3.9875 4.8 4.0875L2.98125 5.925C3.23125 6.3875 3.52813 6.83437 3.87188 7.26562C4.21562 7.69688 4.59375 8.1125 5.00625 8.5125C5.39375 8.9 5.8 9.25937 6.225 9.59062C6.65 9.92188 7.1 10.225 7.575 10.5L9.3375 8.7375C9.45 8.625 9.59688 8.54062 9.77812 8.48438C9.95937 8.42813 10.1375 8.4125 10.3125 8.4375L12.9 8.9625C13.075 9.0125 13.2188 9.10312 13.3313 9.23438C13.4438 9.36563 13.5 9.5125 13.5 9.675V12.7125C13.5 12.9375 13.425 13.125 13.275 13.275C13.125 13.425 12.9375 13.5 12.7125 13.5ZM2.26875 4.5L3.50625 3.2625L3.1875 1.5H1.51875C1.58125 2.0125 1.66875 2.51875 1.78125 3.01875C1.89375 3.51875 2.05625 4.0125 2.26875 4.5ZM8.98125 11.2125C9.46875 11.425 9.96562 11.5938 10.4719 11.7188C10.9781 11.8438 11.4875 11.925 12 11.9625V10.3125L10.2375 9.95625L8.98125 11.2125Z" />
+              </svg>
+
+              <span>LIGAR AGORA</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-blocks__block">
+          <svg viewBox="0 0 20 20">
+            <path d="M10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10V11.45C20 12.4333 19.6625 13.2708 18.9875 13.9625C18.3125 14.6542 17.4833 15 16.5 15C15.9167 15 15.3667 14.875 14.85 14.625C14.3333 14.375 13.9 14.0167 13.55 13.55C13.0667 14.0333 12.5208 14.3958 11.9125 14.6375C11.3042 14.8792 10.6667 15 10 15C8.61667 15 7.4375 14.5125 6.4625 13.5375C5.4875 12.5625 5 11.3833 5 10C5 8.61667 5.4875 7.4375 6.4625 6.4625C7.4375 5.4875 8.61667 5 10 5C11.3833 5 12.5625 5.4875 13.5375 6.4625C14.5125 7.4375 15 8.61667 15 10V11.45C15 11.8833 15.1417 12.25 15.425 12.55C15.7083 12.85 16.0667 13 16.5 13C16.9333 13 17.2917 12.85 17.575 12.55C17.8583 12.25 18 11.8833 18 11.45V10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18H15V20H10ZM10 13C10.8333 13 11.5417 12.7083 12.125 12.125C12.7083 11.5417 13 10.8333 13 10C13 9.16667 12.7083 8.45833 12.125 7.875C11.5417 7.29167 10.8333 7 10 7C9.16667 7 8.45833 7.29167 7.875 7.875C7.29167 8.45833 7 9.16667 7 10C7 10.8333 7.29167 11.5417 7.875 12.125C8.45833 12.7083 9.16667 13 10 13Z" />
+          </svg>
+
+          <span class="cmp-topper-heading">CORREIO ELETRÓNICO</span>
+          <span class="contact-span-link">lfdsf57@gmail.com</span>
+
+          <p class="cmp-body-text">
+            Ideal para itinerários sob medida, contratos corporativos com faturas com IVA discriminado e agendamento de
+            equipas de limpeza e lavandaria.
+          </p>
+
+          <a href="mailto:lfdsf57@gmail.com" class="cmp-main-btn">
+            <svg viewBox="0 0 15 12">
+              <path d="M0 12V0L14.25 6L0 12ZM1.5 9.75L10.3875 6L1.5 2.25V4.875L6 6L1.5 7.125V9.75ZM1.5 9.75V6V2.25V4.875V7.125V9.75Z" />
+            </svg>
+            ENVIAR E-MAIL DIRETO
+          </a>
+        </div>
+
+        <div class="contact-blocks__block">
+          <svg viewBox="0 0 18 20">
+            <path d="M15 20C14.1667 20 13.4583 19.7083 12.875 19.125C12.2917 18.5417 12 17.8333 12 17C12 16.9 12.025 16.6667 12.075 16.3L5.05 12.2C4.78333 12.45 4.475 12.6458 4.125 12.7875C3.775 12.9292 3.4 13 3 13C2.16667 13 1.45833 12.7083 0.875 12.125C0.291667 11.5417 0 10.8333 0 10C0 9.16667 0.291667 8.45833 0.875 7.875C1.45833 7.29167 2.16667 7 3 7C3.4 7 3.775 7.07083 4.125 7.2125C4.475 7.35417 4.78333 7.55 5.05 7.8L12.075 3.7C12.0417 3.58333 12.0208 3.47083 12.0125 3.3625C12.0042 3.25417 12 3.13333 12 3C12 2.16667 12.2917 1.45833 12.875 0.875C13.4583 0.291667 14.1667 0 15 0C15.8333 0 16.5417 0.291667 17.125 0.875C17.7083 1.45833 18 2.16667 18 3C18 3.83333 17.7083 4.54167 17.125 5.125C16.5417 5.70833 15.8333 6 15 6C14.6 6 14.225 5.92917 13.875 5.7875C13.525 5.64583 13.2167 5.45 12.95 5.2L5.925 9.3C5.95833 9.41667 5.97917 9.52917 5.9875 9.6375C5.99583 9.74583 6 9.86667 6 10C6 10.1333 5.99583 10.2542 5.9875 10.3625C5.97917 10.4708 5.95833 10.5833 5.925 10.7L12.95 14.8C13.2167 14.55 13.525 14.3542 13.875 14.2125C14.225 14.0708 14.6 14 15 14C15.8333 14 16.5417 14.2917 17.125 14.875C17.7083 15.4583 18 16.1667 18 17C18 17.8333 17.7083 18.5417 17.125 19.125C16.5417 19.7083 15.8333 20 15 20ZM15 18C15.2833 18 15.5208 17.9042 15.7125 17.7125C15.9042 17.5208 16 17.2833 16 17C16 16.7167 15.9042 16.4792 15.7125 16.2875C15.5208 16.0958 15.2833 16 15 16C14.7167 16 14.4792 16.0958 14.2875 16.2875C14.0958 16.4792 14 16.7167 14 17C14 17.2833 14.0958 17.5208 14.2875 17.7125C14.4792 17.9042 14.7167 18 15 18ZM3 11C3.28333 11 3.52083 10.9042 3.7125 10.7125C3.90417 10.5208 4 10.2833 4 10C4 9.71667 3.90417 9.47917 3.7125 9.2875C3.52083 9.09583 3.28333 9 3 9C2.71667 9 2.47917 9.09583 2.2875 9.2875C2.09583 9.47917 2 9.71667 2 10C2 10.2833 2.09583 10.5208 2.2875 10.7125C2.47917 10.9042 2.71667 11 3 11ZM15 4C15.2833 4 15.5208 3.90417 15.7125 3.7125C15.9042 3.52083 16 3.28333 16 3C16 2.71667 15.9042 2.47917 15.7125 2.2875C15.5208 2.09583 15.2833 2 15 2C14.7167 2 14.4792 2.09583 14.2875 2.2875C14.0958 2.47917 14 2.71667 14 3C14 3.28333 14.0958 3.52083 14.2875 3.7125C14.4792 3.90417 14.7167 4 15 4Z" />
+          </svg>
+
+          <span class="cmp-topper-heading">COMUNIDADE & PORTFÓLIO</span>
+          <span class="contact-span-link">Redes Sociais Oficiais</span>
+
+          <p class="cmp-body-text">
+            Acompanhe o dia-a-dia de operações, rotas panorâmicas pelas praias algarvias e as propriedades que mantemos
+            impecáveis.
+          </p>
+
+          <div class="contact-buttons-block">
+            <a href="" class="cmp-main-btn facebook-btn">
+              <svg viewBox="0 0 15 15">
+                <path d="M7.5 15C6.4625 15 5.4875 14.8031 4.575 14.4094C3.6625 14.0156 2.86875 13.4812 2.19375 12.8062C1.51875 12.1312 0.984375 11.3375 0.590625 10.425C0.196875 9.5125 0 8.5375 0 7.5C0 6.4625 0.196875 5.4875 0.590625 4.575C0.984375 3.6625 1.51875 2.86875 2.19375 2.19375C2.86875 1.51875 3.6625 0.984375 4.575 0.590625C5.4875 0.196875 6.4625 0 7.5 0C8.5375 0 9.5125 0.196875 10.425 0.590625C11.3375 0.984375 12.1312 1.51875 12.8062 2.19375C13.4812 2.86875 14.0156 3.6625 14.4094 4.575C14.8031 5.4875 15 6.4625 15 7.5C15 8.5375 14.8031 9.5125 14.4094 10.425C14.0156 11.3375 13.4812 12.1312 12.8062 12.8062C12.1312 13.4812 11.3375 14.0156 10.425 14.4094C9.5125 14.8031 8.5375 15 7.5 15ZM6.75 13.4625V12C6.3375 12 5.98438 11.8531 5.69063 11.5594C5.39688 11.2656 5.25 10.9125 5.25 10.5V9.75L1.65 6.15C1.6125 6.375 1.57812 6.6 1.54688 6.825C1.51562 7.05 1.5 7.275 1.5 7.5C1.5 9.0125 1.99687 10.3375 2.99062 11.475C3.98438 12.6125 5.2375 13.275 6.75 13.4625ZM11.925 11.55C12.4375 10.9875 12.8281 10.3594 13.0969 9.66562C13.3656 8.97187 13.5 8.25 13.5 7.5C13.5 6.275 13.1594 5.15625 12.4781 4.14375C11.7969 3.13125 10.8875 2.4 9.75 1.95V2.25C9.75 2.6625 9.60312 3.01562 9.30937 3.30938C9.01562 3.60313 8.6625 3.75 8.25 3.75H6.75V5.25C6.75 5.4625 6.67813 5.64062 6.53438 5.78438C6.39062 5.92813 6.2125 6 6 6H4.5V7.5H9C9.2125 7.5 9.39062 7.57187 9.53438 7.71562C9.67813 7.85938 9.75 8.0375 9.75 8.25V10.5H10.5C10.825 10.5 11.1188 10.5969 11.3813 10.7906C11.6438 10.9844 11.825 11.2375 11.925 11.55Z" />
+              </svg>
+              FACEBOOK
+            </a>
+
+            <a href="" class="cmp-main-btn">
+              <svg viewBox="0 0 15 14">
+                <path d="M7.5 10.875C8.4375 10.875 9.23438 10.5469 9.89062 9.89062C10.5469 9.23438 10.875 8.4375 10.875 7.5C10.875 6.5625 10.5469 5.76562 9.89062 5.10938C9.23438 4.45312 8.4375 4.125 7.5 4.125C6.5625 4.125 5.76562 4.45312 5.10938 5.10938C4.45312 5.76562 4.125 6.5625 4.125 7.5C4.125 8.4375 4.45312 9.23438 5.10938 9.89062C5.76562 10.5469 6.5625 10.875 7.5 10.875ZM7.5 9.375C6.975 9.375 6.53125 9.19375 6.16875 8.83125C5.80625 8.46875 5.625 8.025 5.625 7.5C5.625 6.975 5.80625 6.53125 6.16875 6.16875C6.53125 5.80625 6.975 5.625 7.5 5.625C8.025 5.625 8.46875 5.80625 8.83125 6.16875C9.19375 6.53125 9.375 6.975 9.375 7.5C9.375 8.025 9.19375 8.46875 8.83125 8.83125C8.46875 9.19375 8.025 9.375 7.5 9.375ZM1.5 13.5C1.0875 13.5 0.734375 13.3531 0.440625 13.0594C0.146875 12.7656 0 12.4125 0 12V3C0 2.5875 0.146875 2.23438 0.440625 1.94062C0.734375 1.64687 1.0875 1.5 1.5 1.5H3.8625L5.25 0H9.75L11.1375 1.5H13.5C13.9125 1.5 14.2656 1.64687 14.5594 1.94062C14.8531 2.23438 15 2.5875 15 3V12C15 12.4125 14.8531 12.7656 14.5594 13.0594C14.2656 13.3531 13.9125 13.5 13.5 13.5H1.5ZM1.5 12H13.5V3H10.4625L9.09375 1.5H5.90625L4.5375 3H1.5V12Z" />
+              </svg>
+              INSTAGRAM
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-blocks__block">
+          <svg viewBox="0 0 18 22">
+            <path d="M0 22V15C0 13.6167 0.4875 12.4375 1.4625 11.4625C2.4375 10.4875 3.61667 10 5 10H6V2C6 1.45 6.19583 0.979167 6.5875 0.5875C6.97917 0.195833 7.45 0 8 0H10C10.55 0 11.0208 0.195833 11.4125 0.5875C11.8042 0.979167 12 1.45 12 2V10H13C14.3833 10 15.5625 10.4875 16.5375 11.4625C17.5125 12.4375 18 13.6167 18 15V22H0ZM2 20H4V17C4 16.7167 4.09583 16.4792 4.2875 16.2875C4.47917 16.0958 4.71667 16 5 16C5.28333 16 5.52083 16.0958 5.7125 16.2875C5.90417 16.4792 6 16.7167 6 17V20H8V17C8 16.7167 8.09583 16.4792 8.2875 16.2875C8.47917 16.0958 8.71667 16 9 16C9.28333 16 9.52083 16.0958 9.7125 16.2875C9.90417 16.4792 10 16.7167 10 17V20H12V17C12 16.7167 12.0958 16.4792 12.2875 16.2875C12.4792 16.0958 12.7167 16 13 16C13.2833 16 13.5208 16.0958 13.7125 16.2875C13.9042 16.4792 14 16.7167 14 17V20H16V15C16 14.1667 15.7083 13.4583 15.125 12.875C14.5417 12.2917 13.8333 12 13 12H5C4.16667 12 3.45833 12.2917 2.875 12.875C2.29167 13.4583 2 14.1667 2 15V20ZM10 10V2H8V10H10ZM10 10H8H10Z" />
+          </svg>
+
+          <span class="cmp-topper-heading">HOSPITALIDADE DE EXCELÊNCIA</span>
+          <span class="contact-span-link">Serviço de Vilas & Limpeza</span>
+
+          <p class="cmp-body-text">
+            Equipas dedicadas para check-ins, governanta, lavandaria profissional e manutenção integral de propriedades
+            privadas e alojamentos locais.
+          </p>
+
+          <a
+            href="https://wa.me/351966831360"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Contact us on WhatsApp"
+            class="cmp-main-btn"
+          >
+            ATENDIMENTO A PROPRIETÁRIOS
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp-main-section" aria-labelledby="map-section">
+    <div class="wrapper wrapper--tablet-40" data-animate="fade-in">
+      <div class="map-text-container">
+        <span class="cmp-topper-heading">TEMPOS DE TRÂNSITO & COBERTURA REGIONAL</span>
+        <h2 id="map-section" class="cmp-main-heading">
+          Algarve Central & Rotas Ibéricas
+        </h2>
+
+        <p class="cmp-body-text">
+          Sediados no coração do concelho de Lagoa, garantimos prontidão imediata para todo o litoral sul e ligações
+          rodoviárias rápidas com Lisboa e Sevilha.
+        </p>
+      </div>
+
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25455.53854996203!2d-8.482433212557522!3d37.106490518290926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1ad616f4493751%3A0x3e5203cb638bef7d!2sCarvoeiro!5e0!3m2!1sen!2spt!4v1792161526033!5m2!1sen!2spt"
+          title="Localização da empresa"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+
+        <div class="map-content-container">
+          <div class="map-content__text">
+            <span class="cmp-topper-heading">TABELA DE TRÂNSITO ESTIMADO</span>
+            <h3 class="cmp-small-heading">Distâncias & Tempos Típicos</h3>
+          </div>
+
+          <div class="map-content__block">
+            <div class="map-content__inner-block">
+              <svg viewBox="0 0 18 16">
+                <path d="M1.66667 15.125V13.4583H16.6667V15.125H1.66667ZM3.125 10.9583L0 5.75L2 5.20833L4.33333 7.16667L7.25 6.39583L2.9375 0.645833L5.35417 0L11.5833 5.22917L15.125 4.27083C15.5694 4.14583 15.9896 4.19792 16.3854 4.42708C16.7812 4.65625 17.0417 4.99306 17.1667 5.4375C17.2917 5.88194 17.2396 6.30208 17.0104 6.69792C16.7812 7.09375 16.4444 7.35417 16 7.47917L3.125 10.9583Z" />
+              </svg>
+
+              <div>
+                <span class="cmp-body-text">Aeroporto de Faro (FAO)</span>
+                <span class="cmp-body-mini-text">Via Autoestrada A22</span>
+              </div>
+            </div>
+
+            <div class="map-content__inner-span-block">
+              <span>~45 min</span>
+              <span class="cmp-body-mini-text">60 km</span>
+            </div>
+          </div>
+
+          <div class="map-content__block">
+            <div class="map-content__inner-block">
+              <svg viewBox="0 0 15 16">
+                <path d="M13.8333 15.0208L8.54167 9.72917L9.70833 8.5625L15 13.8542L13.8333 15.0208ZM2.45833 14.4375C1.625 13.6042 1.00694 12.6667 0.604167 11.625C0.201389 10.5833 0 9.52083 0 8.4375C0 7.35417 0.201389 6.29861 0.604167 5.27083C1.00694 4.24306 1.625 3.3125 2.45833 2.47917C3.29167 1.64583 4.22569 1.02431 5.26042 0.614583C6.29514 0.204861 7.35417 0 8.4375 0C9.52083 0 10.5799 0.204861 11.6146 0.614583C12.6493 1.02431 13.5833 1.64583 14.4167 2.47917L2.45833 14.4375ZM2.625 11.8958L3.75 10.7708C3.52778 10.4792 3.31597 10.1806 3.11458 9.875C2.91319 9.56944 2.72917 9.26389 2.5625 8.95833C2.39583 8.65278 2.25 8.34722 2.125 8.04167C2 7.73611 1.88889 7.4375 1.79167 7.14583C1.63889 7.96528 1.62847 8.78472 1.76042 9.60417C1.89236 10.4236 2.18056 11.1875 2.625 11.8958ZM4.95833 9.60417L9.58333 4.9375C8.98611 4.47917 8.38542 4.10764 7.78125 3.82292C7.17708 3.53819 6.61111 3.34375 6.08333 3.23958C5.55556 3.13542 5.07986 3.11806 4.65625 3.1875C4.23264 3.25694 3.90278 3.40972 3.66667 3.64583C3.43056 3.89583 3.27778 4.23264 3.20833 4.65625C3.13889 5.07986 3.15625 5.55903 3.26042 6.09375C3.36458 6.62847 3.55903 7.19444 3.84375 7.79167C4.12847 8.38889 4.5 8.99306 4.95833 9.60417ZM10.75 3.77083L11.9167 2.64583C11.1806 2.20139 10.4028 1.90972 9.58333 1.77083C8.76389 1.63194 7.94444 1.64583 7.125 1.8125C7.43056 1.90972 7.73611 2.02083 8.04167 2.14583C8.34722 2.27083 8.65278 2.41319 8.95833 2.57292C9.26389 2.73264 9.56597 2.91319 9.86458 3.11458C10.1632 3.31597 10.4583 3.53472 10.75 3.77083Z" />
+              </svg>
+
+              <div>
+                <span class="cmp-body-text">Praia da Rocha / Portimão</span>
+                <span class="cmp-body-mini-text">Centro Histórico & Marina</span>
+              </div>
+            </div>
+
+            <div class="map-content__inner-span-block">
+              <span>~18 min</span>
+              <span class="cmp-body-mini-text">14 km</span>
+            </div>
+          </div>
+
+          <div class="map-content__block">
+            <div class="map-content__inner-block">
+              <svg viewBox="0 0 15 17">
+                <path d="M12.9167 15.8333C12.5694 15.8333 12.2743 15.7118 12.0312 15.4688C11.7882 15.2257 11.6667 14.9306 11.6667 14.5833C11.6667 14.2361 11.7882 13.941 12.0312 13.6979C12.2743 13.4549 12.5694 13.3333 12.9167 13.3333C13.2639 13.3333 13.559 13.4549 13.8021 13.6979C14.0451 13.941 14.1667 14.2361 14.1667 14.5833C14.1667 14.9306 14.0451 15.2257 13.8021 15.4688C13.559 15.7118 13.2639 15.8333 12.9167 15.8333ZM5 16.6667C3.61111 16.6667 2.43056 16.5035 1.45833 16.1771C0.486111 15.8507 0 15.4583 0 15C0 14.6806 0.229167 14.3958 0.6875 14.1458C1.14583 13.8958 1.75 13.6944 2.5 13.5417V15H4.16667V0L10.8333 3.25L5.83333 5.83333V13.375C7.02778 13.4444 8.02083 13.6285 8.8125 13.9271C9.60417 14.2257 10 14.5833 10 15C10 15.4583 9.51389 15.8507 8.54167 16.1771C7.56944 16.5035 6.38889 16.6667 5 16.6667Z" />
+              </svg>
+
+              <div>
+                <span class="cmp-body-text">Vilamoura & Quinta do Lago</span>
+                <span class="cmp-body-mini-text">Resorts & Golfe</span>
+              </div>
+            </div>
+
+            <div class="map-content__inner-span-block">
+              <span>~35 min</span>
+              <span class="cmp-body-mini-text">42 km</span>
+            </div>
+          </div>
+
+          <div class="map-content__block">
+            <div class="map-content__inner-block">
+              <svg viewBox="0 0 15 14">
+                <path d="M2.5 11.6667V12.5C2.5 12.7361 2.42014 12.934 2.26042 13.0938C2.10069 13.2535 1.90278 13.3333 1.66667 13.3333H0.833333C0.597222 13.3333 0.399306 13.2535 0.239583 13.0938C0.0798611 12.934 0 12.7361 0 12.5V5.83333L1.75 0.833333C1.83333 0.583333 1.98264 0.381944 2.19792 0.229167C2.41319 0.0763889 2.65278 0 2.91667 0H12.0833C12.3472 0 12.5868 0.0763889 12.8021 0.229167C13.0174 0.381944 13.1667 0.583333 13.25 0.833333L15 5.83333V12.5C15 12.7361 14.9201 12.934 14.7604 13.0938C14.6007 13.2535 14.4028 13.3333 14.1667 13.3333H13.3333C13.0972 13.3333 12.8993 13.2535 12.7396 13.0938C12.5799 12.934 12.5 12.7361 12.5 12.5V11.6667H2.5ZM2.33333 4.16667H12.6667L11.7917 1.66667H3.20833L2.33333 4.16667ZM1.66667 5.83333V10V5.83333ZM3.75 9.16667C4.09722 9.16667 4.39236 9.04514 4.63542 8.80208C4.87847 8.55903 5 8.26389 5 7.91667C5 7.56944 4.87847 7.27431 4.63542 7.03125C4.39236 6.78819 4.09722 6.66667 3.75 6.66667C3.40278 6.66667 3.10764 6.78819 2.86458 7.03125C2.62153 7.27431 2.5 7.56944 2.5 7.91667C2.5 8.26389 2.62153 8.55903 2.86458 8.80208C3.10764 9.04514 3.40278 9.16667 3.75 9.16667ZM11.25 9.16667C11.5972 9.16667 11.8924 9.04514 12.1354 8.80208C12.3785 8.55903 12.5 8.26389 12.5 7.91667C12.5 7.56944 12.3785 7.27431 12.1354 7.03125C11.8924 6.78819 11.5972 6.66667 11.25 6.66667C10.9028 6.66667 10.6076 6.78819 10.3646 7.03125C10.1215 7.27431 10 7.56944 10 7.91667C10 8.26389 10.1215 8.55903 10.3646 8.80208C10.6076 9.04514 10.9028 9.16667 11.25 9.16667ZM1.66667 10H13.3333V5.83333H1.66667V10Z" />
+              </svg>
+
+              <div>
+                <span class="cmp-body-text">Lisboa Centro / Aeroporto</span>
+                <span class="cmp-body-mini-text">Autoestrada A2</span>
+              </div>
+            </div>
+
+            <div class="map-content__inner-span-block">
+              <span>~2h 20 min</span>
+              <span class="cmp-body-mini-text">265 km</span>
+            </div>
+          </div>
+
+          <div class="map-content__block">
+            <div class="map-content__inner-block">
+              <svg viewBox="0 0 13 15">
+                <path d="M0 14.1667V0H7.5L7.83333 1.66667H12.5V10H6.66667L6.33333 8.33333H1.66667V14.1667H0ZM8.04167 8.33333H10.8333V3.33333H6.45833L6.125 1.66667H1.66667V6.66667H7.70833L8.04167 8.33333Z" />
+              </svg>
+
+              <div>
+                <span class="cmp-body-text">Sevilha (Espanha)</span>
+                <span class="cmp-body-mini-text">Via A22 & A-49</span>
+              </div>
+            </div>
+
+            <div class="map-content__inner-span-block">
+              <span>~2h 15 min</span>
+              <span class="cmp-body-mini-text">240 km</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
-<style></style>
+<style>
+  .hero__text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+
+    @media (width > 47.5rem) {
+      flex-direction: row;
+      gap: 3rem;
+    }
+
+    .hero-text-top-container {
+      max-width: 45ch;
+
+      @media (width > 62.5rem) {
+        max-width: 55ch;
+      }
+    }
+
+    .hero-text-side-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+
+      @media (width > 47.5rem) {
+        flex-direction: column;
+      }
+
+      > div {
+        margin-top: 0.25rem;
+
+        @media (width > 47.5rem) {
+          margin-top: 2rem;
+        }
+
+        > span {
+          position: relative;
+          display: inline-block;
+          left: 1.75rem;
+        }
+
+        p {
+          display: flex;
+          gap: 0.75rem;
+          margin-top: 0.25rem;
+        }
+
+        svg {
+          width: 1rem;
+          min-width: 1rem;
+        }
+      }
+    }
+  }
+
+  .contact-blocks-text-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @media (width > 47.5rem) {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .contact-blocks__block {
+      padding: 1em;
+      box-shadow: var(--box-shadow-20);
+      border-radius: 8px;
+
+      @media (width > 47.5rem) {
+        padding: 1.5em;
+      }
+
+      @media (width > 62.5rem) {
+        padding: 2em;
+      }
+
+      .contact-span-link {
+        font-size: clamp(var(--fs-15), 0.8vw + 0.4rem, var(--fs-18));
+        font-weight: var(--fw-semibold);
+        line-height: var(--lh-145);
+      }
+
+      > svg {
+        width: 3rem;
+        min-width: 3rem;
+        padding: 0.85em;
+        margin-right: 0.5rem;
+        margin-bottom: 1rem;
+        background-color: var(--clr-beige-10);
+        border-radius: 4px;
+      }
+
+      span {
+        display: block;
+      }
+
+      p {
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .contact-buttons-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.5rem;
+
+        @media (width > 47.5rem) {
+          flex-direction: row;
+          gap: 2rem;
+        }
+
+        a {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+
+          &:first-of-type:not(.facebook-btn) {
+            background-color: var(--clr-black-10);
+            color: var(--clr-white-10);
+          }
+        }
+      }
+
+      a {
+        background-color: #edeeef;
+        color: var(--clr-black-10);
+
+        svg {
+          width: 1rem;
+          min-width: 1rem;
+          margin-right: 0.5rem;
+          fill: var(--clr-brown-10);
+        }
+      }
+    }
+  }
+
+  .map-text-container {
+    margin-bottom: 2rem;
+
+    @media (width > 47.5rem) {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  .map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+
+    @media (width > 62.5rem) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    iframe {
+      height: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      box-shadow: var(--box-shadow-10);
+
+      @media (width > 62.5rem) {
+        width: 55%;
+        aspect-ratio: 1.45 / 1;
+      }
+    }
+
+    .map-content-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+
+      .map-content__block {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5em;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          top: 4rem;
+          left: 0;
+          height: 1px;
+          opacity: 0.08;
+          background-color: var(--clr-black-30);
+        }
+
+        .map-content__inner-block {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .cmp-body-text {
+            font-size: var(--fs-16);
+            font-weight: var(--fw-medium);
+          }
+
+          .cmp-body-mini-text {
+            line-height: var(--lh-145);
+          }
+        }
+
+        .map-content__inner-span-block {
+          text-align: right;
+
+          & span:first-child {
+            font-weight: var(--fw-semibold);
+            line-height: var(--lh-145);
+          }
+        }
+
+        span {
+          display: block;
+        }
+
+        svg {
+          width: 1rem;
+          min-width: 1rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+</style>

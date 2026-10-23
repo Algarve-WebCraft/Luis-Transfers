@@ -19,7 +19,7 @@ function initSliders() {
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    new Swiper(container, {
+    const swiper = new Swiper(container, {
       modules: [Navigation, Autoplay, A11y],
 
       slidesPerView: 1,
@@ -44,6 +44,14 @@ function initSliders() {
         nextSlideMessage: "Imagem seguinte",
       },
     });
+
+    if (!prefersReducedMotion) {
+      swiper.autoplay.stop();
+
+      setTimeout(() => {
+        swiper.autoplay.start();
+      }, 3000);
+    }
   });
 }
 

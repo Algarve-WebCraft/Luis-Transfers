@@ -290,10 +290,15 @@ const { layout, locale } = Astro.props;
 
     textarea {
       font-family: var(--ff-jakarta);
+      font-size: var(--fs-16);
       font-weight: var(--fw-semibold);
       min-height: 6rem;
       padding: 1rem;
       outline: none;
+
+      @media (width > 47.5rem) {
+        font-size: var(--fs-15);
+      }
     }
 
     .form-maps-dropdown {
