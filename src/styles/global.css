@@ -396,8 +396,8 @@
   html {
     scrollbar-width: thin;
 
-    &.is-loading body {
-      opacity: 0 !important;
+    &.home-intro-pending body.home {
+      opacity: 0;
     }
 
     scroll-behavior: auto !important;

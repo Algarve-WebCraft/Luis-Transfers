@@ -4,39 +4,28 @@ import { gsap } from "gsap";
 
 export function gsapOpeningHomeAnimations() {
   const body = document.body;
+  const html = document.documentElement;
 
-  if (!document.body.classList.contains("home")) return;
+  if (!body.classList.contains("home")) return;
 
-  if (sessionStorage.getItem("home-intro-complete") === "true") {
-    body.classList.add("home-intro-complete");
+  if (!html.classList.contains("home-intro-pending")) {
     gsap.set(body, { opacity: 1 });
     return;
-  } 
+  }
 
-  /* return; */
-
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "auto" });
-    }, 0);
-  });
-
-  const tl = gsap.timeline({
-    defaults: { ease: "power3.out" },
-    delay: 0.2,
-
-    onComplete: () => {
-      body.classList.add("home-intro-complete");
-      sessionStorage.setItem("home-intro-complete", "true");
-    },
-  });
-
-  tl.from(
-    "body",
+  gsap.fromTo(
+    body,
+    { opacity: 0 },
     {
-      opacity: 0,
+      opacity: 1,
       duration: 2.25,
+      delay: 0.35,
+      ease: "power4.out",
+      onComplete: () => {
+        html.classList.remove("home-intro-pending");
+        body.classList.add("home-intro-complete");
+        sessionStorage.setItem("home-intro-complete", "true");
+      },
     },
-    "+=.4",
   );
 }

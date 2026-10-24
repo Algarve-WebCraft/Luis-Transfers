@@ -25,4 +25,14 @@ const { pageTitle, pageDescription } = Astro.props;
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/plus-jakarta-sans-v12-latin-500.woff2">
 <!-- prettier-ignore -->
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/plus-jakarta-sans-v12-latin-600.woff2">
+<script is:inline>
+  (() => {
+    const path = location.pathname.replace(/\/+$/, "") || "/";
+    const isHome = path === "/" || path === "/pt";
+
+    if (isHome && sessionStorage.getItem("home-intro-complete") !== "true") {
+      document.documentElement.classList.add("home-intro-pending");
+    }
+  })();
+</script>
 <title>{pageTitle}</title>
