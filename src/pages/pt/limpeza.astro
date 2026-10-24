@@ -5,7 +5,8 @@ import cleaningImageOne from "@assets/images/cleaning-1.webp";
 import cleaningImageTwo from "@assets/images/cleaning-2.jpeg";
 
 const pageTitle = "Limpeza | Luis Ferreira Transferências e Serviços";
-const pageDescription = "Page Description";
+const pageDescription =
+  "Serviços profissionais de limpeza de apartamentos e moradias em todo o Algarve, para alojamentos locais, habitações particulares e proprietários.";
 ---
 
 <BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
@@ -51,14 +52,15 @@ const pageDescription = "Page Description";
             <Image
               src={cleaningImageOne}
               alt="Example of a cleaned summer Villa"
-              width={[1200]}
               format="webp"
               layout="constrained"
+              loading="eager"
+              fetchpriority="high"
             />
 
             <div class="image-card__content">
               <span class="cmp-topper-heading">Limpeza de Villas</span>
-              <p>Deixe o seu apartamento impecável, fresco e pronto a desfrutar.</p>
+              <p>Deixe o seu apartamento impecável, fresco e pronto a receber os próximos hóspedes.</p>
             </div>
           </div>
 
@@ -66,9 +68,10 @@ const pageDescription = "Page Description";
             <Image
               src={cleaningImageTwo}
               alt="Example of a cleaned summer apartment"
-              width={[1200]}
               format="webp"
               layout="constrained"
+              loading="eager"
+              fetchpriority="high"
             />
 
             <div class="image-card__content">
@@ -82,15 +85,16 @@ const pageDescription = "Page Description";
   </section>
 
   <section class="cmp-main-section" aria-labelledby="cleaning-table-section">
-    <div class="wrapper wrapper--tablet-48">
+    <div class="wrapper wrapper--tablet-48" data-animate="fade-in">
       <div class="cleaning-table__text-container">
         <span class="cmp-topper-heading">TABELA DE VALORES OFICIAIS</span>
         <h2 id="cleaning-table-section" class="cmp-main-heading">
           Tarifas Transparentes & Sem Surpresas
         </h2>
         <p class="cmp-body-text">
-          Preçário direto para intervenções pontuais ou rotações periódicas entre check- outs. Sem taxas ocultas nem
-          burocracias contratuais.
+          Preçário direto e transparente para intervenções pontuais ou rotações periódicas entre check-outs, adaptado às
+          necessidades de cada imóvel. Flexibilidade no agendamento, comunicação direta e sem taxas ocultas, para uma
+          gestão simples e eficiente da limpeza do seu alojamento.
         </p>
       </div>
 
@@ -381,7 +385,7 @@ const pageDescription = "Page Description";
   </section>
 
   <section class="cmp-main-section" aria-labelledby="guarantee-section">
-    <div class="wrapper wrapper--mobile-32 wrapper--tablet-48">
+    <div class="wrapper wrapper--mobile-32 wrapper--tablet-48" data-animate="fade-in">
       <div class="guarantee-text-container">
         <div>
           <div>
@@ -650,19 +654,24 @@ const pageDescription = "Page Description";
           padding: 1em;
           color: var(--clr-white-10);
           z-index: 999;
-          background: linear-gradient(transparent, rgb(0 0 0 / 95%));
+          background: linear-gradient(transparent, rgb(0 0 0 / 90%));
+          user-select: none;
+          pointer-events: none;
 
           @media (width > 47.5rem) {
             padding: 1.5em;
           }
 
           span {
+            font-size: var(--fs-12);
             color: var(--clr-beige-10);
           }
 
           p {
             font-family: var(--ff-news);
+            font-size: var(--fs-18);
             font-weight: var(--fw-regular);
+            max-width: 45ch;
             letter-spacing: var(--ls-pos-015);
           }
         }

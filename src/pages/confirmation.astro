@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 
-const pageTitle = "Contact | Bueni Restaurant";
-const pageDescription = "Page Description";
+const pageTitle = "Confirmation | Luis Ferreira Transfers and Services";
+const pageDescription =
+  "Your transfer request has been received. Find out what happens next and how Luis Ferreira will contact you to confirm your booking.";
 ---
 
 <BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
@@ -24,6 +25,16 @@ const pageDescription = "Page Description";
               resposta em até &nbsp;<strong>4 horas</strong>.
             </p>
           </div>
+
+          <a href="/pt/" class="go-back-button">
+            <svg viewBox="0 0 12 12">
+              <path
+                d="M2.86875 6.75L7.06875 10.95L6 12L0 6L6 0L7.06875 1.05L2.86875 5.25H12V6.75H2.86875Z"
+                fill="black"
+              />
+            </svg>
+            VOLTAR AO SITE PRINCIPAL
+          </a>
         </div>
 
         <div class="confirm__blocks">
@@ -86,7 +97,13 @@ const pageDescription = "Page Description";
           </div>
 
           <div class="confirm__contact-button-container">
-            <a href="#" class="cmp-main-btn">
+            <a
+              href="https://wa.me/351966831360"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contact us on WhatsApp"
+              class="cmp-main-btn"
+            >
               <svg viewBox="0 0 512 512">
                 <rect width="512" height="512" rx="15%" fill="#25d366"></rect>
                 <path fill="#25d366" stroke="#ffffff" stroke-width="26" d="M123 393l14-65a138 138 0 1150 47z"></path>
@@ -94,6 +111,16 @@ const pageDescription = "Page Description";
                   fill="#ffffff"
                   d="M308 273c-3-2-6-3-9 1l-12 16c-3 2-5 3-9 1-15-8-36-17-54-47-1-4 1-6 3-8l9-14c2-2 1-4 0-6l-12-29c-3-8-6-7-9-7h-8c-2 0-6 1-10 5-22 22-13 53 3 73 3 4 23 40 66 59 32 14 39 12 48 10 11-1 22-10 27-19 1-3 6-16 2-18"
                 ></path>
+              </svg>
+              WHATSAPP DIRETO
+            </a>
+
+            <a href="tel:+351966831360" class="cmp-main-btn">
+              <svg viewBox="0 0 14 14">
+                <path
+                  d="M12.7125 13.5C11.15 13.5 9.60625 13.1594 8.08125 12.4781C6.55625 11.7969 5.16875 10.8313 3.91875 9.58125C2.66875 8.33125 1.70312 6.94375 1.02188 5.41875C0.340625 3.89375 0 2.35 0 0.7875C0 0.5625 0.075 0.375 0.225 0.225C0.375 0.075 0.5625 0 0.7875 0H3.825C4 0 4.15625 0.059375 4.29375 0.178125C4.43125 0.296875 4.5125 0.4375 4.5375 0.6L5.025 3.225C5.05 3.425 5.04375 3.59375 5.00625 3.73125C4.96875 3.86875 4.9 3.9875 4.8 4.0875L2.98125 5.925C3.23125 6.3875 3.52813 6.83437 3.87188 7.26562C4.21562 7.69688 4.59375 8.1125 5.00625 8.5125C5.39375 8.9 5.8 9.25937 6.225 9.59062C6.65 9.92188 7.1 10.225 7.575 10.5L9.3375 8.7375C9.45 8.625 9.59688 8.54062 9.77812 8.48438C9.95937 8.42813 10.1375 8.4125 10.3125 8.4375L12.9 8.9625C13.075 9.0125 13.2188 9.10312 13.3313 9.23438C13.4438 9.36563 13.5 9.5125 13.5 9.675V12.7125C13.5 12.9375 13.425 13.125 13.275 13.275C13.125 13.425 12.9375 13.5 12.7125 13.5ZM2.26875 4.5L3.50625 3.2625L3.1875 1.5H1.51875C1.58125 2.0125 1.66875 2.51875 1.78125 3.01875C1.89375 3.51875 2.05625 4.0125 2.26875 4.5ZM8.98125 11.2125C9.46875 11.425 9.96562 11.5938 10.4719 11.7188C10.9781 11.8438 11.4875 11.925 12 11.9625V10.3125L10.2375 9.95625L8.98125 11.2125Z"
+                  fill="#7A582F"
+                />
               </svg>
               +351 966 831 360
             </a>
@@ -112,6 +139,28 @@ const pageDescription = "Page Description";
       p {
         max-width: 60ch;
         margin-inline: auto;
+      }
+
+      .go-back-button {
+        display: inline-block;
+        font-size: var(--fs-13);
+        font-weight: var(--fw-semibold);
+        margin-top: 1.5rem;
+        text-transform: uppercase;
+        white-space: nowrap;
+        transition:
+          transform 0.3s ease-in-out,
+          opacity 0.1s ease-in-out;
+
+        &:hover {
+          translate: 0 -1px;
+          opacity: 0.6;
+        }
+
+        svg {
+          max-width: 0.75rem;
+          margin-right: 0.5rem;
+        }
       }
 
       &::after {
@@ -215,19 +264,26 @@ const pageDescription = "Page Description";
     }
 
     .confirm__contact-button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
       a {
+        min-width: 13.25rem;
+        font-size: var(--fs-15);
         background-color: var(--clr-white-10);
         color: var(--clr-black-10);
         width: fit-content;
         white-space: nowrap;
         padding-right: 3em;
+        padding-bottom: 1em;
       }
 
       svg {
         position: relative;
-        max-width: 1rem;
+        max-width: 1.3rem;
         right: 0.6rem;
-        top: 0.15rem;
+        top: 0.25rem;
       }
     }
   }

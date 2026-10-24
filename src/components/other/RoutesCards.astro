@@ -1,89 +1,109 @@
 ---
+const { gridContainerWidth } = Astro.props;
+
 const routesInfo = [
   {
-    name: "Aljezur",
+    name: "Aljezur, Portugal",
     price: "€79",
     distance: "62km",
     time: "46m",
+    placeId: "ChIJw4QJoFMVGw0Rxg_DN39zeBA",
   },
   {
-    name: "Alvor",
+    name: "Alvor, Portugal",
     price: "€49",
     distance: "74km",
     time: "48m",
+    placeId: "ChIJt2L-4hUvGw0RXHpRwBV_EAo",
   },
   {
-    name: "Armação de Pêra",
+    name: "Armação de Pêra, Portugal",
     price: "€37",
     distance: "51km",
     time: "36m",
+    placeId: "ChIJ-4R1anHRGg0RNw4AP1RobOI",
   },
   {
-    name: "Burgau",
+    name: "Burgau, Portugal",
     price: "€69",
     distance: "94km",
     time: "1h 06m",
+    placeId: "ChIJybRFApQ2Gw0R0Op_T8DrAAo",
   },
   {
-    name: "Carvoeiro",
+    name: "Carvoeiro, Portugal",
     price: "€49",
     distance: "62km",
     time: "46m",
+    placeId: "ChIJUTdJ9BbWGg0Rfe-LY8sDUj4",
   },
   {
-    name: "Ferragudo",
+    name: "Ferragudo, Portugal",
     price: "€49",
     distance: "63km",
     time: "49m",
+    placeId: "ChIJNyON51MoGw0RrdBDJv3XexY",
   },
   {
-    name: "Lagoa",
+    name: "Lagoa, Portugal",
     price: "€47",
     distance: "57km",
     time: "39m",
+    placeId: "ChIJqdPvp_7WGg0RyuVyn1Lyvyc",
   },
   {
-    name: "Lagos",
+    name: "Lagos, Portugal",
     price: "€59",
     distance: "85km",
     time: "57m",
+    placeId: "ChIJjU0jUEkwGw0RV_waR6OqEFQ",
   },
   {
-    name: "Luz",
+    name: "Luz, Portugal",
     price: "€64",
     distance: "91km",
     time: "1h 03m",
+    placeId: "ChIJEz67Bj4xGw0RCdaIxNlkeO8",
   },
   {
-    name: "Portimão",
+    name: "Portimão, Portugal",
     price: "€49",
     distance: "66km",
     time: "45m",
+    placeId: "ChIJYSkkqewoGw0R4RSAcSPJ_JM",
   },
   {
-    name: "Salema",
+    name: "Salema, Portugal",
     price: "€69",
     distance: "101km",
     time: "1h 11m",
+    placeId: "ChIJLxRPAxI2Gw0RVw2QO-I01fI",
   },
   {
-    name: "Sagres",
+    name: "Sagres, Portugal",
     price: "€79",
     distance: "115km",
     time: "1h 23m",
+    placeId: "ChIJdwsRx2RMGw0RtKhwSX1u48w",
   },
   {
-    name: "Silves",
+    name: "Silves, Portugal",
     price: "€47",
     distance: "59km",
     time: "42m",
+    placeId: "ChIJR7dMc_LZGg0RpqURX5Mg4s4",
   },
 ];
 ---
 
-<div class="popular-routes-container">
+<div class="popular-routes-container" style={`--grid-container-width: ${gridContainerWidth}`}>
   {routesInfo.map((routes) => (
-    <div class="routes-card">
+    <div
+      class="routes-card"
+      data-route-name={routes.name}
+      data-place-id={routes.placeId}
+      data-fixed-price={Number(routes.price.replace("€", ""))}
+    >
       <h2>{routes.name}</h2>
       <span class="price">{routes.price}</span>
       <p class="airport-text">
@@ -102,7 +122,10 @@ const routesInfo = [
         <span>{routes.time}</span>
       </div>
 
-      <a href="#" class="cmp-main-btn">
+      <a
+        href={`${Astro.currentLocale === "pt" ? "/pt/transferências/" : "/transfers/"}?route=${encodeURIComponent(routes.name)}#booking-form`}
+        class="cmp-main-btn"
+      >
         SELECIONAR ROTA
       </a>
     </div>
@@ -112,7 +135,7 @@ const routesInfo = [
 <style>
   .popular-routes-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-container-width), 1fr));
     gap: 1rem;
   }
 

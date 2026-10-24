@@ -2,7 +2,6 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { Image } from "astro:assets";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import carDemo from "@assets/images/car-demo.png";
 import rentalPhoto from "@assets/images/rental-photo.avif";
 import RoutesCards from "@components/other/RoutesCards.astro";
 import TransferForm from "@components/other/TransferForm.astro";
@@ -11,7 +10,8 @@ import HeroSlider from "@components/other/HeroSlider.astro";
 const { locale } = Astro.props;
 
 const pageTitle = "Inicio | Luis Ferreira Transferências e Serviços";
-const pageDescription = "Portuguese";
+const pageDescription =
+  "Transferes privados em todo o Algarve, serviços profissionais de limpeza de imóveis e alojamento de férias. Atendimento direto e personalizado com Luis Ferreira.";
 ---
 
 <BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="home">
@@ -44,8 +44,8 @@ const pageDescription = "Portuguese";
   </section>
 
   <section class="cmp-main-section" aria-labelledby="transfer-section">
-    <div class="wrapper wrapper--mobile-40 wrapper--1150">
-      <div class="transfer-form-container">
+    <div class="wrapper wrapper--mobile-40 wrapper--tablet-48 wrapper--1150">
+      <div class="transfer-form-container" data-animate="fade-in">
         <span class="cmp-topper-heading">COTAÇÃO IMEDIATA • CONFIRMAÇÃO DIRETA</span>
         <h2 id="transfer-section" class="cmp-main-heading">
           Pedir Reserva de Transfer Executivo
@@ -100,7 +100,7 @@ const pageDescription = "Portuguese";
   </section>
 
   <section class="cmp-main-section" aria-labelledby="popular-routes-section">
-    <div class="wrapper wrapper--mobile-40">
+    <div class="wrapper" data-animate="fade-in">
       <div class="popular-routes-container">
         <div class="popular-routes__text">
           <span class="cmp-topper-heading">TRAJETOS FREQUENTES • PREÇOS TRANSPARENTES</span>
@@ -117,7 +117,7 @@ const pageDescription = "Portuguese";
         </p>
       </div>
 
-      <RoutesCards />
+      <RoutesCards gridContainerWidth="15rem" />
 
       <div class="popular-routes__bottom-container">
         <div class="bottom-container-block">
@@ -188,7 +188,7 @@ const pageDescription = "Portuguese";
   </section>
 
   <section class="cmp-main-section" aria-labelledby="excellence-section">
-    <div class="wrapper">
+    <div class="wrapper" data-animate="fade-in">
       <div class="excellence-container">
         <div class="excellence__text-container">
           <span class="cmp-topper-heading">GARANTIA DE EXCELÊNCIA</span>
@@ -278,7 +278,7 @@ const pageDescription = "Portuguese";
   </section>
 
   <section class="cmp-main-section" aria-labelledby="cleaning-section">
-    <div class="wrapper wrapper--tablet-40">
+    <div class="wrapper wrapper--tablet-40" data-animate="fade-in">
       <div class="cleaning-text-container">
         <span class="cmp-topper-heading">
           <svg viewBox="0 0 15 19">
@@ -447,10 +447,10 @@ const pageDescription = "Portuguese";
   </section>
 
   <section class="cmp-main-section" aria-labelledby="rental-section">
-    <div class="wrapper wrapper--tablet-48">
+    <div class="wrapper wrapper--tablet-48" data-animate="fade-in">
       <div class="rental-container">
         <div class="rental-image">
-          <Image src={rentalPhoto} alt="Restaurant interior" width={[1200]} format="webp" layout="constrained" />
+          <Image src={rentalPhoto} alt="Restaurant interior" format="webp" layout="constrained" />
         </div>
 
         <div class="rental-text-container">

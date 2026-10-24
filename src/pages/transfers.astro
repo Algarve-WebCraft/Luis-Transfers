@@ -2,12 +2,12 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import RoutesCards from "@components/other/RoutesCards.astro";
 import TransferForm from "@components/other/TransferForm.astro";
-import RoutesCardsTransfers from "@components/other/RoutesCardsTransfers.astro";
 
 const { locale } = Astro.props;
 
-const pageTitle = "Transferências | Luis Ferreira Transferências e Serviços";
-const pageDescription = "Page Description";
+const pageTitle = "Transfers | Luis Ferreira Transfers and Services";
+const pageDescription =
+  "Book private transfers across Iberia, including Faro Airport pickups and long-distance journeys to Lisbon and Seville. Direct and reliable service.";
 ---
 
 <BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
@@ -127,7 +127,7 @@ const pageDescription = "Page Description";
   </section>
 
   <section class="cmp-main-section" aria-labelledby="popular-routes-section">
-    <div class="wrapper wrapper--mobile-40">
+    <div class="wrapper wrapper--mobile-40" data-animate="fade-in">
       <div class="popular-routes-container">
         <div class="popular-routes__text">
           <span class="cmp-topper-heading">TABELA TRANSPARENTE</span>
@@ -142,12 +142,12 @@ const pageDescription = "Page Description";
         </p>
       </div>
 
-      <RoutesCardsTransfers />
+      <RoutesCards gridContainerWidth="17rem" />
     </div>
   </section>
 
   <section class="cmp-main-section" aria-labelledby="location-section">
-    <div class="wrapper wrapper--mobile-32">
+    <div class="wrapper wrapper--mobile-32" data-animate="fade-in">
       <div class="location-container">
         <div class="location__text">
           <span class="cmp-topper-heading">LOCALIZAÇÃO CENTRAL</span>

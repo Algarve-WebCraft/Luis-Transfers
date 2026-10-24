@@ -2,21 +2,108 @@
 const { layout, locale } = Astro.props;
 ---
 
-<form class:list={[`transfer-form--${layout}`]} id="booking-form" data-locale={locale} data-astro-reload>
-  <div class="form-top-layer">
-    <div>
-      <label for="name">NOME COMPLETO *</label>
-      <input type="text" id="name" name="name" placeholder="Ex: Gonçalo Ribeiro" required />
-    </div>
+<form class:list={[`transfer-form transfer-form--${layout}`]} id="booking-form" data-locale={locale} data-astro-reload>
+  <div>
+    <label for="name">NOME COMPLETO *</label>
+    <input type="text" id="name" name="name" placeholder="Ex: Gonçalo Ribeiro" required />
+  </div>
 
-    <div>
-      <label for="email">E-MAIL *</label>
-      <input type="email" id="email" name="email" placeholder="goncalo@exemplo.com" required />
-    </div>
+  <div>
+    <label for="email">E-MAIL *</label>
+    <input type="email" id="email" name="email" placeholder="goncalo@exemplo.com" required />
+  </div>
 
-    <div class="form-phone-field">
-      <label for="phone">TELEFONE / WHATSAPP *</label>
-      <input type="tel" id="phone" name="phone" required />
+  <div class="form-phone-field">
+    <label for="phone">TELEFONE / WHATSAPP *</label>
+    <input type="tel" id="phone" name="phone" required />
+  </div>
+
+  <div class="popular-routes-container">
+    <p class="popular-routes-label" id="popular-routes-label">
+      Seleção de rota fixa:
+    </p>
+
+    <div class="popular-routes-box">
+      <ul id="popular-routes">
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Aljezur, Portugal">
+            <span class="popular-route-name">Aljezur</span>
+            <span class="popular-route-price">(€79)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Alvor, Portugal">
+            <span class="popular-route-name">Alvor</span>
+            <span class="popular-route-price">(€49)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Armação de Pêra, Portugal">
+            <span class="popular-route-name">Armação de Pêra</span>
+            <span class="popular-route-price">(€37)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Burgau, Portugal">
+            <span class="popular-route-name">Burgau</span>
+            <span class="popular-route-price">(€69)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Carvoeiro, Portugal">
+            <span class="popular-route-name">Carvoeiro</span>
+            <span class="popular-route-price">(€49)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Ferragudo, Portugal">
+            <span class="popular-route-name">Ferragudo</span>
+            <span class="popular-route-price">(€49)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Lagoa, Portugal">
+            <span class="popular-route-name">Lagoa</span>
+            <span class="popular-route-price">(€47)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Lagos, Portugal">
+            <span class="popular-route-name">Lagos</span>
+            <span class="popular-route-price">(€59)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Luz, Portugal">
+            <span class="popular-route-name">Luz</span>
+            <span class="popular-route-price">(€64)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Portimão, Portugal">
+            <span class="popular-route-name">Portimão</span>
+            <span class="popular-route-price">(€49)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Salema, Portugal">
+            <span class="popular-route-name">Salema</span>
+            <span class="popular-route-price">(€69)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Sagres, Portugal">
+            <span class="popular-route-name">Sagres</span>
+            <span class="popular-route-price">(€79)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="popular-route-button" data-route-name="Silves, Portugal">
+            <span class="popular-route-name">Silves</span>
+            <span class="popular-route-price">(€47)</span>
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -32,6 +119,31 @@ const { layout, locale } = Astro.props;
     />
     <ul id="pickup-suggestions" class="form-maps-dropdown"></ul>
   </div>
+
+  <button
+    type="button"
+    id="swap-locations"
+    class="location-swap-button"
+    aria-label="Trocar ponto de partida e chegada"
+    title="Trocar origem e destino"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      width="26"
+      height="26"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M7 7h14l-4-4" />
+      <path d="M21 7l-4 4" />
+      <path d="M17 17H3l4 4" />
+      <path d="M3 17l4-4" />
+    </svg>
+  </button>
 
   <div>
     <label for="dropoff">PONTO DE CHEGADA *</label>
@@ -93,7 +205,7 @@ const { layout, locale } = Astro.props;
   </div>
 
   <div>
-    <label for="notes">INFORMAÇÕES ADICIONAIS / NOTAS ESPECIAIS (OPCIONAL)</label>
+    <label for="notes">INFORMAÇÕES ADICIONAIS / NOTAS ESPECIAIS</label>
     <textarea
       id="notes"
       name="notes"
@@ -111,7 +223,7 @@ const { layout, locale } = Astro.props;
   </button>
 
   <a
-    class="go-back-button"
+    class="whatsapp-button"
     href="https://wa.me/351966831360"
     target="_blank"
     rel="noopener noreferrer"
@@ -128,37 +240,41 @@ const { layout, locale } = Astro.props;
 </form>
 
 <style>
-  .transfer-form--full {
+  .transfer-form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
+    row-gap: 2rem;
     margin-top: 2.5rem;
     overflow: clip;
 
-    @media (width > 53.75rem) {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      margin-top: 4rem;
+    @media (width > 47.5rem) {
+      grid-template-columns: 1fr 1fr;
     }
 
     label,
-    span {
+    span,
+    .popular-routes-label {
       font-family: var(--ff-jakarta);
       font-size: var(--fs-11);
       font-weight: var(--fw-semibold);
       color: var(--clr-black-10);
       line-height: var(--lh-145);
       letter-spacing: var(--ls-pos-1);
-      text-transform: capitalize;
+      text-transform: uppercase;
     }
 
     input,
     select {
-      font-size: var(--fs-13);
+      font-size: var(--fs-16);
       background: #31333506;
       padding: 0.5rem 1rem;
       border: none;
       outline: none;
+
+      @media (width > 47.5rem) {
+        font-size: var(--fs-15);
+      }
     }
 
     input {
@@ -169,14 +285,20 @@ const { layout, locale } = Astro.props;
       border-radius: 4px;
       letter-spacing: var(--ls-pos-1);
       text-transform: capitalize;
+      border: none;
     }
 
     textarea {
       font-family: var(--ff-jakarta);
+      font-size: var(--fs-16);
       font-weight: var(--fw-semibold);
       min-height: 6rem;
       padding: 1rem;
       outline: none;
+
+      @media (width > 47.5rem) {
+        font-size: var(--fs-15);
+      }
     }
 
     .form-maps-dropdown {
@@ -204,17 +326,117 @@ const { layout, locale } = Astro.props;
       overflow-y: auto;
     }
 
-    .form-maps-dropdown li {
-      width: fit-content;
-      font-size: var(--fs-14);
-      list-style: circle;
-      list-style-position: inside;
-      cursor: pointer;
-      transition: color 0.2s ease-in-out;
+    .form-maps-dropdown {
+      li {
+        width: 90%;
+        font-size: var(--fs-14);
+        margin-left: 1rem;
+        list-style: circle;
+        cursor: pointer;
+        transition: opacity 0.2s ease-in-out;
 
-      &:hover {
-        color: var(--clr-brown-10);
+        &:hover {
+          opacity: 0.5;
+        }
       }
+
+      & li:not(:last-of-type) {
+        margin-bottom: 1.25rem;
+      }
+
+      & li:not(:last-of-type)::after {
+        position: relative;
+        content: "";
+        display: block;
+        width: 100%;
+        top: 0.5rem;
+        height: 1px;
+        background-color: var(--clr-brown-10);
+        opacity: 0.06;
+      }
+    }
+
+    .popular-routes-box {
+      padding: 0.5em;
+      border-radius: 4px;
+
+      .popular-route-button.is-selected {
+        border-color: var(--clr-brown-10);
+        box-shadow: inset 0 0 0 1px var(--clr-brown-10);
+
+        span {
+          font-size: 0.75rem;
+        }
+      }
+
+      ul {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+
+        button {
+          display: flex;
+          gap: 0.25rem;
+
+          padding: 0.5em;
+          border: 1px solid rgba(0, 0, 0, 0.075);
+          border-radius: 8px;
+          box-shadow: var(--box-shadow-25);
+          cursor: pointer;
+          transition:
+            transform 0.2s ease-in-out,
+            box-shadow 0.2s ease-in-out,
+            opacity 0.2s ease-in-out;
+
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow:
+              inset 0 1px 2px #ffffffa0,
+              0 4px 10px #00000018;
+            opacity: 0.75;
+          }
+
+          span {
+            font-size: 0.625rem;
+            transition: font-size 0.2s ease-in-out;
+          }
+        }
+      }
+    }
+
+    .location-swap-button {
+      position: relative;
+      width: 100%;
+      max-height: 10px;
+      left: 50%;
+      border: none;
+      padding: 0 !important;
+      border-radius: 8px;
+      background: transparent;
+      transform: translateX(-50%) rotate(90deg);
+
+      @media (width > 47.5rem) {
+        grid-column: 1 / 3;
+      }
+
+      svg {
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      &:hover svg {
+        opacity: 0.5;
+      }
+
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+      }
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
 
     > div:nth-of-type(6) select,
@@ -223,95 +445,31 @@ const { layout, locale } = Astro.props;
       font-weight: var(--fw-semibold);
     }
 
-    > div:not(.form-top-layer) {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .form-top-layer {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 1.5rem;
-      grid-column: 1 / 3;
-
-      @media (width > 53.75rem) {
-        grid-column: 1 / -1;
-        flex-direction: row;
-        gap: 2rem;
-      }
-
-      .form-phone-field {
-        font-size: var(--fs-13);
-        font-family: var(--ff-jakarta);
-        font-weight: var(--fw-semibold);
-      }
-
-      > div {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        min-width: 33%;
-      }
-    }
-
-    > div:nth-of-type(2) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(3) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(4) {
-      grid-column: 1 / 2;
-      max-width: 90%;
-    }
-
-    > div:nth-of-type(5) {
-      position: relative;
-      grid-column: 2 / 3;
-      right: 0.75rem;
-    }
-
-    > div:nth-of-type(6) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(7) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(8) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(9) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(10) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(11) {
-      grid-column: 1 / 2;
+    > div:nth-of-type(14) {
       font-size: var(--fs-40);
       font-family: var(--ff-news);
       letter-spacing: var(--ls-neg-1);
     }
 
-    .cmp-main-btn {
-      grid-column: 1 / 3;
-      width: 100%;
-      max-width: 25rem;
-      margin-top: -1rem;
-      place-self: center;
+    .form-phone-field {
+      font-size: var(--fs-13);
+      font-family: var(--ff-jakarta);
+      font-weight: var(--fw-semibold);
     }
 
-    .go-back-button {
-      grid-column: 1 / 3;
+    .cmp-main-btn {
+      width: 100%;
+      max-width: 25rem;
+      padding-block: 1.25rem;
+      margin-top: -1rem;
+      place-self: center;
+
+      @media (width > 62.5rem) {
+        padding-block: 0.625rem;
+      }
+    }
+
+    .whatsapp-button {
       display: inline-block;
       width: 100%;
       max-width: 25rem;
@@ -320,11 +478,17 @@ const { layout, locale } = Astro.props;
       background-color: #edeeef;
       margin-inline: auto;
       margin-bottom: 1rem;
-      padding-block: 0.75rem;
+      padding-block: 1.25rem;
       border-radius: 8px;
       text-align: center;
       align-self: center;
       text-transform: uppercase;
+      box-shadow:
+        inset 0 1px 2px #ffffff3c,
+        0 4px 10px #00000019;
+      transition:
+        transform 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
 
       &:hover {
         transform: translateY(-1px);
@@ -342,261 +506,243 @@ const { layout, locale } = Astro.props;
       }
     }
 
-    @media (width > 53.75rem) {
-      > div:nth-of-type(2) {
-        grid-column: 1 / 3;
-      }
+    .iti__selected-dial-code {
+      font-size: var(--fs-16);
 
-      > div:nth-of-type(3) {
-        grid-column: 3 / 5;
+      @media (width > 47.5rem) {
+        font-size: var(--fs-15);
       }
+    }
+  }
 
-      > div:nth-of-type(4) {
-        grid-column: 1 / 2;
-      }
+  .transfer-form--full {
+    @media (width > 47.5rem) {
+      gap: 2rem;
+      margin-top: 4rem;
 
-      > div:nth-of-type(5) {
-        grid-column: 2 / 3;
-      }
-
-      > div:nth-of-type(6) {
-        grid-column: 3 / 4;
-      }
-
-      > div:nth-of-type(7) {
-        grid-column: 4 / 5;
-      }
-
-      > div:nth-of-type(8) {
-        grid-column: 1 / 3;
-      }
-
-      > div:nth-of-type(9) {
-        grid-column: 3 / 5;
-      }
-
-      > div:nth-of-type(10) {
+      > div:nth-of-type(1) {
         grid-column: 1 / -1;
       }
 
-      > div:nth-of-type(11) {
+      > div:nth-of-type(2) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(3) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(4) {
         grid-column: 1 / 3;
+
+        span {
+          font-size: var(--fs-11);
+        }
+      }
+
+      > div:nth-of-type(5) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(6) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(7) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(8) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(9) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(10) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(11) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(12) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(13) {
+        grid-column: 1 / -1;
+      }
+
+      > div:nth-of-type(14) {
+        grid-column: 1 / 2;
         font-size: var(--fs-56);
       }
 
       .cmp-main-btn {
-        grid-column: 3 / 4;
+        grid-column: 1 / 2;
         min-width: unset;
         align-self: center;
-        height: 50%;
       }
 
-      .go-back-button {
-        grid-column: 4 / 5;
+      .whatsapp-button {
+        grid-column: 2 / 3;
         padding-block: 1.25rem;
+      }
+    }
+
+    @media (width > 62.5rem) {
+      grid-template-columns: repeat(4, 1fr);
+
+      > div:nth-of-type(1) {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+        max-width: 68%;
+      }
+
+      > div:nth-of-type(2) {
+        grid-column: 2 / 4;
+        grid-row: 1 / 2;
+        margin-left: 6rem;
+        max-width: 80%;
+      }
+
+      > div:nth-of-type(3) {
+        grid-column: 4 / 5;
+        grid-row: 1 / 2;
+      }
+
+      > div:nth-of-type(4) {
+        grid-column: 3 / 5;
+        grid-row: 2 / 4;
+      }
+
+      > div:nth-of-type(5) {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+      }
+
+      > div:nth-of-type(6) {
+        grid-column: 1 / 3;
+        grid-row: 3 / 4;
+      }
+
+      > div:nth-of-type(7) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(8) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(9) {
+        grid-column: 3 / 4;
+      }
+
+      > div:nth-of-type(10) {
+        grid-column: 4 / 5;
+      }
+
+      > div:nth-of-type(11) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(12) {
+        grid-column: 3 / 5;
+      }
+
+      > div:nth-of-type(13) {
+        grid-column: 1 / -1;
+      }
+
+      > div:nth-of-type(14) {
+        grid-column: 1 / 3;
+      }
+
+      .location-swap-button {
+        grid-column: 1 / 3;
+        grid-row: 3 / 4;
+        bottom: 1rem;
+      }
+
+      .cmp-main-btn {
+        grid-column: 3 / 4;
+      }
+
+      .whatsapp-button {
+        grid-column: 4 / 5;
       }
     }
   }
 
   .transfer-form--compact {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-    overflow: clip;
-
-    label,
-    span {
-      font-family: var(--ff-jakarta);
-      font-size: var(--fs-11);
-      font-weight: var(--fw-semibold);
-      color: var(--clr-black-10);
-      line-height: var(--lh-145);
-      letter-spacing: var(--ls-pos-1);
-      text-transform: capitalize;
-    }
-
-    input,
-    select {
-      font-size: var(--fs-13);
-      background: #31333506;
-      padding: 0.5rem 1rem;
-      border: none;
-      outline: none;
-    }
-
-    input {
-      font-family: var(--ff-jakarta);
-      font-weight: var(--fw-semibold);
-      color: var(--clr-black-10);
-      line-height: var(--lh-145);
-      border-radius: 4px;
-      letter-spacing: var(--ls-pos-1);
-      text-transform: capitalize;
-    }
-
-    textarea {
-      font-family: var(--ff-jakarta);
-      font-weight: var(--fw-semibold);
-      min-height: 6rem;
-      padding: 1rem;
-      outline: none;
-    }
-
-    .form-maps-dropdown {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      scrollbar-width: none;
-      border: 1px solid rgba(0, 0, 0, 0.03);
-      border-radius: 8px;
-      box-shadow:
-        0 20px 25px -5px rgba(0, 0, 0, 0.03),
-        0 8px 10px -6px rgba(0, 0, 0, 0.03);
-      transform: translateY(-6px);
-      transition:
-        max-height 1s ease-out,
-        opacity 0.6s ease,
-        transform 1s ease-out;
-    }
-
-    .form-maps-dropdown.is-open {
-      max-height: 300px;
-      opacity: 1;
-      padding: 1em;
-      transform: translateY(0);
-      overflow-y: auto;
-    }
-
-    .form-maps-dropdown li {
-      width: fit-content;
-      font-size: var(--fs-14);
-      list-style: circle;
-      list-style-position: inside;
-      cursor: pointer;
-      transition: color 0.2s ease-in-out;
-
-      &:hover {
-        color: var(--clr-brown-10);
-      }
-    }
-
-    > div:nth-of-type(6) select,
-    > div:nth-of-type(7) select {
-      cursor: pointer;
-      font-weight: var(--fw-semibold);
-    }
-
-    > div:not(.form-top-layer) {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .form-top-layer {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 1.5rem;
-      grid-column: 1 / 3;
-
-      .form-phone-field {
-        font-size: var(--fs-13);
-        font-family: var(--ff-jakarta);
-        font-weight: var(--fw-semibold);
+    @media (width > 47.5rem) {
+      > div:nth-of-type(1) {
+        grid-column: 1 / 3;
       }
 
-      > div {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        min-width: 33%;
-      }
-    }
-
-    > div:nth-of-type(2) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(3) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(4) {
-      grid-column: 1 / 2;
-      max-width: 90%;
-    }
-
-    > div:nth-of-type(5) {
-      position: relative;
-      grid-column: 2 / 3;
-      right: 0.75rem;
-    }
-
-    > div:nth-of-type(6) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(7) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(8) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(9) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(10) {
-      grid-column: 1 / 3;
-    }
-
-    > div:nth-of-type(11) {
-      grid-column: 1 / 2;
-      font-size: var(--fs-40);
-      font-family: var(--ff-news);
-      letter-spacing: var(--ls-neg-1);
-    }
-
-    .cmp-main-btn {
-      grid-column: 1 / 3;
-      width: 100%;
-      max-width: 25rem;
-      margin-top: -1rem;
-      place-self: center;
-    }
-
-    .go-back-button {
-      grid-column: 1 / 3;
-      display: inline-block;
-      width: 100%;
-      max-width: 25rem;
-      font-size: var(--fs-13);
-      font-weight: var(--fw-semibold);
-      background-color: #edeeef;
-      margin-inline: auto;
-      margin-bottom: 1rem;
-      padding-block: 0.75rem;
-      border-radius: 8px;
-      text-align: center;
-      align-self: center;
-      text-transform: uppercase;
-
-      &:hover {
-        transform: translateY(-1px);
-        box-shadow:
-          inset 0 1px 2px #ffffffa0,
-          0 4px 10px #00000036;
+      > div:nth-of-type(2) {
+        grid-column: 1 / 2;
       }
 
-      svg {
+      > div:nth-of-type(3) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(4) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(5) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(6) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(7) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(8) {
         position: relative;
-        padding-inline: 0.25rem;
-        max-width: 1.35rem;
-        margin-right: 0.5rem;
-        top: 0.15rem;
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(9) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(10) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(11) {
+        grid-column: 1 / 2;
+      }
+
+      > div:nth-of-type(12) {
+        grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(13) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(14) {
+        grid-column: 1 / 2;
+      }
+
+      > .cmp-main-btn {
+        grid-column: 1 / 2;
+        padding-block: 1.25rem;
+      }
+
+      > a {
+        grid-column: 2 / 3;
       }
     }
   }

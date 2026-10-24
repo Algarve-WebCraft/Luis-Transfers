@@ -54,10 +54,9 @@ import intlTelInput from "intl-tel-input";
   v: "weekly",
 });
 
-let dropoffInput = document.querySelector("#dropoff");
-
 let pickupPlace = null;
 let dropoffPlace = null;
+let selectedFixedRoute = null;
 
 const PRICING = {
   PRICE_PER_KM: 0.72,
@@ -92,6 +91,21 @@ async function getDrivingDistanceKm(pickupPlace, dropoffPlace) {
   return routes[0].distanceMeters / 1000;
 }
 
+function calculateTimeSurcharge(pickupTime) {
+  const [hours, minutes] = pickupTime.split(":").map(Number);
+  const totalMinutes = hours * 60 + minutes;
+
+  if (totalMinutes >= 22 * 60) {
+    return PRICING.NIGHT_SURCHARGE_22_00;
+  } else if (totalMinutes < 4 * 60) {
+    return PRICING.NIGHT_SURCHARGE_00_04;
+  } else if (totalMinutes < 6 * 60) {
+    return PRICING.NIGHT_SURCHARGE_04_06;
+  }
+
+  return 0;
+}
+
 function calculatePrice(distanceKm, pickupPlace, pickupTime) {
   let price = distanceKm * PRICING.PRICE_PER_KM;
 
@@ -106,15 +120,22 @@ function calculatePrice(distanceKm, pickupPlace, pickupTime) {
     price += PRICING.FARO_AIRPORT_SURCHARGE;
   }
 
-  const [hours, minutes] = pickupTime.split(":").map(Number);
-  const totalMinutes = hours * 60 + minutes;
+  price += calculateTimeSurcharge(pickupTime);
 
-  if (totalMinutes >= 22 * 60) {
-    price += PRICING.NIGHT_SURCHARGE_22_00;
-  } else if (totalMinutes < 4 * 60) {
-    price += PRICING.NIGHT_SURCHARGE_00_04;
-  } else if (totalMinutes < 6 * 60) {
-    price += PRICING.NIGHT_SURCHARGE_04_06;
+  return Math.round(price);
+}
+
+function calculateSelectedFixedRoutePrice(pickupTime) {
+  if (!selectedFixedRoute) return 0;
+
+  let price = selectedFixedRoute.price;
+
+  if (pickupTime) {
+    price += calculateTimeSurcharge(pickupTime);
+  }
+
+  if (pickupPlace?.id === PRICING.FARO_AIRPORT_PLACE_ID) {
+    price += PRICING.FARO_AIRPORT_SURCHARGE;
   }
 
   return Math.round(price);
@@ -125,7 +146,14 @@ async function calculateBookingPrice() {
 
   const priceOutput = document.querySelector("#price");
 
-  if (!priceOutput) return;
+  if (selectedFixedRoute) {
+    const timeInput = document.querySelector('input[type="time"]');
+    const pickupTime = timeInput?.value;
+
+    priceOutput.textContent = ` €${calculateSelectedFixedRoutePrice(pickupTime)}`;
+
+    return;
+  }
 
   priceOutput.textContent = "Calculating...";
 
@@ -143,7 +171,113 @@ async function calculateBookingPrice() {
   }
 }
 
+function getSelectedFixedRoute(routeNameOverride) {
+  const routeName = routeNameOverride ?? new URLSearchParams(window.location.search).get("route");
+
+  if (!routeName) return;
+
+  const routeCard = [...document.querySelectorAll(".routes-card")].find((card) => card.dataset.routeName === routeName);
+
+  if (!routeCard) return;
+
+  const placeId = routeCard.dataset.placeId;
+  const fixedPrice = Number(routeCard.dataset.fixedPrice);
+
+  if (!placeId || !Number.isFinite(fixedPrice) || fixedPrice <= 0) {
+    return;
+  }
+
+  return {
+    name: routeName,
+    placeId,
+    price: fixedPrice,
+  };
+}
+
+function updateFixedRouteSelectionUI() {
+  const selectedRouteName = selectedFixedRoute?.name ?? null;
+
+  document.querySelectorAll(".popular-route-button").forEach((button) => {
+    const isSelected = button.dataset.routeName === selectedRouteName;
+
+    button.classList.toggle("is-selected", isSelected);
+    button.setAttribute("aria-pressed", String(isSelected));
+  });
+}
+
+function clearSelectedFixedRoute() {
+  if (!selectedFixedRoute) return;
+
+  selectedFixedRoute = null;
+
+  updateFixedRouteSelectionUI();
+
+  const priceOutput = document.querySelector("#price");
+
+  if (priceOutput) {
+    priceOutput.textContent = "--";
+  }
+
+  updateNotesForRoute();
+}
+
+async function applySelectedFixedRoute(routeNameOverride) {
+  const route = getSelectedFixedRoute(routeNameOverride);
+  const pickupInput = document.querySelector("#pickup");
+  const dropoffInput = document.querySelector("#dropoff");
+
+  if (!route || !pickupInput || !dropoffInput) return;
+
+  try {
+    const { Place } = await google.maps.importLibrary("places");
+
+    const routePickup = new Place({
+      id: route.placeId,
+    });
+
+    const airportDropoff = new Place({
+      id: PRICING.FARO_AIRPORT_PLACE_ID,
+    });
+
+    const fields = ["displayName", "formattedAddress", "location"];
+
+    await Promise.all([routePickup.fetchFields({ fields }), airportDropoff.fetchFields({ fields })]);
+
+    if (!routePickup.location || !airportDropoff.location) {
+      throw new Error("Could not retrieve the route locations.");
+    }
+
+    pickupPlace = routePickup;
+    dropoffPlace = airportDropoff;
+    selectedFixedRoute = route;
+    updateNotesForRoute();
+    updateFixedRouteSelectionUI();
+
+    pickupInput.value = route.name;
+    dropoffInput.value = airportDropoff.displayName || "Faro International Airport (FAO), Faro, Portugal";
+
+    pickupInput.setCustomValidity("");
+    dropoffInput.setCustomValidity("");
+
+    const priceOutput = document.querySelector("#price");
+    const timeInput = document.querySelector('input[type="time"]');
+    const pickupTime = timeInput?.value;
+
+    if (priceOutput) {
+      priceOutput.textContent = ` €${calculateSelectedFixedRoutePrice(pickupTime)}`;
+    }
+  } catch (error) {
+    selectedFixedRoute = null;
+    pickupPlace = null;
+    dropoffPlace = null;
+
+    updateFixedRouteSelectionUI();
+  }
+}
+
 function validateLocations() {
+  const dropoffInput = document.querySelector("#dropoff");
+
   if (!pickupPlace?.id || !dropoffPlace?.id) {
     return;
   }
@@ -153,6 +287,78 @@ function validateLocations() {
   } else {
     dropoffInput.setCustomValidity("");
   }
+}
+
+function setupLocationSwap() {
+  const swapButton = document.querySelector("#swap-locations");
+
+  if (!swapButton || swapButton.dataset.initialized === "true") return;
+
+  swapButton.dataset.initialized = "true";
+
+  swapButton.addEventListener("click", () => {
+    const pickupInput = document.querySelector("#pickup");
+    const dropoffInput = document.querySelector("#dropoff");
+    const pickupSuggestions = document.querySelector("#pickup-suggestions");
+    const dropoffSuggestions = document.querySelector("#dropoff-suggestions");
+
+    if (!pickupInput || !dropoffInput) return;
+
+    [pickupPlace, dropoffPlace] = [dropoffPlace, pickupPlace];
+
+    [pickupInput.value, dropoffInput.value] = [dropoffInput.value, pickupInput.value];
+
+    pickupInput.setCustomValidity(pickupPlace ? "" : "Please select a location from the suggestions.");
+
+    dropoffInput.setCustomValidity(dropoffPlace ? "" : "Please select a location from the suggestions.");
+
+    for (const list of [pickupSuggestions, dropoffSuggestions]) {
+      if (list) {
+        list.replaceChildren();
+        list.classList.remove("is-open");
+      }
+    }
+
+    validateLocations();
+    updateNotesForRoute();
+
+    void calculateBookingPrice();
+  });
+}
+
+function updateNotesForRoute() {
+  const notesInput = document.querySelector("#notes");
+  const needsPickupAddress = Boolean(selectedFixedRoute);
+
+  if (!notesInput) return;
+
+  if (needsPickupAddress) {
+    notesInput.required = true;
+    notesInput.placeholder =
+      "Por favor, forneça aqui o seu endereço completo de retirada, incluindo o nome e o número do imóvel, bem como o nome da rua.";
+  } else {
+    notesInput.required = false;
+    notesInput.placeholder =
+      "Necessita de cadeiras para criança (ISOFIX), paragem intermédia ou transporte de animais de estimação em caixa?";
+  }
+}
+
+function setupPopularRouteButtons() {
+  const routeButtons = document.querySelectorAll(".popular-route-button");
+
+  routeButtons.forEach((button) => {
+    if (button.dataset.initialized === "true") return;
+
+    button.dataset.initialized = "true";
+
+    button.addEventListener("click", async () => {
+      const routeName = button.dataset.routeName;
+
+      if (!routeName) return;
+
+      await applySelectedFixedRoute(routeName);
+    });
+  });
 }
 
 // Google maps auto-complete suggestion logic for pickup and drop off
@@ -174,6 +380,7 @@ async function initMapsAuto() {
     input.setCustomValidity("Please select a location from the suggestions.");
 
     input.addEventListener("input", () => {
+      clearSelectedFixedRoute();
       setPlace(null);
       input.setCustomValidity("Please select a location from the suggestions.");
 
@@ -233,7 +440,7 @@ async function initMapsAuto() {
         } catch (error) {
           console.error("Autocomplete error:", error);
         }
-      }, 350);
+      }, 200);
     });
   }
 
@@ -244,6 +451,14 @@ async function initMapsAuto() {
   setupAutocomplete(dropoffInput, dropoffSuggestions, (place) => {
     dropoffPlace = place;
   });
+
+  selectedFixedRoute = null;
+  updateFixedRouteSelectionUI();
+
+  await applySelectedFixedRoute();
+
+  setupPopularRouteButtons();
+  setupLocationSwap();
 
   const timeInput = document.querySelector('input[type="time"]');
 
@@ -298,8 +513,6 @@ document.addEventListener("submit", async (event) => {
 
   event.preventDefault();
 
-  console.log("Booking form handler triggered");
-
   const submitButton = form.querySelector('button[type="submit"]');
 
   if (!submitButton || submitButton.disabled) return;
@@ -322,9 +535,11 @@ document.addEventListener("submit", async (event) => {
     const formData = new FormData(form);
     const locations = window.getBookingLocations();
 
-    const distanceKm = await getDrivingDistanceKm(locations.pickup, locations.dropoff);
+    const pickupTime = formData.get("time");
 
-    const price = calculatePrice(distanceKm, locations.pickup, formData.get("time"));
+    const price = selectedFixedRoute
+      ? calculateSelectedFixedRoutePrice(pickupTime)
+      : calculatePrice(await getDrivingDistanceKm(locations.pickup, locations.dropoff), locations.pickup, pickupTime);
 
     const data = {
       name: formData.get("name"),

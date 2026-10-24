@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const pageTitle = "Rental | Luis Ferreira Transfers and Services";
+const pageDescription =
+  "Discover holiday accommodation in the Algarve, offered directly by the owner for a more personal and straightforward booking experience.";
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
+  <section class="cmp-hero-section" aria-labelledby="hero-section">
+    <div class="wrapper">
+      <div class="hero-container">
+        <div class="hero__text-container">
+          <div>
+            <span class="cmp-topper-heading">Em andamento</span>
+            <h1 id="hero-section" class="cmp-hero-heading">
+              Em Breve
+            </h1>
+          </div>
+
+          <div>
+            <p class="cmp-main-text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero__text-container {
+    text-align: center;
+    border-radius: 12px;
+    background-color: rgb(45, 45, 45);
+    h1 {
+      color: white;
+    }
+  }
+</style>

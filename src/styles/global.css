@@ -117,7 +117,7 @@
     font-family: "Newsreader";
     font-style: normal;
     font-weight: 400;
-    src: url("../assets/fonts/newsreader-v26-latin-regular.woff2") format("woff2");
+    src: url("/assets/fonts/newsreader-v26-latin-regular.woff2") format("woff2");
   }
 
   @font-face {
@@ -125,7 +125,7 @@
     font-family: "Plus Jakarta Sans";
     font-style: normal;
     font-weight: 400;
-    src: url("../assets/fonts/plus-jakarta-sans-v12-latin-regular.woff2") format("woff2");
+    src: url("/assets/fonts/plus-jakarta-sans-v12-latin-regular.woff2") format("woff2");
   }
 
   @font-face {
@@ -133,7 +133,7 @@
     font-family: "Plus Jakarta Sans";
     font-style: normal;
     font-weight: 500;
-    src: url("../assets/fonts/plus-jakarta-sans-v12-latin-500.woff2") format("woff2");
+    src: url("/assets/fonts/plus-jakarta-sans-v12-latin-500.woff2") format("woff2");
   }
 
   @font-face {
@@ -141,7 +141,7 @@
     font-family: "Plus Jakarta Sans";
     font-style: normal;
     font-weight: 600;
-    src: url("../assets/fonts/plus-jakarta-sans-v12-latin-600.woff2") format("woff2");
+    src: url("/assets/fonts/plus-jakarta-sans-v12-latin-600.woff2") format("woff2");
   }
 
   :root {
@@ -246,6 +246,7 @@
     --clr-beige-10: #fecf9d;
     --box-shadow-10: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --box-shadow-20: 0 20px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    --box-shadow-25: 0 20px 25px -5px rgba(0, 0, 0, 0.03), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
     --box-shadow-30: 0 20px 25px -5px rgba(0, 0, 0, 0.02), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
 
     :focus-visible {
@@ -395,8 +396,8 @@
   html {
     scrollbar-width: thin;
 
-    &.is-loading body {
-      opacity: 0 !important;
+    &.home-intro-pending body.home {
+      opacity: 0;
     }
 
     scroll-behavior: auto !important;
@@ -485,14 +486,8 @@
     }
   }
 
-  .wrapper--mobile-40-standard {
-    @media (width < 47.5rem) {
-      max-width: calc(40rem + 2rem);
-    }
-  }
-
   .wrapper--mobile-40 {
-    @media (width < 53.75rem) {
+    @media (width < 47.5rem) {
       max-width: calc(40rem + 2rem);
     }
   }

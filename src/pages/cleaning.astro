@@ -1,0 +1,1005 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import cleaningImageOne from "@assets/images/cleaning-1.webp";
+import cleaningImageTwo from "@assets/images/cleaning-2.jpeg";
+
+const pageTitle = "Cleaning | Luis Ferreira Transfers and Services";
+const pageDescription =
+  "Professional apartment and villa cleaning across the Algarve, with direct service for holiday rentals, private homes and property owners.";
+---
+
+<BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
+  <section class="cmp-hero-section" aria-labelledby="hero-section">
+    <div class="wrapper wrapper--mobile-m">
+      <div class="hero-text-container">
+        <div class="hero-text__flex">
+          <div>
+            <div>
+              <span class="cmp-topper-heading">CARVOEIRO • LAGOA • ALGARVE</span>
+              <h1 id="hero-section" class="cmp-hero-heading">
+                Serviços de Limpeza de Vilas e Apartamentos
+              </h1>
+            </div>
+
+            <div>
+              <p class="cmp-main-text">
+                Cuidado rigoroso, higienização de qualidade e flexibilidade para proprietários particulares e
+                alojamentos de férias no concelho de Lagoa e Carvoeiro.
+              </p>
+            </div>
+          </div>
+
+          <div class="hero-text-aside">
+            <span class="cmp-topper-heading">
+              <svg viewBox="0 0 19 18">
+                <path
+                  d="M6.33333 17.5L4.75 14.8333L1.75 14.1667L2.04167 11.0833L0 8.75L2.04167 6.41667L1.75 3.33333L4.75 2.66667L6.33333 0L9.16667 1.20833L12 0L13.5833 2.66667L16.5833 3.33333L16.2917 6.41667L18.3333 8.75L16.2917 11.0833L16.5833 14.1667L13.5833 14.8333L12 17.5L9.16667 16.2917L6.33333 17.5ZM7.04167 15.375L9.16667 14.4583L11.3333 15.375L12.5 13.375L14.7917 12.8333L14.5833 10.5L16.125 8.75L14.5833 6.95833L14.7917 4.625L12.5 4.125L11.2917 2.125L9.16667 3.04167L7 2.125L5.83333 4.125L3.54167 4.625L3.75 6.95833L2.20833 8.75L3.75 10.5L3.54167 12.875L5.83333 13.375L7.04167 15.375ZM8.29167 11.7083L13 7L11.8333 5.79167L8.29167 9.33333L6.5 7.58333L5.33333 8.75L8.29167 11.7083Z"
+                  fill="#7A582F"
+                />
+              </svg>
+              ALOJAMENTO LOCAL • AL
+            </span>
+
+            <p class="cmp-body-mini-text">
+              Protocolos preparados para exigências de plataformas como Airbnb, VRBO e Booking.com.
+            </p>
+          </div>
+        </div>
+
+        <div class="hero__image-container">
+          <div class="image-card">
+            <Image
+              src={cleaningImageOne}
+              alt="Example of a cleaned summer Villa"
+              width={[1200]}
+              format="webp"
+              layout="constrained"
+            />
+
+            <div class="image-card__content">
+              <span class="cmp-topper-heading">Limpeza de Villas</span>
+              <p>Deixe o seu apartamento impecável, fresco e pronto a desfrutar.</p>
+            </div>
+          </div>
+
+          <div class="image-card">
+            <Image
+              src={cleaningImageTwo}
+              alt="Example of a cleaned summer apartment"
+              width={[1200]}
+              format="webp"
+              layout="constrained"
+            />
+
+            <div class="image-card__content">
+              <span class="cmp-topper-heading">Limpeza de Apartamentos</span>
+              <p>Cuidamos de cada espaço com atenção ao detalhe.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp-main-section" aria-labelledby="cleaning-table-section">
+    <div class="wrapper wrapper--tablet-48" data-animate="fade-in">
+      <div class="cleaning-table__text-container">
+        <span class="cmp-topper-heading">TABELA DE VALORES OFICIAIS</span>
+        <h2 id="cleaning-table-section" class="cmp-main-heading">
+          Tarifas Transparentes & Sem Surpresas
+        </h2>
+        <p class="cmp-body-text">
+          Preçário direto para intervenções pontuais ou rotações periódicas entre check- outs. Sem taxas ocultas nem
+          burocracias contratuais.
+        </p>
+      </div>
+
+      <div class="cleaning-table__content-container">
+        <div class="cleaning-card">
+          <div class="card-headings-svg">
+            <div class="card-heading">
+              <span class="cmp-topper-heading">ALOJAMENTO FAMILIAR</span>
+              <h3>Moradias (Villas)</h3>
+              <p class="cmp-body-text">
+                Dedicado a vivendas, moradias de luxo e quintas com amplas áreas interiores e exteriores, incluindo
+                terraços e jardins, com atenção especial ao detalhe e às necessidades específicas de cada propriedade.
+              </p>
+            </div>
+
+            <svg viewBox="0 0 21 21">
+              <path
+                d="M0 21V5.83333L15.1667 0V10.5H16.3333C16.3333 9.85833 16.5618 9.30903 17.0187 8.85208C17.4757 8.39514 18.025 8.16667 18.6667 8.16667C19.3083 8.16667 19.8576 8.39514 20.3146 8.85208C20.7715 9.30903 21 9.85833 21 10.5V21H0ZM2.33333 18.6667H4.66667H7V10.5H12.8333V8.16667V3.38333L2.33333 7.4375V18.6667ZM9.33333 18.6667H12.8333V15.1667H15.1667V18.6667H18.6667V12.8333H9.33333V18.6667Z"
+                fill="black"
+              />
+            </svg>
+          </div>
+
+          <div class="card-flex">
+            <div class="card-text">
+              <span class="cmp-small-heading">Limpeza Intermédia</span>
+              <p>
+                Ideal para manutenção ligeira durante estadias prolongadas, refrescamento semanal ou preparação pré-
+                visita.
+              </p>
+              <ul>
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Aspiração integral & desinfeção de pavimentos frios</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Higienização de bancadas, eletrodomésticos essenciais e loiças sanitárias</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Recolha de lixos e arejamento estruturado da casa</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-price">
+              <span>€99</span>
+              <span>~2 horas</span>
+            </div>
+          </div>
+
+          <div class="card-flex">
+            <div class="card-text">
+              <span class="cmp-small-heading">Limpeza Completa (Full Service)</span>
+              <p>
+                Higienização minuciosa de todas as divisões: sanitização profunda de quartos, cozinhas, casas de banho e
+                áreas sociais comuns.
+              </p>
+              <ul>
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Descalcificação completa de cabines de duche e torneiras</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Limpeza minuciosa de vidros e caixilharia interior/exterior</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Limpeza profunda de forno, exaustor, frigorífico e mobiliário de jardim</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Reposição criteriosa de consumíveis e conferência de apresentação</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-price">
+              <span>€199</span>
+              <span>~4 horas</span>
+            </div>
+          </div>
+
+          <a
+            href="https://wa.me/351966831360"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Contact us on WhatsApp"
+          >
+            <svg viewBox="0 0 11 11">
+              <path d="M8.11667 6H0V4.66667H8.11667L4.38333 0.933333L5.33333 0L10.6667 5.33333L5.33333 10.6667L4.38333 9.73333L8.11667 6Z" />
+            </svg>
+            Reservar limpeza de vivenda
+          </a>
+        </div>
+
+        <div class="cleaning-card">
+          <div class="card-headings-svg">
+            <div class="card-heading">
+              <span class="cmp-topper-heading">ALOJAMENTO URBANO & PRAIAS</span>
+              <h3>Apartamentos</h3>
+              <p class="cmp-body-text">
+                Desenvolvido à medida de estúdios, T1, T2 e coberturas urbanas, ideal para limpezas regulares ou entre
+                estadias, com rotações rápidas de hóspedes, atenção ao detalhe e cumprimento rigoroso dos prazos.
+              </p>
+            </div>
+
+            <svg viewBox="0 0 21 21">
+              <path
+                d="M0 21V4.66667H4.66667V0H16.3333V9.33333H21V21H11.6667V16.3333H9.33333V21H0ZM2.33333 18.6667H4.66667V16.3333H2.33333V18.6667ZM2.33333 14H4.66667V11.6667H2.33333V14ZM2.33333 9.33333H4.66667V7H2.33333V9.33333ZM7 14H9.33333V11.6667H7V14ZM7 9.33333H9.33333V7H7V9.33333ZM7 4.66667H9.33333V2.33333H7V4.66667ZM11.6667 14H14V11.6667H11.6667V14ZM11.6667 9.33333H14V7H11.6667V9.33333ZM11.6667 4.66667H14V2.33333H11.6667V4.66667ZM16.3333 18.6667H18.6667V16.3333H16.3333V18.6667ZM16.3333 14H18.6667V11.6667H16.3333V14Z"
+                fill="black"
+              />
+            </svg>
+          </div>
+
+          <div class="card-flex">
+            <div class="card-text">
+              <span class="cmp-small-heading">Limpeza Intermédia</span>
+              <p>
+                Manutenção periódica rápida e eficaz de pavimentos, superfícies e sanitários entre reservas de curta
+                permanência.
+              </p>
+              <ul>
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Higienização express de cozinha e casa de banho</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Remoção de poeiras de superfícies e pavimentos aspirados</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Troca rápida de sacos e reposição estética</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-price">
+              <span>€59</span>
+              <span>~1h 15 min</span>
+            </div>
+          </div>
+
+          <div class="card-flex">
+            <div class="card-text">
+              <span class="cmp-small-heading">Limpeza Completa (Full Service)</span>
+              <p>
+                Limpeza total pormenorizada de todo o espaço. Inclui tratamento de lavandaria (roupas de cama e toalhas
+                prontas a usar).
+              </p>
+              <ul>
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Desinfeção aprofundada de todas as divisões e terraço/varanda</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Gestão completa de lavandaria (roupa de cama e conjunto de banho)</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Engomadoria profissional e montagem impecável de camas</span>
+                </li>
+
+                <li>
+                  <svg viewBox="0 0 11 8">
+                    <path
+                      d="M3.5625 7.51562L0 3.95312L0.890625 3.0625L3.5625 5.73438L9.29688 0L10.1875 0.890625L3.5625 7.51562Z"
+                      fill="#7A582F"
+                    />
+                  </svg>
+
+                  <span>Verificação de electrodomésticos para os próximos hóspedes</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-price">
+              <span>€119</span>
+              <span>~2h 30 min</span>
+            </div>
+          </div>
+
+          <a
+            href="https://wa.me/351966831360"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Contact us on WhatsApp"
+          >
+            <svg viewBox="0 0 11 11">
+              <path d="M8.11667 6H0V4.66667H8.11667L4.38333 0.933333L5.33333 0L10.6667 5.33333L5.33333 10.6667L4.38333 9.73333L8.11667 6Z" />
+            </svg>
+            Reservar limpeza de apartamento
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cmp-main-section" aria-labelledby="guarantee-section">
+    <div class="wrapper wrapper--mobile-32 wrapper--tablet-48" data-animate="fade-in">
+      <div class="guarantee-text-container">
+        <div>
+          <div>
+            <span class="cmp-topper-heading">GARANTIA & CRITÉRIO</span>
+            <h2 id="guarantee-section" class="cmp-main-heading">
+              O Nosso Compromisso de Limpeza
+            </h2>
+          </div>
+
+          <div>
+            <p class="cmp-body-text">
+              Focamo-nos exclusivamente no rigor da higienização para que cada hóspede entre num ambiente
+              irrepreensível, como se estreasse a casa.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="guarantee-card-container">
+        <div class="gaurantee-card">
+          <svg viewBox="0 0 21 14">
+            <path
+              d="M0 13.75V0H1.83333V9.16667H9.16667V1.83333H16.5C17.5083 1.83333 18.3715 2.19236 19.0896 2.91042C19.8076 3.62847 20.1667 4.49167 20.1667 5.5V13.75H18.3333V11H1.83333V13.75H0ZM5.5 8.25C4.73611 8.25 4.08681 7.98264 3.55208 7.44792C3.01736 6.91319 2.75 6.26389 2.75 5.5C2.75 4.73611 3.01736 4.08681 3.55208 3.55208C4.08681 3.01736 4.73611 2.75 5.5 2.75C6.26389 2.75 6.91319 3.01736 7.44792 3.55208C7.98264 4.08681 8.25 4.73611 8.25 5.5C8.25 6.26389 7.98264 6.91319 7.44792 7.44792C6.91319 7.98264 6.26389 8.25 5.5 8.25ZM11 9.16667H18.3333V5.5C18.3333 4.99583 18.1538 4.56424 17.7948 4.20521C17.4358 3.84618 17.0042 3.66667 16.5 3.66667H11V9.16667ZM5.5 6.41667C5.75972 6.41667 5.97743 6.32882 6.15312 6.15312C6.32882 5.97743 6.41667 5.75972 6.41667 5.5C6.41667 5.24028 6.32882 5.02257 6.15312 4.84688C5.97743 4.67118 5.75972 4.58333 5.5 4.58333C5.24028 4.58333 5.02257 4.67118 4.84688 4.84688C4.67118 5.02257 4.58333 5.24028 4.58333 5.5C4.58333 5.75972 4.67118 5.97743 4.84688 6.15312C5.02257 6.32882 5.24028 6.41667 5.5 6.41667ZM11 3.66667V9.16667V3.66667Z"
+              fill="black"
+            />
+          </svg>
+
+          <h3 class="cmp-small-heading">Padrão Hoteleiro</h3>
+          <p class="cmp-body-mini-text">
+            Metodologia ajustada aos mais altos critérios de avaliação do Airbnb Superhost e Booking.com.
+          </p>
+        </div>
+
+        <div class="gaurantee-card">
+          <svg viewBox="0 0 16 16">
+            <path
+              d="M2.2 13.3763C1.5125 12.6888 0.973958 11.8943 0.584375 10.9929C0.194792 10.0916 0 9.15961 0 8.19711C0 7.23461 0.183333 6.28357 0.55 5.34399C0.916667 4.40441 1.5125 3.52212 2.3375 2.69712C2.87222 2.16239 3.53299 1.70406 4.31979 1.32212C5.1066 0.940171 6.03854 0.638435 7.11562 0.416907C8.19271 0.195379 9.42257 0.0616987 10.8052 0.0158654C12.1878 -0.0299679 13.7347 0.0235043 15.4458 0.176282C15.5681 1.79573 15.6062 3.28531 15.5604 4.64503C15.5146 6.00475 15.3885 7.2308 15.1823 8.32316C14.976 9.41552 14.6858 10.3704 14.3115 11.1877C13.9372 12.0051 13.475 12.6888 12.925 13.2388C12.1153 14.0485 11.2559 14.6405 10.3469 15.0148C9.43785 15.3891 8.50972 15.5763 7.5625 15.5763C6.56944 15.5763 5.59931 15.3815 4.65208 14.9919C3.70486 14.6023 2.8875 14.0638 2.2 13.3763ZM4.76667 13.0096C5.20972 13.2693 5.66424 13.4565 6.13021 13.5711C6.59618 13.6857 7.07361 13.7429 7.5625 13.7429C8.26528 13.7429 8.96042 13.6016 9.64792 13.319C10.3354 13.0364 10.9924 12.5818 11.6187 11.9554C11.8937 11.6804 12.1726 11.2947 12.4552 10.7982C12.7378 10.3016 12.9823 9.65232 13.1885 8.85024C13.3948 8.04816 13.5514 7.07802 13.6583 5.93982C13.7653 4.80163 13.7806 3.44573 13.7042 1.87212C12.9556 1.84156 12.1115 1.8301 11.1719 1.83774C10.2323 1.84538 9.29653 1.91795 8.36458 2.05545C7.43264 2.19295 6.54653 2.41448 5.70625 2.72003C4.86597 3.02559 4.17847 3.44573 3.64375 3.98045C2.95625 4.66795 2.48264 5.34781 2.22292 6.02003C1.96319 6.69225 1.83333 7.34156 1.83333 7.96795C1.83333 8.86934 2.00521 9.65996 2.34896 10.3398C2.69271 11.0197 2.99444 11.4971 3.25417 11.7721C3.89583 10.5499 4.74375 9.37732 5.79792 8.25441C6.85208 7.13149 8.08194 6.211 9.4875 5.49295C8.3875 6.45545 7.42882 7.54399 6.61146 8.75857C5.7941 9.97316 5.17917 11.3902 4.76667 13.0096Z"
+              fill="black"
+            />
+          </svg>
+
+          <h3 class="cmp-small-heading">Produtos Profissionais</h3>
+          <p class="cmp-body-mini-text">
+            Utilização de produtos de grau profissional e ecológicos, que desinfetam eficazmente sem danificar materiais
+            nobres.
+          </p>
+        </div>
+
+        <div class="gaurantee-card">
+          <svg viewBox="0 0 19 19">
+            <path
+              d="M12.1917 13.475L13.475 12.1917L10.0833 8.8V4.58333H8.25V9.53333L12.1917 13.475ZM9.16667 18.3333C7.89861 18.3333 6.70694 18.0927 5.59167 17.6115C4.47639 17.1302 3.50625 16.4771 2.68125 15.6521C1.85625 14.8271 1.20312 13.8569 0.721875 12.7417C0.240625 11.6264 0 10.4347 0 9.16667C0 7.89861 0.240625 6.70694 0.721875 5.59167C1.20312 4.47639 1.85625 3.50625 2.68125 2.68125C3.50625 1.85625 4.47639 1.20312 5.59167 0.721875C6.70694 0.240625 7.89861 0 9.16667 0C10.4347 0 11.6264 0.240625 12.7417 0.721875C13.8569 1.20312 14.8271 1.85625 15.6521 2.68125C16.4771 3.50625 17.1302 4.47639 17.6115 5.59167C18.0927 6.70694 18.3333 7.89861 18.3333 9.16667C18.3333 10.4347 18.0927 11.6264 17.6115 12.7417C17.1302 13.8569 16.4771 14.8271 15.6521 15.6521C14.8271 16.4771 13.8569 17.1302 12.7417 17.6115C11.6264 18.0927 10.4347 18.3333 9.16667 18.3333ZM9.16667 16.5C11.1986 16.5 12.9288 15.7858 14.3573 14.3573C15.7858 12.9288 16.5 11.1986 16.5 9.16667C16.5 7.13472 15.7858 5.40451 14.3573 3.97604C12.9288 2.54757 11.1986 1.83333 9.16667 1.83333C7.13472 1.83333 5.40451 2.54757 3.97604 3.97604C2.54757 5.40451 1.83333 7.13472 1.83333 9.16667C1.83333 11.1986 2.54757 12.9288 3.97604 14.3573C5.40451 15.7858 7.13472 16.5 9.16667 16.5Z"
+              fill="black"
+            />
+          </svg>
+
+          <h3 class="cmp-small-heading">Pontualidade & Flexibilidade</h3>
+          <p class="cmp-body-mini-text">
+            Janelas de rotação entre as 10:00 e as 15:30 rigorosamente cumpridas, assegurando entradas de novos clientes
+            sem atrasos.
+          </p>
+        </div>
+
+        <div class="gaurantee-card">
+          <svg viewBox="0 0 19 17">
+            <path
+              d="M9.16667 13.2917C10.3125 13.2917 11.2865 12.8906 12.0885 12.0885C12.8906 11.2865 13.2917 10.3125 13.2917 9.16667C13.2917 8.02083 12.8906 7.04688 12.0885 6.24479C11.2865 5.44271 10.3125 5.04167 9.16667 5.04167C8.02083 5.04167 7.04688 5.44271 6.24479 6.24479C5.44271 7.04688 5.04167 8.02083 5.04167 9.16667C5.04167 10.3125 5.44271 11.2865 6.24479 12.0885C7.04688 12.8906 8.02083 13.2917 9.16667 13.2917ZM9.16667 11.4583C8.525 11.4583 7.98264 11.2368 7.53958 10.7937C7.09653 10.3507 6.875 9.80833 6.875 9.16667C6.875 8.525 7.09653 7.98264 7.53958 7.53958C7.98264 7.09653 8.525 6.875 9.16667 6.875C9.80833 6.875 10.3507 7.09653 10.7937 7.53958C11.2368 7.98264 11.4583 8.525 11.4583 9.16667C11.4583 9.80833 11.2368 10.3507 10.7937 10.7937C10.3507 11.2368 9.80833 11.4583 9.16667 11.4583ZM1.83333 16.5C1.32917 16.5 0.897569 16.3205 0.538542 15.9615C0.179514 15.6024 0 15.1708 0 14.6667V3.66667C0 3.1625 0.179514 2.7309 0.538542 2.37188C0.897569 2.01285 1.32917 1.83333 1.83333 1.83333H4.72083L6.41667 0H11.9167L13.6125 1.83333H16.5C17.0042 1.83333 17.4358 2.01285 17.7948 2.37188C18.1538 2.7309 18.3333 3.1625 18.3333 3.66667V14.6667C18.3333 15.1708 18.1538 15.6024 17.7948 15.9615C17.4358 16.3205 17.0042 16.5 16.5 16.5H1.83333ZM1.83333 14.6667H16.5V3.66667H12.7875L11.1146 1.83333H7.21875L5.54583 3.66667H1.83333V14.6667Z"
+              fill="black"
+            />
+          </svg>
+
+          <h3 class="cmp-small-heading">Registo Fotográfico</h3>
+          <p class="cmp-body-mini-text">
+            Comunicação transparente com envio de fotografias do imóvel concluído após cada serviço, a pedido do
+            proprietário.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="cmp-main-section" aria-labelledby="aside-section">
+    <div class="wrapper wrapper--mobile-36">
+      <div class="aside-container">
+        <div class="aside-flex-container">
+          <div class="aside-text-container">
+            <span class="cmp-topper-heading">•&nbsp; SERVIÇO DIRETO &nbsp;•&nbsp; Todo o Algarve</span>
+
+            <h2 id="aside-section" class="cmp-hero-heading">
+              Agendamento Direto. Sem Formulários Morosos.
+            </h2>
+
+            <p class="cmp-main-text">
+              Focamo-nos exclusivamente no rigor da higienização para que cada hóspede entre num ambiente
+              irrepreensível, como se estreasse a casa.
+            </p>
+          </div>
+
+          <div class="aside-button-container">
+            <a
+              class="cmp-main-btn"
+              href="https://wa.me/351966831360"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Contact us on WhatsApp"
+            >
+              <svg viewBox="0 0 17 17">
+                <path
+                  d="M3.33333 10H10V8.33333H3.33333V10ZM3.33333 7.5H13.3333V5.83333H3.33333V7.5ZM3.33333 5H13.3333V3.33333H3.33333V5ZM0 16.6667V1.66667C0 1.20833 0.163194 0.815972 0.489583 0.489583C0.815972 0.163194 1.20833 0 1.66667 0H15C15.4583 0 15.8507 0.163194 16.1771 0.489583C16.5035 0.815972 16.6667 1.20833 16.6667 1.66667V11.6667C16.6667 12.125 16.5035 12.5174 16.1771 12.8438C15.8507 13.1701 15.4583 13.3333 15 13.3333H3.33333L0 16.6667ZM2.625 11.6667H15V1.66667H1.66667V12.6042L2.625 11.6667ZM1.66667 11.6667V1.66667V11.6667Z"
+                  fill="white"
+                />
+              </svg>
+              <span>FALAR NO WHATSAPP</span>
+            </a>
+
+            <a
+              class="cmp-main-btn"
+              href="tel:+351966831360"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Call us today"
+            >
+              <svg viewBox="0 0 14 14">
+                <path
+                  d="M12.7125 13.5C11.15 13.5 9.60625 13.1594 8.08125 12.4781C6.55625 11.7969 5.16875 10.8313 3.91875 9.58125C2.66875 8.33125 1.70312 6.94375 1.02188 5.41875C0.340625 3.89375 0 2.35 0 0.7875C0 0.5625 0.075 0.375 0.225 0.225C0.375 0.075 0.5625 0 0.7875 0H3.825C4 0 4.15625 0.059375 4.29375 0.178125C4.43125 0.296875 4.5125 0.4375 4.5375 0.6L5.025 3.225C5.05 3.425 5.04375 3.59375 5.00625 3.73125C4.96875 3.86875 4.9 3.9875 4.8 4.0875L2.98125 5.925C3.23125 6.3875 3.52813 6.83437 3.87188 7.26562C4.21562 7.69688 4.59375 8.1125 5.00625 8.5125C5.39375 8.9 5.8 9.25937 6.225 9.59062C6.65 9.92188 7.1 10.225 7.575 10.5L9.3375 8.7375C9.45 8.625 9.59688 8.54062 9.77812 8.48438C9.95937 8.42813 10.1375 8.4125 10.3125 8.4375L12.9 8.9625C13.075 9.0125 13.2188 9.10312 13.3313 9.23438C13.4438 9.36563 13.5 9.5125 13.5 9.675V12.7125C13.5 12.9375 13.425 13.125 13.275 13.275C13.125 13.425 12.9375 13.5 12.7125 13.5ZM2.26875 4.5L3.50625 3.2625L3.1875 1.5H1.51875C1.58125 2.0125 1.66875 2.51875 1.78125 3.01875C1.89375 3.51875 2.05625 4.0125 2.26875 4.5ZM8.98125 11.2125C9.46875 11.425 9.96562 11.5938 10.4719 11.7188C10.9781 11.8438 11.4875 11.925 12 11.9625V10.3125L10.2375 9.95625L8.98125 11.2125Z"
+                  fill="white"
+                />
+              </svg>
+              <span>LIGAR DIRETAMENTE</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="aside-list-container">
+          <ul>
+            <li>
+              <svg viewBox="0 0 14 14">
+                <path d="M5.73333 9.73333L10.4333 5.03333L9.5 4.1L5.73333 7.86667L3.83333 5.96667L2.9 6.9L5.73333 9.73333ZM6.66667 13.3333C5.74444 13.3333 4.87778 13.1583 4.06667 12.8083C3.25556 12.4583 2.55 11.9833 1.95 11.3833C1.35 10.7833 0.875 10.0778 0.525 9.26667C0.175 8.45555 0 7.58889 0 6.66667C0 5.74444 0.175 4.87778 0.525 4.06667C0.875 3.25556 1.35 2.55 1.95 1.95C2.55 1.35 3.25556 0.875 4.06667 0.525C4.87778 0.175 5.74444 0 6.66667 0C7.58889 0 8.45555 0.175 9.26667 0.525C10.0778 0.875 10.7833 1.35 11.3833 1.95C11.9833 2.55 12.4583 3.25556 12.8083 4.06667C13.1583 4.87778 13.3333 5.74444 13.3333 6.66667C13.3333 7.58889 13.1583 8.45555 12.8083 9.26667C12.4583 10.0778 11.9833 10.7833 11.3833 11.3833C10.7833 11.9833 10.0778 12.4583 9.26667 12.8083C8.45555 13.1583 7.58889 13.3333 6.66667 13.3333ZM6.66667 12C8.15556 12 9.41667 11.4833 10.45 10.45C11.4833 9.41667 12 8.15556 12 6.66667C12 5.17778 11.4833 3.91667 10.45 2.88333C9.41667 1.85 8.15556 1.33333 6.66667 1.33333C5.17778 1.33333 3.91667 1.85 2.88333 2.88333C1.85 3.91667 1.33333 5.17778 1.33333 6.66667C1.33333 8.15556 1.85 9.41667 2.88333 10.45C3.91667 11.4833 5.17778 12 6.66667 12Z" />
+              </svg>
+
+              <span>Atendimento em Português e Inglês</span>
+            </li>
+
+            <li>
+              <svg viewBox="0 0 14 14">
+                <path d="M5.73333 9.73333L10.4333 5.03333L9.5 4.1L5.73333 7.86667L3.83333 5.96667L2.9 6.9L5.73333 9.73333ZM6.66667 13.3333C5.74444 13.3333 4.87778 13.1583 4.06667 12.8083C3.25556 12.4583 2.55 11.9833 1.95 11.3833C1.35 10.7833 0.875 10.0778 0.525 9.26667C0.175 8.45555 0 7.58889 0 6.66667C0 5.74444 0.175 4.87778 0.525 4.06667C0.875 3.25556 1.35 2.55 1.95 1.95C2.55 1.35 3.25556 0.875 4.06667 0.525C4.87778 0.175 5.74444 0 6.66667 0C7.58889 0 8.45555 0.175 9.26667 0.525C10.0778 0.875 10.7833 1.35 11.3833 1.95C11.9833 2.55 12.4583 3.25556 12.8083 4.06667C13.1583 4.87778 13.3333 5.74444 13.3333 6.66667C13.3333 7.58889 13.1583 8.45555 12.8083 9.26667C12.4583 10.0778 11.9833 10.7833 11.3833 11.3833C10.7833 11.9833 10.0778 12.4583 9.26667 12.8083C8.45555 13.1583 7.58889 13.3333 6.66667 13.3333ZM6.66667 12C8.15556 12 9.41667 11.4833 10.45 10.45C11.4833 9.41667 12 8.15556 12 6.66667C12 5.17778 11.4833 3.91667 10.45 2.88333C9.41667 1.85 8.15556 1.33333 6.66667 1.33333C5.17778 1.33333 3.91667 1.85 2.88333 2.88333C1.85 3.91667 1.33333 5.17778 1.33333 6.66667C1.33333 8.15556 1.85 9.41667 2.88333 10.45C3.91667 11.4833 5.17778 12 6.66667 12Z" />
+              </svg>
+
+              <span>Sem intermediários ou centrais impessoais</span>
+            </li>
+
+            <li>
+              <svg viewBox="0 0 14 14">
+                <path d="M5.73333 9.73333L10.4333 5.03333L9.5 4.1L5.73333 7.86667L3.83333 5.96667L2.9 6.9L5.73333 9.73333ZM6.66667 13.3333C5.74444 13.3333 4.87778 13.1583 4.06667 12.8083C3.25556 12.4583 2.55 11.9833 1.95 11.3833C1.35 10.7833 0.875 10.0778 0.525 9.26667C0.175 8.45555 0 7.58889 0 6.66667C0 5.74444 0.175 4.87778 0.525 4.06667C0.875 3.25556 1.35 2.55 1.95 1.95C2.55 1.35 3.25556 0.875 4.06667 0.525C4.87778 0.175 5.74444 0 6.66667 0C7.58889 0 8.45555 0.175 9.26667 0.525C10.0778 0.875 10.7833 1.35 11.3833 1.95C11.9833 2.55 12.4583 3.25556 12.8083 4.06667C13.1583 4.87778 13.3333 5.74444 13.3333 6.66667C13.3333 7.58889 13.1583 8.45555 12.8083 9.26667C12.4583 10.0778 11.9833 10.7833 11.3833 11.3833C10.7833 11.9833 10.0778 12.4583 9.26667 12.8083C8.45555 13.1583 7.58889 13.3333 6.66667 13.3333ZM6.66667 12C8.15556 12 9.41667 11.4833 10.45 10.45C11.4833 9.41667 12 8.15556 12 6.66667C12 5.17778 11.4833 3.91667 10.45 2.88333C9.41667 1.85 8.15556 1.33333 6.66667 1.33333C5.17778 1.33333 3.91667 1.85 2.88333 2.88333C1.85 3.91667 1.33333 5.17778 1.33333 6.66667C1.33333 8.15556 1.85 9.41667 2.88333 10.45C3.91667 11.4833 5.17778 12 6.66667 12Z" />
+              </svg>
+
+              <span>Limpezas adaptadas a cada propriedade</span>
+            </li>
+
+            <li>
+              <svg viewBox="0 0 14 14">
+                <path d="M5.73333 9.73333L10.4333 5.03333L9.5 4.1L5.73333 7.86667L3.83333 5.96667L2.9 6.9L5.73333 9.73333ZM6.66667 13.3333C5.74444 13.3333 4.87778 13.1583 4.06667 12.8083C3.25556 12.4583 2.55 11.9833 1.95 11.3833C1.35 10.7833 0.875 10.0778 0.525 9.26667C0.175 8.45555 0 7.58889 0 6.66667C0 5.74444 0.175 4.87778 0.525 4.06667C0.875 3.25556 1.35 2.55 1.95 1.95C2.55 1.35 3.25556 0.875 4.06667 0.525C4.87778 0.175 5.74444 0 6.66667 0C7.58889 0 8.45555 0.175 9.26667 0.525C10.0778 0.875 10.7833 1.35 11.3833 1.95C11.9833 2.55 12.4583 3.25556 12.8083 4.06667C13.1583 4.87778 13.3333 5.74444 13.3333 6.66667C13.3333 7.58889 13.1583 8.45555 12.8083 9.26667C12.4583 10.0778 11.9833 10.7833 11.3833 11.3833C10.7833 11.9833 10.0778 12.4583 9.26667 12.8083C8.45555 13.1583 7.58889 13.3333 6.66667 13.3333ZM6.66667 12C8.15556 12 9.41667 11.4833 10.45 10.45C11.4833 9.41667 12 8.15556 12 6.66667C12 5.17778 11.4833 3.91667 10.45 2.88333C9.41667 1.85 8.15556 1.33333 6.66667 1.33333C5.17778 1.33333 3.91667 1.85 2.88333 2.88333C1.85 3.91667 1.33333 5.17778 1.33333 6.66667C1.33333 8.15556 1.85 9.41667 2.88333 10.45C3.91667 11.4833 5.17778 12 6.66667 12Z" />
+              </svg>
+
+              <span>Atenção ao detalhe em cada serviço</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </aside>
+</BaseLayout>
+
+<style>
+  .hero-text-container {
+    .hero-text__flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+
+      @media (width > 47.5rem) {
+        flex-direction: row;
+        gap: 10rem;
+      }
+
+      div:first-child {
+        max-width: 55ch;
+      }
+
+      .hero-text-aside {
+        display: none;
+
+        @media (width > 47.5rem) {
+          display: block;
+          max-width: 25ch;
+          align-self: end;
+          margin-bottom: 1.5rem;
+        }
+
+        svg {
+          position: relative;
+          width: 1rem;
+          min-width: 1rem;
+          margin-right: 0.35rem;
+          top: 0.2rem;
+        }
+      }
+    }
+
+    .hero__image-container {
+      display: flex;
+      gap: 1rem;
+      margin-top: 3rem;
+
+      @media (width > 62.5rem) {
+        gap: 1.5rem;
+      }
+
+      .image-card {
+        display: grid;
+        grid-template: 1fr / 1fr;
+        overflow: hidden;
+
+        > * {
+          grid-area: 1 / 1;
+        }
+
+        img {
+          aspect-ratio: 1.75 / 1;
+          border-radius: 4px;
+          transition: transform 0.75s ease-out;
+
+          @media (width > 62.5rem) {
+            aspect-ratio: 2.3 / 1;
+          }
+
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+
+        &:last-child {
+          display: none;
+
+          @media (width > 47.5rem) {
+            display: grid;
+            max-width: 30%;
+          }
+
+          img {
+            @media (width > 47.5rem) {
+              display: block;
+              aspect-ratio: 0.75 / 1;
+            }
+
+            @media (width > 62.5rem) {
+              aspect-ratio: 1 / 1;
+            }
+          }
+        }
+
+        .image-card__content {
+          position: relative;
+          align-self: end;
+          padding: 1em;
+          color: var(--clr-white-10);
+          z-index: 999;
+          background: linear-gradient(transparent, rgb(0 0 0 / 95%));
+
+          @media (width > 47.5rem) {
+            padding: 1.5em;
+          }
+
+          span {
+            color: var(--clr-beige-10);
+          }
+
+          p {
+            font-family: var(--ff-news);
+            font-weight: var(--fw-regular);
+            letter-spacing: var(--ls-pos-015);
+          }
+        }
+      }
+    }
+  }
+
+  .cleaning-table__text-container {
+    p {
+      margin-bottom: 2rem;
+
+      @media (width > 47.5rem) {
+        margin-bottom: 2.5rem;
+        max-width: 55ch;
+      }
+    }
+  }
+
+  .cleaning-table__content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+
+    @media (width > 62.5rem) {
+      flex-direction: row;
+      gap: 2rem;
+    }
+
+    .cleaning-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 2rem;
+      border-radius: 8px;
+      border: 2px solid #edeeef;
+      box-shadow: var(--box-shadow-20);
+
+      @media (width > 62.5rem) {
+        padding: 3rem;
+      }
+
+      a {
+        align-self: end;
+        font-size: var(--fs-14);
+        font-weight: var(--fw-semibold);
+        color: var(--clr-brown-10);
+        text-transform: uppercase;
+        letter-spacing: var(--ls-pos-1);
+        white-space: nowrap;
+        transition:
+          transform 0.3s ease-out,
+          opacity 0.3s ease-out;
+
+        &:hover {
+          transform: translateY(-2px);
+          opacity: 0.5;
+        }
+
+        svg {
+          width: 0.85rem;
+          min-width: 0.85rem;
+          margin-right: 0.5rem;
+          fill: var(--clr-brown-10);
+        }
+      }
+
+      .card-headings-svg {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+
+        svg {
+          width: 2.75rem;
+          min-width: 2.75rem;
+          padding: 0.8rem;
+          background-color: #00000008;
+          border-radius: 8px;
+
+          @media (width > 47.5rem) {
+            max-width: 3.7rem;
+          }
+        }
+
+        .card-heading {
+          margin-bottom: 3.5rem;
+
+          h3 {
+            color: #000;
+            font-family: var(--ff-news);
+            font-size: clamp(var(--fs-18), 1.5vw + 0.5rem, var(--fs-22));
+            font-weight: var(--fw-medium);
+            line-height: var(--lh-145);
+          }
+
+          p {
+            margin-top: 1.5rem;
+            max-width: 90%;
+          }
+        }
+      }
+
+      .card-flex {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+
+        @media (width > 80rem) {
+          margin-bottom: unset;
+          flex-direction: row;
+          margin-bottom: 3rem;
+        }
+
+        .card-text {
+          font-size: var(--fs-13);
+          margin-right: unset;
+          max-width: 60ch;
+
+          @media (width > 62.5rem) {
+            margin-right: 2.5rem;
+          }
+
+          p {
+            margin-top: 0.25rem;
+          }
+
+          ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+
+            li {
+              display: flex;
+            }
+
+            svg {
+              min-width: 1rem;
+              width: 1rem;
+              margin-right: 0.5rem;
+            }
+          }
+        }
+
+        .card-price {
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          min-width: 6rem;
+          margin-top: 0.5rem;
+
+          span:first-child {
+            font-size: var(--fs-28);
+            font-family: var(--ff-news);
+            font-weight: var(--fw-semibold);
+            color: var(--clr-brown-10);
+            line-height: var(--lh-145);
+          }
+
+          span:last-child {
+            font-size: var(--fs-15);
+            font-family: var(--ff-news);
+            font-weight: var(--fw-regular);
+            color: var(--clr-black-40);
+            line-height: var(--lh-155);
+          }
+        }
+      }
+    }
+  }
+
+  .guarantee-text-container {
+    max-width: 55ch;
+    margin-bottom: 3rem;
+
+    @media (width > 47.5rem) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .guarantee-card-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @media (width > 47.5rem) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (width > 62.5rem) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .gaurantee-card {
+      padding: 1.5rem;
+      box-shadow: var(--box-shadow-30);
+      border: 1px solid #edeeef;
+      border-radius: 8px;
+      transition: transform 0.3s ease-out;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      h3 {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      svg {
+        width: 3rem;
+        min-width: 3rem;
+        padding: 0.75em;
+        background-color: #00000008;
+        border-radius: 8px;
+      }
+    }
+  }
+
+  .aside-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: var(--clr-black-20);
+    border-radius: 8px;
+
+    @media (width > 47.5rem) {
+      padding: 2.5rem;
+    }
+
+    @media (width > 62.5rem) {
+      padding: 4rem;
+    }
+
+    .aside-flex-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      @media (width > 47.5rem) and (width < 62.5rem) {
+        flex-direction: row;
+      }
+
+      .aside-text-container {
+        max-width: 55ch;
+
+        h2 {
+          margin-inline: unset;
+          color: var(--clr-white-10);
+        }
+
+        p {
+          color: var(--clr-white-20);
+        }
+      }
+
+      .aside-button-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @media (width > 62.5rem) {
+          flex-direction: row;
+          justify-content: unset;
+          gap: 1.5rem;
+        }
+
+        a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          padding: 1rem 1.5rem;
+          margin-bottom: 0.5rem;
+          background: var(--clr-brown-10);
+          white-space: nowrap;
+
+          @media (width > 47.5rem) {
+            min-width: 14rem;
+          }
+
+          @media (width > 62.5rem) {
+            max-width: 30%;
+          }
+
+          &:last-child {
+            background: rgba(255, 255, 255, 0.1);
+
+            @media (width > 47.5rem) {
+              max-width: 15%;
+            }
+          }
+        }
+
+        svg {
+          width: 1rem;
+          min-width: 1rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    .aside-list-container {
+      ul {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+
+        @media (width > 47.5rem) {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        @media (width > 62.5rem) {
+          display: flex;
+          justify-content: space-between;
+          gap: 1rem;
+        }
+
+        li {
+          display: flex;
+          font-size: var(--fs-13);
+          color: var(--clr-white-20);
+        }
+
+        svg {
+          min-width: 1rem;
+          width: 1rem;
+          max-width: 1.5rem;
+          margin-right: 0.5rem;
+          fill: var(--clr-brown-10);
+        }
+      }
+    }
+  }
+</style>
