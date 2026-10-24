@@ -2,7 +2,6 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { Image } from "astro:assets";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import carDemo from "@assets/images/car-demo.png";
 import rentalPhoto from "@assets/images/rental-photo.avif";
 import RoutesCards from "@components/other/RoutesCards.astro";
 import TransferForm from "@components/other/TransferForm.astro";
@@ -11,7 +10,8 @@ import HeroSlider from "@components/other/HeroSlider.astro";
 const { locale } = Astro.props;
 
 const pageTitle = "Inicio | Luis Ferreira Transferências e Serviços";
-const pageDescription = "Portuguese";
+const pageDescription =
+  "Transferes privados em todo o Algarve, serviços profissionais de limpeza de imóveis e alojamento de férias. Atendimento direto e personalizado com Luis Ferreira.";
 ---
 
 <BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="home">
@@ -450,7 +450,7 @@ const pageDescription = "Portuguese";
     <div class="wrapper wrapper--tablet-48" data-animate="fade-in">
       <div class="rental-container">
         <div class="rental-image">
-          <Image src={rentalPhoto} alt="Restaurant interior" width={[1200]} format="webp" layout="constrained" />
+          <Image src={rentalPhoto} alt="Restaurant interior" format="webp" layout="constrained" />
         </div>
 
         <div class="rental-text-container">

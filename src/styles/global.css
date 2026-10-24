@@ -117,7 +117,7 @@
     font-family: "Newsreader";
     font-style: normal;
     font-weight: 400;
-    src: url("../assets/fonts/newsreader-v26-latin-regular.woff2") format("woff2");
+    src: url("/assets/fonts/newsreader-v26-latin-regular.woff2") format("woff2");
   }
 
   @font-face {
@@ -125,7 +125,7 @@
     font-family: "Plus Jakarta Sans";
     font-style: normal;
     font-weight: 400;
-    src: url("../assets/fonts/plus-jakarta-sans-v12-latin-regular.woff2") format("woff2");
+    src: url("/assets/fonts/plus-jakarta-sans-v12-latin-regular.woff2") format("woff2");
   }
 
   @font-face {
@@ -133,7 +133,7 @@
     font-family: "Plus Jakarta Sans";
     font-style: normal;
     font-weight: 500;
-    src: url("../assets/fonts/plus-jakarta-sans-v12-latin-500.woff2") format("woff2");
+    src: url("/assets/fonts/plus-jakarta-sans-v12-latin-500.woff2") format("woff2");
   }
 
   @font-face {
@@ -141,7 +141,7 @@
     font-family: "Plus Jakarta Sans";
     font-style: normal;
     font-weight: 600;
-    src: url("../assets/fonts/plus-jakarta-sans-v12-latin-600.woff2") format("woff2");
+    src: url("/assets/fonts/plus-jakarta-sans-v12-latin-600.woff2") format("woff2");
   }
 
   :root {

@@ -3,9 +3,9 @@ import { Image } from "astro:assets";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import heroOne from "@assets/images/car-one.jpg";
+import heroOne from "@assets/images/car-one.webp";
 import heroTwo from "@assets/images/car-two.jpeg";
-import heroThree from "@assets/images/car-one.webp";
+import heroThree from "@assets/images/car-three.webp";
 
 const slides = [
   {
@@ -42,7 +42,9 @@ const slides = [
             src={slide.src}
             alt={slide.alt}
             format="webp"
+            quality={85}
             loading={index === 0 ? "eager" : "lazy"}
+            fetchpriority={index === 0 ? "high" : "auto"}
             class="hero-slider__image"
           />
         </div>
@@ -131,7 +133,7 @@ const slides = [
 
     @media (width > 47.5rem) {
       width: 2.75rem;
-      height: 2.75rem; 
+      height: 2.75rem;
       font-size: 2rem;
     }
   }

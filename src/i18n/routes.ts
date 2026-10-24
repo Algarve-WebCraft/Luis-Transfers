@@ -3,14 +3,14 @@ export const routes = {
     home: "",
     transfers: "transfers",
     cleaning: "cleaning",
-    accomodation: "accomodation",
+    rental: "rental",
     contact: "contact",
   },
   pt: {
     home: "",
-    transfers: "transferências",
+    transfers: "transferencias",
     cleaning: "limpeza",
-    accomodation: "alojamento",
+    rental: "alojamento",
     contact: "contacto",
   },
 } as const;
