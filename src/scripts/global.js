@@ -19,8 +19,6 @@ document.addEventListener("astro:page-load", () => {
 function gsapScrollAnimations() {
   gsap.registerPlugin(ScrollTrigger);
 
-  /* return; */
-
   setTimeout(() => {
     ScrollTrigger.refresh();
   }, 10);
