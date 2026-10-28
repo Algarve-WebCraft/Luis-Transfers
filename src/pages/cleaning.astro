@@ -4,9 +4,9 @@ import { Image } from "astro:assets";
 import cleaningImageOne from "@assets/images/cleaning-1.webp";
 import cleaningImageTwo from "@assets/images/cleaning-2.jpeg";
 
-const pageTitle = "Cleaning | Luis Ferreira Transfers and Services";
+const pageTitle = "Cleaning | Luis Ferreira Transfers & Services";
 const pageDescription =
-  "Professional apartment and villa cleaning across the Algarve, with direct service for holiday rentals, private homes and property owners.";
+  "Professional apartment and villa cleaning services throughout the Algarve, for holiday rentals, private homes and property owners.";
 ---
 
 <BaseLayout pageTitle={pageTitle} pageDescription={pageDescription} bodyClass="secondary-page">
@@ -18,14 +18,15 @@ const pageDescription =
             <div>
               <span class="cmp-topper-heading">CARVOEIRO • LAGOA • ALGARVE</span>
               <h1 id="hero-section" class="cmp-hero-heading">
-                Serviços de Limpeza de Vilas e Apartamentos
+                Villa and Apartment Cleaning Services
               </h1>
             </div>
 
             <div>
               <p class="cmp-main-text">
-                Cuidado rigoroso, higienização de qualidade e flexibilidade para proprietários particulares e
-                alojamentos de férias no concelho de Lagoa e Carvoeiro.
+                Thorough care, high-quality cleaning and attention to detail in every service, with flexible solutions
+                for private property owners and holiday rentals throughout the Algarve. Scheduling tailored to each
+                property's needs, ensuring clean, fresh spaces ready to welcome guests or residents.
               </p>
             </div>
           </div>
@@ -38,11 +39,11 @@ const pageDescription =
                   fill="#7A582F"
                 />
               </svg>
-              ALOJAMENTO LOCAL • AL
+              HOLIDAY RENTALS • AL
             </span>
 
             <p class="cmp-body-mini-text">
-              Protocolos preparados para exigências de plataformas como Airbnb, VRBO e Booking.com.
+              Cleaning protocols tailored to the requirements of platforms such as Airbnb, VRBO and Booking.com.
             </p>
           </div>
         </div>
@@ -52,14 +53,15 @@ const pageDescription =
             <Image
               src={cleaningImageOne}
               alt="Example of a cleaned summer Villa"
-              width={[1200]}
               format="webp"
               layout="constrained"
+              loading="eager"
+              fetchpriority="high"
             />
 
             <div class="image-card__content">
-              <span class="cmp-topper-heading">Limpeza de Villas</span>
-              <p>Deixe o seu apartamento impecável, fresco e pronto a desfrutar.</p>
+              <span class="cmp-topper-heading">Villa Cleaning</span>
+              <p>Leave your property spotless, fresh and ready to welcome the next guests.</p>
             </div>
           </div>
 
@@ -67,14 +69,15 @@ const pageDescription =
             <Image
               src={cleaningImageTwo}
               alt="Example of a cleaned summer apartment"
-              width={[1200]}
               format="webp"
               layout="constrained"
+              loading="eager"
+              fetchpriority="high"
             />
 
             <div class="image-card__content">
-              <span class="cmp-topper-heading">Limpeza de Apartamentos</span>
-              <p>Cuidamos de cada espaço com atenção ao detalhe.</p>
+              <span class="cmp-topper-heading">Apartment Cleaning</span>
+              <p>We care for every space with attention to detail.</p>
             </div>
           </div>
         </div>
@@ -85,13 +88,14 @@ const pageDescription =
   <section class="cmp-main-section" aria-labelledby="cleaning-table-section">
     <div class="wrapper wrapper--tablet-48" data-animate="fade-in">
       <div class="cleaning-table__text-container">
-        <span class="cmp-topper-heading">TABELA DE VALORES OFICIAIS</span>
+        <span class="cmp-topper-heading">OFFICIAL PRICE LIST</span>
         <h2 id="cleaning-table-section" class="cmp-main-heading">
-          Tarifas Transparentes & Sem Surpresas
+          Transparent Pricing, No Surprises
         </h2>
         <p class="cmp-body-text">
-          Preçário direto para intervenções pontuais ou rotações periódicas entre check- outs. Sem taxas ocultas nem
-          burocracias contratuais.
+          Clear, transparent pricing for one-off cleans or regular changeovers between check-outs, tailored to each
+          property's needs. Flexible scheduling, direct communication and no hidden fees for simple, efficient
+          management of your property's cleaning.
         </p>
       </div>
 
@@ -99,11 +103,12 @@ const pageDescription =
         <div class="cleaning-card">
           <div class="card-headings-svg">
             <div class="card-heading">
-              <span class="cmp-topper-heading">ALOJAMENTO FAMILIAR</span>
-              <h3>Moradias (Villas)</h3>
+              <span class="cmp-topper-heading">FAMILY ACCOMMODATION</span>
+              <h3>Villas</h3>
               <p class="cmp-body-text">
-                Dedicado a vivendas, moradias de luxo e quintas com amplas áreas interiores e exteriores, incluindo
-                terraços e jardins, com atenção especial ao detalhe e às necessidades específicas de cada propriedade.
+                Tailored to villas, luxury homes and country estates with spacious indoor and outdoor areas, including
+                terraces and gardens, with special attention to detail and each property's needs to ensure every
+                property is cleaned to the highest standard.
               </p>
             </div>
 
@@ -117,10 +122,9 @@ const pageDescription =
 
           <div class="card-flex">
             <div class="card-text">
-              <span class="cmp-small-heading">Limpeza Intermédia</span>
+              <span class="cmp-small-heading">Intermediate Clean</span>
               <p>
-                Ideal para manutenção ligeira durante estadias prolongadas, refrescamento semanal ou preparação pré-
-                visita.
+                Ideal for light maintenance during longer stays, weekly freshening up or preparation before a viewing.
               </p>
               <ul>
                 <li>
@@ -131,7 +135,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Aspiração integral & desinfeção de pavimentos frios</span>
+                  <span>Thorough vacuuming and disinfection of hard floors</span>
                 </li>
 
                 <li>
@@ -142,7 +146,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Higienização de bancadas, eletrodomésticos essenciais e loiças sanitárias</span>
+                  <span>Cleaning of worktops, essential appliances and sanitaryware</span>
                 </li>
 
                 <li>
@@ -153,23 +157,23 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Recolha de lixos e arejamento estruturado da casa</span>
+                  <span>Waste removal and thorough airing of the property</span>
                 </li>
               </ul>
             </div>
 
             <div class="card-price">
               <span>€99</span>
-              <span>~2 horas</span>
+              <span>~2 hours</span>
             </div>
           </div>
 
           <div class="card-flex">
             <div class="card-text">
-              <span class="cmp-small-heading">Limpeza Completa (Full Service)</span>
+              <span class="cmp-small-heading">Full Clean (Full Service)</span>
               <p>
-                Higienização minuciosa de todas as divisões: sanitização profunda de quartos, cozinhas, casas de banho e
-                áreas sociais comuns.
+                Thorough cleaning of every room, including deep sanitisation of bedrooms, kitchens, bathrooms and shared
+                living areas.
               </p>
               <ul>
                 <li>
@@ -180,7 +184,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Descalcificação completa de cabines de duche e torneiras</span>
+                  <span>Thorough descaling of shower enclosures and taps</span>
                 </li>
 
                 <li>
@@ -191,7 +195,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Limpeza minuciosa de vidros e caixilharia interior/exterior</span>
+                  <span>Detailed cleaning of glass and interior/exterior window frames</span>
                 </li>
 
                 <li>
@@ -202,7 +206,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Limpeza profunda de forno, exaustor, frigorífico e mobiliário de jardim</span>
+                  <span>Deep cleaning of the oven, extractor hood, fridge and garden furniture</span>
                 </li>
 
                 <li>
@@ -213,19 +217,19 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Reposição criteriosa de consumíveis e conferência de apresentação</span>
+                  <span>Careful replenishment of consumables and a final presentation check</span>
                 </li>
               </ul>
             </div>
 
             <div class="card-price">
               <span>€199</span>
-              <span>~4 horas</span>
+              <span>~4 hours</span>
             </div>
           </div>
 
           <a
-            href="https://wa.me/351966831360"
+            href="[https://wa.me/351966831360](https://wa.me/351966831360)"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contact us on WhatsApp"
@@ -233,18 +237,19 @@ const pageDescription =
             <svg viewBox="0 0 11 11">
               <path d="M8.11667 6H0V4.66667H8.11667L4.38333 0.933333L5.33333 0L10.6667 5.33333L5.33333 10.6667L4.38333 9.73333L8.11667 6Z" />
             </svg>
-            Reservar limpeza de vivenda
+            Book villa cleaning
           </a>
         </div>
 
         <div class="cleaning-card">
           <div class="card-headings-svg">
             <div class="card-heading">
-              <span class="cmp-topper-heading">ALOJAMENTO URBANO & PRAIAS</span>
-              <h3>Apartamentos</h3>
+              <span class="cmp-topper-heading">CITY & BEACH ACCOMMODATION</span>
+              <h3>Apartments</h3>
               <p class="cmp-body-text">
-                Desenvolvido à medida de estúdios, T1, T2 e coberturas urbanas, ideal para limpezas regulares ou entre
-                estadias, com rotações rápidas de hóspedes, atenção ao detalhe e cumprimento rigoroso dos prazos.
+                Tailored to studios, one-bedroom and two-bedroom apartments, and urban penthouses. Ideal for regular
+                cleans or changeovers between stays, with quick guest turnovers, attention to detail and strict
+                adherence to deadlines.
               </p>
             </div>
 
@@ -258,10 +263,9 @@ const pageDescription =
 
           <div class="card-flex">
             <div class="card-text">
-              <span class="cmp-small-heading">Limpeza Intermédia</span>
+              <span class="cmp-small-heading">Intermediate Clean</span>
               <p>
-                Manutenção periódica rápida e eficaz de pavimentos, superfícies e sanitários entre reservas de curta
-                permanência.
+                Quick and effective periodic maintenance of floors, surfaces and bathrooms between short-term bookings.
               </p>
               <ul>
                 <li>
@@ -272,7 +276,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Higienização express de cozinha e casa de banho</span>
+                  <span>Quick kitchen and bathroom clean</span>
                 </li>
 
                 <li>
@@ -283,7 +287,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Remoção de poeiras de superfícies e pavimentos aspirados</span>
+                  <span>Dusting of surfaces and vacuuming of floors</span>
                 </li>
 
                 <li>
@@ -294,7 +298,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Troca rápida de sacos e reposição estética</span>
+                  <span>Quick bin-bag replacement and final touches</span>
                 </li>
               </ul>
             </div>
@@ -307,10 +311,10 @@ const pageDescription =
 
           <div class="card-flex">
             <div class="card-text">
-              <span class="cmp-small-heading">Limpeza Completa (Full Service)</span>
+              <span class="cmp-small-heading">Full Clean (Full Service)</span>
               <p>
-                Limpeza total pormenorizada de todo o espaço. Inclui tratamento de lavandaria (roupas de cama e toalhas
-                prontas a usar).
+                Thorough, detailed cleaning of the entire property. Includes laundry service, with bed linen and towels
+                ready for use.
               </p>
               <ul>
                 <li>
@@ -321,7 +325,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Desinfeção aprofundada de todas as divisões e terraço/varanda</span>
+                  <span>Deep cleaning of all rooms and the terrace/balcony</span>
                 </li>
 
                 <li>
@@ -332,7 +336,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Gestão completa de lavandaria (roupa de cama e conjunto de banho)</span>
+                  <span>Complete laundry service, including bed linen and bath towels</span>
                 </li>
 
                 <li>
@@ -343,7 +347,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Engomadoria profissional e montagem impecável de camas</span>
+                  <span>Professional cleaning, ironing and perfectly made hotel-quality beds</span>
                 </li>
 
                 <li>
@@ -354,7 +358,7 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Verificação de electrodomésticos para os próximos hóspedes</span>
+                  <span>Final checks of kitchen appliances and essential equipment before each guest's arrival</span>
                 </li>
               </ul>
             </div>
@@ -366,7 +370,7 @@ const pageDescription =
           </div>
 
           <a
-            href="https://wa.me/351966831360"
+            href="[https://wa.me/351966831360](https://wa.me/351966831360)"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contact us on WhatsApp"
@@ -374,7 +378,7 @@ const pageDescription =
             <svg viewBox="0 0 11 11">
               <path d="M8.11667 6H0V4.66667H8.11667L4.38333 0.933333L5.33333 0L10.6667 5.33333L5.33333 10.6667L4.38333 9.73333L8.11667 6Z" />
             </svg>
-            Reservar limpeza de apartamento
+            Book apartment cleaning
           </a>
         </div>
       </div>
@@ -386,16 +390,16 @@ const pageDescription =
       <div class="guarantee-text-container">
         <div>
           <div>
-            <span class="cmp-topper-heading">GARANTIA & CRITÉRIO</span>
+            <span class="cmp-topper-heading">QUALITY & STANDARDS</span>
             <h2 id="guarantee-section" class="cmp-main-heading">
-              O Nosso Compromisso de Limpeza
+              Our Cleaning Commitment
             </h2>
           </div>
 
           <div>
             <p class="cmp-body-text">
-              Focamo-nos exclusivamente no rigor da higienização para que cada hóspede entre num ambiente
-              irrepreensível, como se estreasse a casa.
+              We focus exclusively on thorough cleaning and hygiene, ensuring every guest arrives in an immaculate
+              environment, as if they were the first to stay in the property.
             </p>
           </div>
         </div>
@@ -410,9 +414,9 @@ const pageDescription =
             />
           </svg>
 
-          <h3 class="cmp-small-heading">Padrão Hoteleiro</h3>
+          <h3 class="cmp-small-heading">Hotel-Quality Standards</h3>
           <p class="cmp-body-mini-text">
-            Metodologia ajustada aos mais altos critérios de avaliação do Airbnb Superhost e Booking.com.
+            Methods tailored to meet the highest standards of Airbnb Superhost and Booking.com.
           </p>
         </div>
 
@@ -424,10 +428,10 @@ const pageDescription =
             />
           </svg>
 
-          <h3 class="cmp-small-heading">Produtos Profissionais</h3>
+          <h3 class="cmp-small-heading">Professional Cleaning Products</h3>
           <p class="cmp-body-mini-text">
-            Utilização de produtos de grau profissional e ecológicos, que desinfetam eficazmente sem danificar materiais
-            nobres.
+            Use of professional-grade, eco-friendly products that disinfect effectively without damaging delicate
+            materials.
           </p>
         </div>
 
@@ -439,10 +443,10 @@ const pageDescription =
             />
           </svg>
 
-          <h3 class="cmp-small-heading">Pontualidade & Flexibilidade</h3>
+          <h3 class="cmp-small-heading">Punctuality & Flexibility</h3>
           <p class="cmp-body-mini-text">
-            Janelas de rotação entre as 10:00 e as 15:30 rigorosamente cumpridas, assegurando entradas de novos clientes
-            sem atrasos.
+            Changeover slots between 10:00 and 15:30 are strictly observed, ensuring new guests can check in without
+            delays.
           </p>
         </div>
 
@@ -454,10 +458,10 @@ const pageDescription =
             />
           </svg>
 
-          <h3 class="cmp-small-heading">Registo Fotográfico</h3>
+          <h3 class="cmp-small-heading">Photographic Records</h3>
           <p class="cmp-body-mini-text">
-            Comunicação transparente com envio de fotografias do imóvel concluído após cada serviço, a pedido do
-            proprietário.
+            Transparent communication, with photos of the completed property provided after each service at the owner's
+            request.
           </p>
         </div>
       </div>
@@ -469,15 +473,15 @@ const pageDescription =
       <div class="aside-container">
         <div class="aside-flex-container">
           <div class="aside-text-container">
-            <span class="cmp-topper-heading">•&nbsp; SERVIÇO DIRETO &nbsp;•&nbsp; Todo o Algarve</span>
+            <span class="cmp-topper-heading">•&nbsp; DIRECT SERVICE &nbsp;•&nbsp; Throughout the Algarve</span>
 
             <h2 id="aside-section" class="cmp-hero-heading">
-              Agendamento Direto. Sem Formulários Morosos.
+              Book Directly. No Lengthy Forms.
             </h2>
 
             <p class="cmp-main-text">
-              Focamo-nos exclusivamente no rigor da higienização para que cada hóspede entre num ambiente
-              irrepreensível, como se estreasse a casa.
+              We focus exclusively on thorough cleaning and hygiene, ensuring every guest arrives in an immaculate
+              environment, as if they were the first to stay in the property.
             </p>
           </div>
 
@@ -495,7 +499,7 @@ const pageDescription =
                   fill="white"
                 />
               </svg>
-              <span>FALAR NO WHATSAPP</span>
+              <span>MESSAGE US ON WHATSAPP</span>
             </a>
 
             <a
@@ -511,7 +515,7 @@ const pageDescription =
                   fill="white"
                 />
               </svg>
-              <span>LIGAR DIRETAMENTE</span>
+              <span>CALL US DIRECTLY</span>
             </a>
           </div>
         </div>
@@ -523,7 +527,7 @@ const pageDescription =
                 <path d="M5.73333 9.73333L10.4333 5.03333L9.5 4.1L5.73333 7.86667L3.83333 5.96667L2.9 6.9L5.73333 9.73333ZM6.66667 13.3333C5.74444 13.3333 4.87778 13.1583 4.06667 12.8083C3.25556 12.4583 2.55 11.9833 1.95 11.3833C1.35 10.7833 0.875 10.0778 0.525 9.26667C0.175 8.45555 0 7.58889 0 6.66667C0 5.74444 0.175 4.87778 0.525 4.06667C0.875 3.25556 1.35 2.55 1.95 1.95C2.55 1.35 3.25556 0.875 4.06667 0.525C4.87778 0.175 5.74444 0 6.66667 0C7.58889 0 8.45555 0.175 9.26667 0.525C10.0778 0.875 10.7833 1.35 11.3833 1.95C11.9833 2.55 12.4583 3.25556 12.8083 4.06667C13.1583 4.87778 13.3333 5.74444 13.3333 6.66667C13.3333 7.58889 13.1583 8.45555 12.8083 9.26667C12.4583 10.0778 11.9833 10.7833 11.3833 11.3833C10.7833 11.9833 10.0778 12.4583 9.26667 12.8083C8.45555 13.1583 7.58889 13.3333 6.66667 13.3333ZM6.66667 12C8.15556 12 9.41667 11.4833 10.45 10.45C11.4833 9.41667 12 8.15556 12 6.66667C12 5.17778 11.4833 3.91667 10.45 2.88333C9.41667 1.85 8.15556 1.33333 6.66667 1.33333C5.17778 1.33333 3.91667 1.85 2.88333 2.88333C1.85 3.91667 1.33333 5.17778 1.33333 6.66667C1.33333 8.15556 1.85 9.41667 2.88333 10.45C3.91667 11.4833 5.17778 12 6.66667 12Z" />
               </svg>
 
-              <span>Atendimento em Português e Inglês</span>
+              <span>Service in Portuguese and English</span>
             </li>
 
             <li>
@@ -531,7 +535,7 @@ const pageDescription =
                 <path d="M5.73333 9.73333L10.4333 5.03333L9.5 4.1L5.73333 7.86667L3.83333 5.96667L2.9 6.9L5.73333 9.73333ZM6.66667 13.3333C5.74444 13.3333 4.87778 13.1583 4.06667 12.8083C3.25556 12.4583 2.55 11.9833 1.95 11.3833C1.35 10.7833 0.875 10.0778 0.525 9.26667C0.175 8.45555 0 7.58889 0 6.66667C0 5.74444 0.175 4.87778 0.525 4.06667C0.875 3.25556 1.35 2.55 1.95 1.95C2.55 1.35 3.25556 0.875 4.06667 0.525C4.87778 0.175 5.74444 0 6.66667 0C7.58889 0 8.45555 0.175 9.26667 0.525C10.0778 0.875 10.7833 1.35 11.3833 1.95C11.9833 2.55 12.4583 3.25556 12.8083 4.06667C13.1583 4.87778 13.3333 5.74444 13.3333 6.66667C13.3333 7.58889 13.1583 8.45555 12.8083 9.26667C12.4583 10.0778 11.9833 10.7833 11.3833 11.3833C10.7833 11.9833 10.0778 12.4583 9.26667 12.8083C8.45555 13.1583 7.58889 13.3333 6.66667 13.3333ZM6.66667 12C8.15556 12 9.41667 11.4833 10.45 10.45C11.4833 9.41667 12 8.15556 12 6.66667C12 5.17778 11.4833 3.91667 10.45 2.88333C9.41667 1.85 8.15556 1.33333 6.66667 1.33333C5.17778 1.33333 3.91667 1.85 2.88333 2.88333C1.85 3.91667 1.33333 5.17778 1.33333 6.66667C1.33333 8.15556 1.85 9.41667 2.88333 10.45C3.91667 11.4833 5.17778 12 6.66667 12Z" />
               </svg>
 
-              <span>Sem intermediários ou centrais impessoais</span>
+              <span>No intermediaries or impersonal call centres</span>
             </li>
 
             <li>
@@ -539,7 +543,7 @@ const pageDescription =
                 <path d="M5.73333 9.73333L10.4333 5.03333L9.5 4.1L5.73333 7.86667L3.83333 5.96667L2.9 6.9L5.73333 9.73333ZM6.66667 13.3333C5.74444 13.3333 4.87778 13.1583 4.06667 12.8083C3.25556 12.4583 2.55 11.9833 1.95 11.3833C1.35 10.7833 0.875 10.0778 0.525 9.26667C0.175 8.45555 0 7.58889 0 6.66667C0 5.74444 0.175 4.87778 0.525 4.06667C0.875 3.25556 1.35 2.55 1.95 1.95C2.55 1.35 3.25556 0.875 4.06667 0.525C4.87778 0.175 5.74444 0 6.66667 0C7.58889 0 8.45555 0.175 9.26667 0.525C10.0778 0.875 10.7833 1.35 11.3833 1.95C11.9833 2.55 12.4583 3.25556 12.8083 4.06667C13.1583 4.87778 13.3333 5.74444 13.3333 6.66667C13.3333 7.58889 13.1583 8.45555 12.8083 9.26667C12.4583 10.0778 11.9833 10.7833 11.3833 11.3833C10.7833 11.9833 10.0778 12.4583 9.26667 12.8083C8.45555 13.1583 7.58889 13.3333 6.66667 13.3333ZM6.66667 12C8.15556 12 9.41667 11.4833 10.45 10.45C11.4833 9.41667 12 8.15556 12 6.66667C12 5.17778 11.4833 3.91667 10.45 2.88333C9.41667 1.85 8.15556 1.33333 6.66667 1.33333C5.17778 1.33333 3.91667 1.85 2.88333 2.88333C1.85 3.91667 1.33333 5.17778 1.33333 6.66667C1.33333 8.15556 1.85 9.41667 2.88333 10.45C3.91667 11.4833 5.17778 12 6.66667 12Z" />
               </svg>
 
-              <span>Limpezas adaptadas a cada propriedade</span>
+              <span>Cleaning tailored to each property</span>
             </li>
 
             <li>
@@ -547,7 +551,7 @@ const pageDescription =
                 <path d="M5.73333 9.73333L10.4333 5.03333L9.5 4.1L5.73333 7.86667L3.83333 5.96667L2.9 6.9L5.73333 9.73333ZM6.66667 13.3333C5.74444 13.3333 4.87778 13.1583 4.06667 12.8083C3.25556 12.4583 2.55 11.9833 1.95 11.3833C1.35 10.7833 0.875 10.0778 0.525 9.26667C0.175 8.45555 0 7.58889 0 6.66667C0 5.74444 0.175 4.87778 0.525 4.06667C0.875 3.25556 1.35 2.55 1.95 1.95C2.55 1.35 3.25556 0.875 4.06667 0.525C4.87778 0.175 5.74444 0 6.66667 0C7.58889 0 8.45555 0.175 9.26667 0.525C10.0778 0.875 10.7833 1.35 11.3833 1.95C11.9833 2.55 12.4583 3.25556 12.8083 4.06667C13.1583 4.87778 13.3333 5.74444 13.3333 6.66667C13.3333 7.58889 13.1583 8.45555 12.8083 9.26667C12.4583 10.0778 11.9833 10.7833 11.3833 11.3833C10.7833 11.9833 10.0778 12.4583 9.26667 12.8083C8.45555 13.1583 7.58889 13.3333 6.66667 13.3333ZM6.66667 12C8.15556 12 9.41667 11.4833 10.45 10.45C11.4833 9.41667 12 8.15556 12 6.66667C12 5.17778 11.4833 3.91667 10.45 2.88333C9.41667 1.85 8.15556 1.33333 6.66667 1.33333C5.17778 1.33333 3.91667 1.85 2.88333 2.88333C1.85 3.91667 1.33333 5.17778 1.33333 6.66667C1.33333 8.15556 1.85 9.41667 2.88333 10.45C3.91667 11.4833 5.17778 12 6.66667 12Z" />
               </svg>
 
-              <span>Atenção ao detalhe em cada serviço</span>
+              <span>Attention to detail in every service</span>
             </li>
           </ul>
         </div>
@@ -605,6 +609,7 @@ const pageDescription =
       .image-card {
         display: grid;
         grid-template: 1fr / 1fr;
+        border-radius: 4px;
         overflow: hidden;
 
         > * {
@@ -613,7 +618,6 @@ const pageDescription =
 
         img {
           aspect-ratio: 1.75 / 1;
-          border-radius: 4px;
           transition: transform 0.75s ease-out;
 
           @media (width > 62.5rem) {
@@ -651,19 +655,25 @@ const pageDescription =
           padding: 1em;
           color: var(--clr-white-10);
           z-index: 999;
-          background: linear-gradient(transparent, rgb(0 0 0 / 95%));
+          background: linear-gradient(transparent, rgb(0 0 0 / 90%));
+          border-radius: 4px;
+          user-select: none;
+          pointer-events: none;
 
           @media (width > 47.5rem) {
             padding: 1.5em;
           }
 
           span {
+            font-size: var(--fs-12);
             color: var(--clr-beige-10);
           }
 
           p {
             font-family: var(--ff-news);
+            font-size: var(--fs-18);
             font-weight: var(--fw-regular);
+            max-width: 45ch;
             letter-spacing: var(--ls-pos-015);
           }
         }

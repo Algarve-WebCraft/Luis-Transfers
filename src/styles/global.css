@@ -420,6 +420,8 @@
     color: var(--clr-black-30);
     line-height: var(--lh-155);
     overflow-x: clip;
+    color: #0f1b2d;
+    color: #0d1624;
 
     > * {
       min-width: 0;

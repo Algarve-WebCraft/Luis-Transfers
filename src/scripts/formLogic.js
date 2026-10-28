@@ -471,13 +471,7 @@ window.getBookingLocations = () => ({
   dropoff: dropoffPlace,
 });
 
-// Form submission logic
-const form = document.querySelector("#booking-form");
-const dateInput = form.querySelector('input[type="date"]');
 let iti;
-
-const appsScriptUrl =
-  "https://script.google.com/macros/s/AKfycbw4H1RmVYHh4BEVFu_lxPLJqgy_N6R1Uqms0OAqW8mroVkJhKgUg56WxdUypUBL1Ew1/exec";
 
 function initPhoneInput() {
   const phoneInput = document.querySelector("#phone");
@@ -503,6 +497,10 @@ function initDateInput() {
   dateInput.min = localDate;
 }
 document.addEventListener("astro:page-load", initDateInput);
+
+// Form submission logic
+const appsScriptUrl =
+  "https://script.google.com/macros/s/AKfycbw4H1RmVYHh4BEVFu_lxPLJqgy_N6R1Uqms0OAqW8mroVkJhKgUg56WxdUypUBL1Ew1/exec";
 
 document.addEventListener("submit", async (event) => {
   const form = event.target;
@@ -558,6 +556,7 @@ document.addEventListener("submit", async (event) => {
       time: formData.get("time"),
       passengers: formData.get("passengers"),
       bags: formData.get("bags"),
+      flightNumber: formData.get("flight-number"),
       departTime: formData.get("depart-time"),
       arriveTime: formData.get("arrive-time"),
       notes: formData.get("notes"),
@@ -575,7 +574,7 @@ document.addEventListener("submit", async (event) => {
 
     const locale = form.dataset.locale;
 
-    window.location.href = locale === "en" ? "/confirmation/" : "/pt/confirmação/";
+    window.location.href = locale === "pt" ? "/pt/confirmação/" : "/confirmation/";
   } catch (error) {
     console.error("Submission error:", error);
     submitButton.disabled = false;

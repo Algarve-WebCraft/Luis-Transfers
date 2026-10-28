@@ -42,7 +42,7 @@ function gsapScrollAnimations() {
       clearProps: "transform, opacity",
       scrollTrigger: {
         trigger: el,
-        start: "top 75%",
+        start: "top 80%",
         end: "top 45%",
       },
     });

@@ -191,8 +191,9 @@ const pageDescription =
         </h2>
 
         <p class="cmp-body-text">
-          Sediados no coração do concelho de Lagoa, garantimos prontidão imediata para todo o litoral sul e ligações
-          rodoviárias rápidas com Lisboa e Sevilha.
+          Sediados no coração do concelho de Lagoa, garantimos uma resposta rápida e eficiente em todo o Algarve, com
+          especial proximidade ao litoral sul. A localização estratégica permite-nos assegurar deslocações ágeis e
+          ligações rodoviárias diretas a destinos como Lisboa e Sevilha.
         </p>
       </div>
 
@@ -426,11 +427,6 @@ const pageDescription =
           display: flex;
           justify-content: center;
           width: 100%;
-
-          &:first-of-type:not(.facebook-btn) {
-            background-color: var(--clr-black-10);
-            color: var(--clr-white-10);
-          }
         }
       }
 
@@ -453,6 +449,10 @@ const pageDescription =
 
     @media (width > 47.5rem) {
       margin-bottom: 2.5rem;
+    }
+
+    p {
+      max-width: 60ch;
     }
   }
 

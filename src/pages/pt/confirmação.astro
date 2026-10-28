@@ -12,7 +12,6 @@ const pageDescription =
       <div class="confirm-container">
         <div class="confirm__text">
           <div>
-            <span class="cmp-topper-heading">• CARVOEIRO • ALGARVE</span>
             <h1 id="confirm-section" class="cmp-hero-heading">
               Pedido de Transfer Enviado
             </h1>
@@ -20,9 +19,15 @@ const pageDescription =
 
           <div>
             <p class="cmp-main-text">
-              Sua solicitação de traslado foi enviada com sucesso. Analisaremos os detalhes da viagem e entraremos em
-              contato em breve com a confirmação. Por favor, entre em contato conosco diretamente caso não receba uma
-              resposta em até &nbsp;<strong>4 horas</strong>.
+              O seu pedido de transfer foi enviado com sucesso. Iremos analisar os detalhes da viagem e entrar em
+              contacto consigo brevemente para confirmar a reserva. Por favor, contacte-nos diretamente caso não receba
+              uma resposta no prazo de &nbsp;<strong>4 horas</strong>.
+            </p>
+
+            <p class="cmp-main-text">
+              Também organizamos passeios pelo Algarve, viagens de um dia a Sevilha e Lisboa, e experiências de
+              degustação de vinhos em vinícolas locais no Algarve — caso você esteja em busca de algo um pouco
+              diferente. Envie-nos uma mensagem para saber mais!
             </p>
           </div>
 
@@ -141,11 +146,15 @@ const pageDescription =
         margin-inline: auto;
       }
 
+      & p:last-of-type {
+        margin-top: 1.5rem;
+      }
+
       .go-back-button {
         display: inline-block;
         font-size: var(--fs-13);
         font-weight: var(--fw-semibold);
-        margin-top: 1.5rem;
+        margin-top: 2rem;
         text-transform: uppercase;
         white-space: nowrap;
         transition:
@@ -169,11 +178,11 @@ const pageDescription =
         width: 80%;
         height: 1px;
         background-color: #00000016;
-        margin-top: 3rem;
+        margin-top: 2rem;
         margin-inline: auto;
 
         @media (width > 47.5rem) {
-          margin-top: 4rem;
+          margin-top: 3rem;
         }
       }
     }

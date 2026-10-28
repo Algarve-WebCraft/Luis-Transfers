@@ -2,25 +2,44 @@
 const { layout, locale } = Astro.props;
 ---
 
-<form class:list={[`transfer-form transfer-form--${layout}`]} id="booking-form" data-locale={locale} data-astro-reload>
+<form
+  class:list={[`transfer-form transfer-form--${layout}`]}
+  id="booking-form"
+  data-locale={Astro.currentLocale}
+  data-astro-reload
+>
   <div>
-    <label for="name">NOME COMPLETO *</label>
-    <input type="text" id="name" name="name" placeholder="Ex: Gonçalo Ribeiro" required />
+    <label for="name">{Astro.currentLocale === "pt" ? "NOME COMPLETO" : "FULL NAME"}*</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder={Astro.currentLocale === "pt" ? "Ex. José Silva" : "Eg. John Smith"}
+      required
+    />
   </div>
 
   <div>
     <label for="email">E-MAIL *</label>
-    <input type="email" id="email" name="email" placeholder="goncalo@exemplo.com" required />
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder={Astro.currentLocale === "pt" ? "Ex. jose@exemplo.com" : "Eg. john@example.com"}
+      required
+    />
   </div>
 
   <div class="form-phone-field">
-    <label for="phone">TELEFONE / WHATSAPP *</label>
+    <label for="phone">{Astro.currentLocale === "pt" ? "TELEFONE" : "PHONE"}/ WHATSAPP *</label>
     <input type="tel" id="phone" name="phone" required />
   </div>
 
   <div class="popular-routes-container">
     <p class="popular-routes-label" id="popular-routes-label">
-      Seleção de rota fixa:
+      {Astro.currentLocale === "pt"
+        ? "Introduza uma morada específica ou selecione uma rota fixa para o Aeroporto de Faro:"
+        : "Enter a specific address or select a fixed route for Faro Airport:"}
     </p>
 
     <div class="popular-routes-box">
@@ -108,12 +127,16 @@ const { layout, locale } = Astro.props;
   </div>
 
   <div>
-    <label for="pickup">PONTO DE PARTIDA (ORIGEM) *</label>
+    <label for="pickup">
+      {Astro.currentLocale === "pt" ? "LOCAL DE RECOLHA (ORIGEM) *" : "PICKUP LOCATION (ORIGIN) *"}
+    </label>
     <input
       type="text"
       id="pickup"
       name="pickup"
-      placeholder="Comece a digitar um local de retirada..."
+      placeholder={
+        Astro.currentLocale === "pt" ? "Comece a escrever o local de recolha..." : "Start typing a pickup location..."
+      }
       autocomplete="off"
       required
     />
@@ -124,8 +147,10 @@ const { layout, locale } = Astro.props;
     type="button"
     id="swap-locations"
     class="location-swap-button"
-    aria-label="Trocar ponto de partida e chegada"
-    title="Trocar origem e destino"
+    aria-label={
+      Astro.currentLocale === "pt" ? "Trocar os locais de recolha e destino" : "Swap pickup and drop-off locations"
+    }
+    title={Astro.currentLocale === "pt" ? "Trocar origem e destino" : "Swap origin and destination"}
   >
     <svg
       viewBox="0 0 24 24"
@@ -146,12 +171,14 @@ const { layout, locale } = Astro.props;
   </button>
 
   <div>
-    <label for="dropoff">PONTO DE CHEGADA *</label>
+    <label for="dropoff">{Astro.currentLocale === "pt" ? "LOCAL DE DESTINO *" : "DROP-OFF LOCATION *"}</label>
     <input
       type="text"
       id="dropoff"
       name="dropoff"
-      placeholder="Comece a digitar um local de entrega..."
+      placeholder={
+        Astro.currentLocale === "pt" ? "Comece a escrever o local de destino..." : "Start typing a drop-off location..."
+      }
       autocomplete="off"
       required
     />
@@ -159,20 +186,20 @@ const { layout, locale } = Astro.props;
   </div>
 
   <div>
-    <label for="date">DATA *</label>
+    <label for="date">{Astro.currentLocale === "pt" ? "DATA *" : "DATE *"}</label>
     <input type="date" id="date" name="date" required />
   </div>
 
   <div>
-    <label for="time">HORA *</label>
+    <label for="time">{Astro.currentLocale === "pt" ? "HORA *" : "TIME *"}</label>
     <input type="time" id="time" name="time" required />
   </div>
 
   <div>
-    <label for="passengers">PASSAGEIROS *</label>
+    <label for="passengers">{Astro.currentLocale === "pt" ? "PASSAGEIROS *" : "PASSENGERS *"}</label>
     <select id="passengers" name="passengers" required>
       <option value="" selected disabled>
-        Selecionar passageiros
+        {Astro.currentLocale === "pt" ? "Selecione o número de passageiros" : "Select passengers"}
       </option>
       <option value="1">1</option>
       <option value="2">2</option>
@@ -182,10 +209,10 @@ const { layout, locale } = Astro.props;
   </div>
 
   <div>
-    <label for="bags">BAGAGEM (OPCIONAL)</label>
+    <label for="bags">{Astro.currentLocale === "pt" ? "BAGAGEM (OPCIONAL)" : "LUGGAGE (OPTIONAL)"}</label>
     <select id="bags" name="bags">
       <option value="" selected>
-        Sem bagagem
+        {Astro.currentLocale === "pt" ? "Sem bagagem" : "No luggage"}
       </option>
       <option value="1">1</option>
       <option value="2">2</option>
@@ -195,31 +222,59 @@ const { layout, locale } = Astro.props;
   </div>
 
   <div>
-    <label for="depart-time">HORA DE PARTIDA DO VOO (OPCIONAL)</label>
+    <label for="depart-time">
+      {Astro.currentLocale === "pt" ? "HORA DE PARTIDA DO VOO (OPCIONAL)" : "FLIGHT DEPARTURE TIME (OPTIONAL)"}
+    </label>
     <input type="time" id="depart-time" name="depart-time" />
   </div>
 
   <div>
-    <label for="arrive-time">HORA DE CHEGADA DO VOO (OPCIONAL)</label>
+    <label for="arrive-time">
+      {Astro.currentLocale === "pt" ? "HORA DE CHEGADA DO VOO (OPCIONAL)" : "FLIGHT ARRIVAL TIME (OPTIONAL)"}
+    </label>
     <input type="time" id="arrive-time" name="arrive-time" />
   </div>
 
   <div>
-    <label for="notes">INFORMAÇÕES ADICIONAIS / NOTAS ESPECIAIS</label>
+    <label for="flight-number">
+      {Astro.currentLocale === "pt" ? "NÚMERO DO VOO (OPCIONAL)" : "FLIGHT NUMBER (OPTIONAL)"}
+    </label>
+    <input
+      type="text"
+      id="flight-number"
+      name="flight-number"
+      placeholder={Astro.currentLocale === "pt" ? "Ex. BA 117" : "Eg. BA 117"}
+    />
+  </div>
+
+  <div>
+    <label for="notes">
+      {Astro.currentLocale === "pt"
+        ? "INFORMAÇÕES ADICIONAIS / PEDIDOS ESPECIAIS"
+        : "ADDITIONAL INFORMATION / SPECIAL REQUESTS"}
+    </label>
     <textarea
       id="notes"
       name="notes"
-      placeholder="Necessita de cadeiras para criança (ISOFIX), paragem intermédia ou transporte de animais de estimação em caixa?"
+      placeholder={
+        Astro.currentLocale === "pt"
+          ? "Precisa de cadeirinhas para crianças (ISOFIX), uma paragem intermédia ou transporte de animais numa transportadora?"
+          : "Do you need child seats (ISOFIX), an intermediate stop or pet transport in a carrier?"
+      }
     ></textarea>
   </div>
 
   <div>
-    <span>Tarifa Estimada (ESTIMATIVA TRANSPARENTE):</span>
+    <span>
+      {Astro.currentLocale === "pt"
+        ? "Preço estimado (estimativa transparente):"
+        : "Estimated Fare (TRANSPARENT ESTIMATE):"}
+    </span>
     <output id="price">--</output>
   </div>
 
   <button class="cmp-main-btn" type="submit">
-    PEDIR RESERVA DE TRANSFER
+    {Astro.currentLocale === "pt" ? "SOLICITAR RESERVA DE TRANSFER" : "REQUEST A TRANSFER BOOKING"}
   </button>
 
   <a
@@ -227,7 +282,7 @@ const { layout, locale } = Astro.props;
     href="https://wa.me/351966831360"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Contact us on WhatsApp"
+    aria-label={Astro.currentLocale === "pt" ? "Contacte-nos pelo WhatsApp" : "Contact us on WhatsApp"}
   >
     <svg viewBox="0 0 17 17">
       <path
@@ -235,7 +290,7 @@ const { layout, locale } = Astro.props;
         fill="#25D366"
       />
     </svg>
-    WHATSAPP DIRETO
+    {Astro.currentLocale === "pt" ? "WHATSAPP DIRETO" : "DIRECT WHATSAPP"}
   </a>
 </form>
 
@@ -246,7 +301,7 @@ const { layout, locale } = Astro.props;
     gap: 1.5rem;
     row-gap: 2rem;
     margin-top: 2.5rem;
-    overflow: clip;
+    /* overflow: clip; */
 
     @media (width > 47.5rem) {
       grid-template-columns: 1fr 1fr;
@@ -270,7 +325,8 @@ const { layout, locale } = Astro.props;
       background: #31333506;
       padding: 0.5rem 1rem;
       border: none;
-      outline: none;
+      border-radius: 4px;
+      outline: 1px solid rgba(0, 0, 0, 0.15);
 
       @media (width > 47.5rem) {
         font-size: var(--fs-15);
@@ -279,13 +335,11 @@ const { layout, locale } = Astro.props;
 
     input {
       font-family: var(--ff-jakarta);
-      font-weight: var(--fw-semibold);
+      font-weight: var(--fw-medium);
       color: var(--clr-black-10);
       line-height: var(--lh-145);
-      border-radius: 4px;
       letter-spacing: var(--ls-pos-1);
       text-transform: capitalize;
-      border: none;
     }
 
     textarea {
@@ -294,6 +348,7 @@ const { layout, locale } = Astro.props;
       font-weight: var(--fw-semibold);
       min-height: 6rem;
       padding: 1rem;
+      border-radius: 4px;
       outline: none;
 
       @media (width > 47.5rem) {
@@ -406,8 +461,8 @@ const { layout, locale } = Astro.props;
 
     .location-swap-button {
       position: relative;
-      width: 100%;
-      max-height: 10px;
+      max-width: fit-content;
+      max-height: 0.1rem;
       left: 50%;
       border: none;
       padding: 0 !important;
@@ -445,7 +500,7 @@ const { layout, locale } = Astro.props;
       font-weight: var(--fw-semibold);
     }
 
-    > div:nth-of-type(14) {
+    > div:nth-of-type(15) {
       font-size: var(--fs-40);
       font-family: var(--ff-news);
       letter-spacing: var(--ls-neg-1);
@@ -573,10 +628,14 @@ const { layout, locale } = Astro.props;
       }
 
       > div:nth-of-type(13) {
-        grid-column: 1 / -1;
+        grid-column: 1 / 2;
       }
 
       > div:nth-of-type(14) {
+        grid-column: 1 / -1;
+      }
+
+      > div:nth-of-type(15) {
         grid-column: 1 / 2;
         font-size: var(--fs-56);
       }
@@ -585,6 +644,7 @@ const { layout, locale } = Astro.props;
         grid-column: 1 / 2;
         min-width: unset;
         align-self: center;
+        padding-block: 1.25rem;
       }
 
       .whatsapp-button {
@@ -654,10 +714,14 @@ const { layout, locale } = Astro.props;
       }
 
       > div:nth-of-type(13) {
-        grid-column: 1 / -1;
+        grid-column: 1 / 3;
       }
 
       > div:nth-of-type(14) {
+        grid-column: 1 / -1;
+      }
+
+      > div:nth-of-type(15) {
         grid-column: 1 / 3;
       }
 
@@ -680,15 +744,15 @@ const { layout, locale } = Astro.props;
   .transfer-form--compact {
     @media (width > 47.5rem) {
       > div:nth-of-type(1) {
-        grid-column: 1 / 3;
-      }
-
-      > div:nth-of-type(2) {
         grid-column: 1 / 2;
       }
 
-      > div:nth-of-type(3) {
+      > div:nth-of-type(2) {
         grid-column: 2 / 3;
+      }
+
+      > div:nth-of-type(3) {
+        grid-column: 1 / 2;
       }
 
       > div:nth-of-type(4) {
@@ -729,10 +793,14 @@ const { layout, locale } = Astro.props;
       }
 
       > div:nth-of-type(13) {
-        grid-column: 1 / 3;
+        grid-column: 1 / 2;
       }
 
       > div:nth-of-type(14) {
+        grid-column: 1 / 3;
+      }
+
+      > div:nth-of-type(15) {
         grid-column: 1 / 2;
       }
 
@@ -747,7 +815,6 @@ const { layout, locale } = Astro.props;
     }
   }
 </style>
-
 <script>
   ["pickup-suggestions", "dropoff-suggestions"].forEach((id) => {
     const dropdown = document.getElementById(id);

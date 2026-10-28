@@ -113,7 +113,7 @@ const routesInfo = [
             fill="#44474A"
           />
         </svg>
-        Aeroporto de Faro (FAO)
+        {Astro.currentLocale === "pt" ? "Aeroporto de Faro" : "Faro Airport"} (FAO)
       </p>
 
       <div class="price-distance">
@@ -123,10 +123,10 @@ const routesInfo = [
       </div>
 
       <a
-        href={`${Astro.currentLocale === "pt" ? "/pt/transferências/" : "/transfers/"}?route=${encodeURIComponent(routes.name)}#booking-form`}
+        href={`${Astro.currentLocale === "pt" ? "/pt/transferencias/" : "/transfers/"}?route=${encodeURIComponent(routes.name)}#jump-to-transfer`}
         class="cmp-main-btn"
       >
-        SELECIONAR ROTA
+        {Astro.currentLocale === "pt" ? "SELECIONAR ROTA" : "SELECT ROUTE"}
       </a>
     </div>
   ))}

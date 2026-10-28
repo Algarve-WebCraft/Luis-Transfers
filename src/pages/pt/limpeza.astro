@@ -24,8 +24,10 @@ const pageDescription =
 
             <div>
               <p class="cmp-main-text">
-                Cuidado rigoroso, higienização de qualidade e flexibilidade para proprietários particulares e
-                alojamentos de férias no concelho de Lagoa e Carvoeiro.
+                Cuidado rigoroso, higienização de qualidade e atenção ao detalhe em cada serviço, com soluções flexíveis
+                para proprietários particulares e alojamentos de férias em todo o Algarve. Agendamento adaptado às
+                necessidades de cada propriedade, garantindo espaços limpos, frescos e prontos a receber hóspedes ou
+                residentes.
               </p>
             </div>
           </div>
@@ -357,7 +359,10 @@ const pageDescription =
                     />
                   </svg>
 
-                  <span>Verificação de electrodomésticos para os próximos hóspedes</span>
+                  <span>
+                    Verificações finais dos eletrodomésticos e equipamentos essenciais da cozinha antes da chegada de
+                    cada hóspede
+                  </span>
                 </li>
               </ul>
             </div>
@@ -608,7 +613,12 @@ const pageDescription =
       .image-card {
         display: grid;
         grid-template: 1fr / 1fr;
+        border-radius: 4px;
         overflow: hidden;
+        box-shadow:
+          0 6px 12px rgba(0, 0, 0, 0.4),
+          0 4px 8px rgba(0, 0, 0, 0.2),
+          0 0 0 1px rgba(255, 255, 255, 0.04);
 
         > * {
           grid-area: 1 / 1;
@@ -616,7 +626,6 @@ const pageDescription =
 
         img {
           aspect-ratio: 1.75 / 1;
-          border-radius: 4px;
           transition: transform 0.75s ease-out;
 
           @media (width > 62.5rem) {
@@ -655,6 +664,7 @@ const pageDescription =
           color: var(--clr-white-10);
           z-index: 999;
           background: linear-gradient(transparent, rgb(0 0 0 / 90%));
+          border-radius: 4px;
           user-select: none;
           pointer-events: none;
 

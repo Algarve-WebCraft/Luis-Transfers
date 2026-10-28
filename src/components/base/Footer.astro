@@ -25,36 +25,50 @@ const currentYear = new Date().getFullYear();
             />
           </svg>
 
-          <span class="footer-sub-heading-span">TRANSFERS & SERVIÇOS</span>
+          <span class="footer-sub-heading-span">
+            {Astro.currentLocale === "pt" ? "TRANSFERS & SERVIÇOS" : "TRANSFERS & SERVICES"}
+          </span>
 
           <p class="cmp-mini-text">
-            Serviços especializados de transfers executivos, gestão cuidada de limpezas e alojamento no coração do
-            Algarve.
+            {Astro.currentLocale === "pt"
+              ? "Serviços especializados de transfers executivos, gestão cuidada de limpezas e alojamento no coração do Algarve."
+              : "Specialised executive transfer services, carefully managed cleaning services and accommodation in the heart of the Algarve."}
           </p>
 
-          <span>RNAVT Registado N.º 11744&nbsp;&nbsp; • &nbsp;&nbsp;Alvará Turismo de Portugal</span>
+          <span>
+            {Astro.currentLocale === "pt"
+              ? "RNAVT Registado N.º 11744\u00A0\u00A0 • \u00A0\u00A0Alvará Turismo de Portugal"
+              : "Registered with RNAVT No. 11744\u00A0\u00A0 • \u00A0Tourism of Portugal Licence"}
+          </span>
         </div>
 
         <div class="footer-block">
-          <h2 class="cmp-small-heading">Base de Operações</h2>
+          <h2 class="cmp-small-heading">{Astro.currentLocale === "pt" ? "Base de Operações" : "Base of Operations"}</h2>
 
           <span>Carvoeiro • Algarve</span>
           <span>Rua dos Pescadores 117</span>
           <span>8400-512 Carvoeiro, Lagoa</span>
-          <span>Disponibilidade para o Aeroporto de Faro e toda a região ibérica.</span>
+          <span>
+            {Astro.currentLocale === "pt"
+              ? "Disponibilidade para o Aeroporto de Faro e toda a região ibérica."
+              : "Available for Faro Airport transfers and throughout the Iberian region."}
+          </span>
         </div>
 
         <div class="footer-block">
-          <h2 class="cmp-small-heading">Descubra o Algarve</h2>
+          <h2 class="cmp-small-heading">
+            {Astro.currentLocale === "pt" ? "Descubra o Algarve" : "Discover the Algarve"}
+          </h2>
 
           <p>
-            Viaje com conforto, beneficie de serviços de limpeza cuidados e descubra alojamentos para a sua estadia no
-            Algarve.
+            {Astro.currentLocale === "pt"
+              ? "Viaje com conforto, beneficie de serviços de limpeza cuidados e descubra alojamentos para a sua estadia no Algarve."
+              : "Travel in comfort, benefit from carefully managed cleaning services and discover accommodation for your stay in the Algarve."}
           </p>
         </div>
 
         <div class="footer-block">
-          <h2 class="cmp-small-heading">Contacto Direto</h2>
+          <h2 class="cmp-small-heading">{Astro.currentLocale === "pt" ? "Contacto Direto" : "Direct Contact"}</h2>
 
           <span>
             <a href="tel:+351966831360">
@@ -93,13 +107,18 @@ const currentYear = new Date().getFullYear();
                   fill="#7A582F"
                 />
               </svg>
-              WhatsApp Disponível 24/7
+              {Astro.currentLocale === "pt" ? "WhatsApp Disponível 24/7" : "WhatsApp Available 24/7"}
             </a>
           </span>
         </div>
 
         <div class="footer-bottom-container">
-          <span>©&nbsp;{currentYear}&nbsp;Luis Ferreira Transfers & Serviços. Todos os direitos reservados.</span>
+          <span>
+            ©&nbsp;{currentYear}&nbsp;
+            {Astro.currentLocale === "pt"
+              ? "Luis Ferreira Transfers & Serviços. Todos os direitos reservados."
+              : "Luis Ferreira Transfers & Services. All rights reserved."}
+          </span>
 
           <div class="footer-bottom__links">
             <a href={locale === "pt" ? "/pt/privacidade" : "/privacy"}>

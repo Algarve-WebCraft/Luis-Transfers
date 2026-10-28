@@ -20,14 +20,10 @@ const navItems = [
   { page: "cleaning", label: locale === "pt" ? "Limpeza" : "Cleaning" },
   { page: "rental", label: locale === "pt" ? "Alojamento" : "Rental" },
   { page: "contact", label: locale === "pt" ? "Contacto" : "Contact" },
-] as const;
+];
 ---
 
 <header id="header" class="home-header header">
-  <a href="#hero-section" class="skip-to-content">
-    Skip to main content
-  </a>
-
   <div class="header__container">
     <div class="wrapper wrapper--header">
       <div class="business-logo-container">
@@ -38,7 +34,9 @@ const navItems = [
           />
         </svg>
 
-        <span class="header-sub-heading-span">TRANSFERéNCIAS & SERVIÇOS</span>
+        <span class="header-sub-heading-span">
+          {Astro.currentLocale === "pt" ? "TRANSFERS & SERVIÇOS" : "TRANSFERS & SERVICES"}
+        </span>
       </div>
 
       <nav id="navigation" class="nav-bar">
@@ -63,7 +61,12 @@ const navItems = [
         </a>
       </div>
 
-      <a class="cmp-main-btn">Reservar</a>
+      <a
+        href={`${Astro.currentLocale === "pt" ? "/pt/transferencias/" : "/transfers/"}#jump-to-transfer`}
+        class="cmp-main-btn"
+      >
+        Reservar
+      </a>
 
       <div class="hamburger-btn-box">
         <button
@@ -328,7 +331,6 @@ const navItems = [
     function setNavAttributes() {
       const isOpen = navBar.classList.contains("hamburger-btn__open");
 
-      navBar.setAttribute("aria-hidden", String(!isOpen));
       hamburgerBtn.setAttribute("aria-expanded", String(isOpen));
 
       navBar.querySelectorAll("a").forEach((link) => {
