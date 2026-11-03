@@ -260,11 +260,6 @@ const navItems = [
       z-index: 0;
       inset: unset;
       transform: translateY(0);
-
-      & li:not(:last-of-type)::after {
-        position: absolute;
-        height: 0;
-      }
     }
 
     ul {
@@ -297,7 +292,7 @@ const navItems = [
       }
 
       &.active-link {
-        color: #a27339;
+        color: oklch(54.867% 0.09459 68.604);
       }
     }
   }

@@ -3,9 +3,11 @@ import { Image } from "astro:assets";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import heroOne from "@assets/images/car-one.webp";
-import heroTwo from "@assets/images/car-two.jpeg";
-import heroThree from "@assets/images/car-three.webp";
+import heroOne from "@assets/images/car-two.webp";
+import heroTwo from "@assets/images/car-three.webp";
+import heroThree from "@assets/images/car-two.webp";
+
+const { locale } = Astro.props;
 
 const slides = [
   {
@@ -54,9 +56,15 @@ const slides = [
 
   <div class="text-container">
     <div>
-      <span class="cmp-topper-heading">NOSSA FROTA</span>
-      <span class="cmp-small-heading">Mercedes-Benz Classe V Executiva Extra-Longo</span>
-      <p class="cmp-body-mini-text">Ar condicionado • Até 8 passageiros • Wi-Fi a bordo • Assentos em pele</p>
+      <span class="cmp-topper-heading">{Astro.currentLocale === "pt" ? "NOSSA FROTA" : "OUR FLEET"}</span>
+      <span class="cmp-small-heading">
+        {Astro.currentLocale === "pt" ? "Conforto e Qualidade em Cada Viagem" : "Comfort and Quality on Every Trip"}
+      </span>
+      <p class="cmp-body-mini-text">
+        {Astro.currentLocale === "pt"
+          ? "Ar condicionado • Até 4 passageiros • Wi-Fi a bordo • Assentos em pele"
+          : "Air conditioning • Up to 4 passengers • Onboard Wi-Fi • Leather seats"}
+      </p>
     </div>
 
     <div class="text-container__side-block">
@@ -64,7 +72,7 @@ const slides = [
         <rect width="8" height="8" rx="4" fill="#25d366" />
       </svg>
 
-      <span>DISPONIBILIDADE IMEDIATA 24/7</span>
+      <span>{Astro.currentLocale === "pt" ? "DISPONIBILIDADE IMEDIATA 24/7" : "IMMEDIATE AVAILABILITY 24/7"}</span>
     </div>
   </div>
 </div>

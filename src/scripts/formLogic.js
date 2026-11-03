@@ -328,18 +328,29 @@ function setupLocationSwap() {
 
 function updateNotesForRoute() {
   const notesInput = document.querySelector("#notes");
+  const notesLabel = document.querySelector('label[for="notes"]');
+  const form = notesInput?.closest("form");
+
+  if (!notesInput || !notesLabel || !form) return;
+
+  const locale = form.dataset.locale;
+  const isPortuguese = locale === "pt";
   const needsPickupAddress = Boolean(selectedFixedRoute);
 
-  if (!notesInput) return;
-
   if (needsPickupAddress) {
+    notesLabel.textContent = isPortuguese ? "Morada completa de recolha *" : "Full pick-up address *";
+
     notesInput.required = true;
-    notesInput.placeholder =
-      "Por favor, forneça aqui o seu endereço completo de retirada, incluindo o nome e o número do imóvel, bem como o nome da rua.";
+    notesInput.placeholder = isPortuguese
+      ? "Por favor, indique a sua morada completa de recolha, incluindo o nome do imóvel, o número da porta, o nome da rua e quaisquer informações adicionais."
+      : "Please provide your full pick-up address. This includes the property name, number and street name and any additional information.";
   } else {
+    notesLabel.textContent = isPortuguese ? "Notas adicionais" : "Additional notes";
+
     notesInput.required = false;
-    notesInput.placeholder =
-      "Necessita de cadeiras para criança (ISOFIX), paragem intermédia ou transporte de animais de estimação em caixa?";
+    notesInput.placeholder = isPortuguese
+      ? "Necessita de cadeiras para criança (ISOFIX), uma paragem intermédia ou transporte de animais de estimação numa caixa de transporte?"
+      : "Do you need child seats (ISOFIX), an intermediate stop or pet transport in a carrier?";
   }
 }
 

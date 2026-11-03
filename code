@@ -125,6 +125,7 @@ function sendWhatsAppOwnerMessage(data, approveUrl, declineUrl) {
             { type: "text", text: data.time },
             { type: "text", text: String(data.passengers) },
             { type: "text", text: `${data.price}` },
+            { type: "text", text: data.flightNumber || "-" },
             { type: "text", text: data.departTime || "-" },
             { type: "text", text: data.arriveTime || "-" },
             { type: "text", text: data.bags || "-" },
@@ -174,7 +175,7 @@ function sendWhatsAppOwnerMessage(data, approveUrl, declineUrl) {
     .openById(CONFIG.SHEET_ID)
     .getSheetByName("Sheet1");
 
-  sheet.getRange(sheet.getLastRow(), 25).setValue(
+  sheet.getRange(sheet.getLastRow(), 26).setValue(
     `WhatsApp ${responseCode}: ${responseText}`
   );
 }
@@ -271,6 +272,7 @@ function doPost(e) {
     data.time,                 
     data.passengers,            
     data.bags || "",         
+    data.flightNumber || "",      
     data.departTime || "",       
     data.arriveTime || "",      
     data.price,                   
@@ -302,41 +304,6 @@ function doPost(e) {
     "&token=" +
     encodeURIComponent(approvalToken);
 
-  /* MailApp.sendEmail({
-    to: CONFIG.OWNER_EMAIL,
-    subject: `New transfer request: ${requestId}`,
-    htmlBody: `
-      <h2>New Transfer Request</h2>
-
-      <p><strong>Name:</strong> ${data.name}</p>
-      <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Phone:</strong> ${data.phone}</p>
-
-      <p><strong>Pickup:</strong> ${data.pickup}</p>
-      <p><strong>Dropoff:</strong> ${data.dropoff}</p>
-
-      <p><strong>Date:</strong> ${data.date}</p>
-      <p><strong>Time:</strong> ${data.time}</p>
-
-      <p><strong>Passengers:</strong> ${data.passengers}</p>
-      <p><strong>Luggage:</strong> ${data.bags || "-"}</p>
-      <p><strong>Flight Departure Time:</strong> ${data.departTime || "-"}</p>
-      <p><strong>Flight Arrival Time:</strong> ${data.arriveTime || "-"}</p>
-
-      <p><strong>Estimated Price:</strong> €${data.price}</p>
-      <p><strong>Notes:</strong> ${data.notes || "None"}</p>
-      <br>
-
-      <p>
-        <a href="${approveUrl}">APPROVE REQUEST</a>
-      </p>
-
-      <p>
-        <a href="${declineUrl}">DECLINE REQUEST</a>
-      </p>
-    `
-  }); */
-
   sendWhatsAppOwnerMessage(
     data,
     approveUrl,
@@ -347,6 +314,7 @@ function doPost(e) {
     .createTextOutput("OK")
     .setMimeType(ContentService.MimeType.TEXT);
 }
+
 
 function doGet(e) {
   const lock = LockService.getScriptLock();
@@ -373,8 +341,8 @@ function doGet(e) {
       const row = data[i];
 
       const storedRequestId = row[0];
-      const status = row[15];
-      const storedToken = row[23];
+      const status = row[16];
+      const storedToken = row[24];
 
       if (storedRequestId === requestId && storedToken === token) {
 
@@ -412,9 +380,10 @@ function doGet(e) {
               `Email: ${row[3]}\n` +
               `Passengers: ${row[9]}\n` +
               `Luggage: ${row[10] || "-"}\n` +
-              `Flight Departure Time: ${row[11] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
-              `Flight Arrival Time: ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
-              `Notes: ${row[14] || "None"}`,
+              `Flight Number: ${row[11] || "-"}\n` +
+              `Flight Departure Time: ${row[12] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
+              `Flight Arrival Time: ${row[13] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
+              `Notes: ${row[15] || "None"}`,
             start: {
               dateTime: start.toISOString()
             },
@@ -423,8 +392,8 @@ function doGet(e) {
             }
           }, "primary");
 
-          sheet.getRange(i + 1, 16).setValue("APPROVED");
-          sheet.getRange(i + 1, 23).setValue(event.id);
+          sheet.getRange(i + 1, 17).setValue("APPROVED");
+          sheet.getRange(i + 1, 24).setValue(event.id);
 
           MailApp.sendEmail({
             to: row[3],
@@ -442,11 +411,16 @@ function doGet(e) {
               <p><strong>Time:</strong> ${Utilities.formatDate(row[8], Session.getScriptTimeZone(), "HH:mm")}</p>
               <p><strong>Passengers:</strong> ${row[9]}</p>
               <p><strong>Luggage:</strong> ${row[10] || "-"}</p>
-              <p><strong>Flight Departure Time:</strong> ${row[11] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
-              <p><strong>Flight Arrival Time:</strong> ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
-              <p><strong>Estimated Price:</strong> €${row[13]}</p>
+              <p><strong>Flight No.:</strong> ${row[11] || "-"}</p>
+              <p><strong>Flight Departure Time:</strong> ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
+              <p><strong>Flight Arrival Time:</strong> ${row[13] ? Utilities.formatDate(row[13], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
+              <p><strong>Estimated Price:</strong> €${row[14]}</p>
 
-              <p>If there are any issues or changes to your trip, please call or Whatsapp (+351) 911 891 011</p>
+              <p><strong>Additional Information:</strong> ${row[15]}</p>
+
+              <p>Your transfer information, including driver details, will be sent to you at least 4 hours before your scheduled pick-up. If you have not received it by then, or if there are any issues or changes to your trip, please contact us on WhatsApp - (+351) 966 831 360</p>
+
+              <p>A informaçãodo seu transfer, incluindo os dados do motorista, será enviada pelo menos 4 horas antes do horário agendado para o seu transfer. Caso não a receba até esse momento, ou se houver qualquer problema ou alteração em sua viagem, entre em contato conosco pelo WhatsApp - (+351) 966 831 360</p>
             `
           });
 
@@ -468,21 +442,22 @@ function doGet(e) {
               ),
               row[9],
               row[10] || "-",
-              row[11]
+              row[11] || "-",
+              row[12]
                 ? Utilities.formatDate(
                     row[11],
                     Session.getScriptTimeZone(),
                     "HH:mm"
                   )
                 : "-",
-              row[12]
+              row[13]
                 ? Utilities.formatDate(
                     row[12],
                     Session.getScriptTimeZone(),
                     "HH:mm"
                   )
                 : "-",
-              row[13]
+              row[14]
             ]
           );
 
@@ -518,7 +493,7 @@ function doGet(e) {
         }
 
         if (action === "decline") {
-          sheet.getRange(i + 1, 16).setValue("DECLINED");
+          sheet.getRange(i + 1, 17).setValue("DECLINED");
 
           MailApp.sendEmail({
             to: row[3],
@@ -539,7 +514,9 @@ function doGet(e) {
               <p><strong>Flight Departure Time:</strong> ${row[11] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
               <p><strong>Flight Arrival Time:</strong> ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
 
-              <p>Please feel free to contact us if you would like to discuss an alternative (+351) 911 891 011.</p>
+              <p>Please feel free to contact us on Whatsapp if you would like to discuss an alternative (+351) 911 891 011.</p>
+
+              <p>Sinta-se à vontade para nos contactar pelo WhatsApp, caso queira discutir uma alternativa. (+351) 911 891 011.</p>
             `
           });
 
@@ -561,14 +538,14 @@ function doGet(e) {
               ),
               row[9],
               row[10] || "-",
-              row[11]
+              row[12]
                 ? Utilities.formatDate(
                     row[11],
                     Session.getScriptTimeZone(),
                     "HH:mm"
                   )
                 : "-",
-              row[12]
+              row[13]
                 ? Utilities.formatDate(
                     row[12],
                     Session.getScriptTimeZone(),
@@ -646,7 +623,7 @@ function syncCalendarChanges(e) {
   }
 
   try {
-    const calendarId = e?.calendarId || "primary";
+    const calendarId = "primary";
     const properties = PropertiesService.getScriptProperties();
     const syncToken = properties.getProperty("CALENDAR_SYNC_TOKEN");
     let pageToken;
@@ -725,7 +702,7 @@ function syncCalendarEventToSheet(event, sheet) {
   }
 
   const eventIdValues = sheet
-    .getRange(2, 23, lastRow - 1, 1)
+    .getRange(2, 24, lastRow - 1, 1)
     .getValues();
 
   for (let i = 0; i < eventIdValues.length; i++) {
@@ -742,8 +719,8 @@ function syncCalendarEventToSheet(event, sheet) {
   }
 
   if (event.status === "cancelled") {
-    sheet.getRange(sheetRow, 16).setValue("CANCELLED");
-    return;
+  sheet.getRange(sheetRow, 17).setValue("CANCELLED");
+  return;
   }
 
   const start = event.start?.dateTime;
@@ -780,10 +757,11 @@ function syncCalendarEventToSheet(event, sheet) {
     [9, time],
     [10, descriptionData.Passengers],
     [11, descriptionData.Luggage],
-    [12, descriptionData["Flight Departure Time"]],
-    [13, descriptionData["Flight Arrival Time"]],
-    [15, descriptionData.Notes],
-    [16, "APPROVED"],
+    [12, descriptionData["Flight Number"]],
+    [13, descriptionData["Flight Departure Time"]],
+    [14, descriptionData["Flight Arrival Time"]],
+    [16, descriptionData.Notes],
+    [17, "APPROVED"],
   ];
 
   for (const [column, value] of updates) {
@@ -807,4 +785,3 @@ function parseCalendarDescription(description) {
 
   return fields;
 }
-
