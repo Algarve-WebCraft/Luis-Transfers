@@ -110,6 +110,20 @@ const currentYear = new Date().getFullYear();
               {Astro.currentLocale === "pt" ? "WhatsApp Disponível 24/7" : "WhatsApp Available 24/7"}
             </a>
           </span>
+
+          <span>
+            <a href="https://algarvewebcraft.com" target="_blank" rel="noopener noreferrer">
+              <img
+                src="/public/assets/logos/dev-logo.webp"
+                alt={
+                  Astro.currentLocale === "pt"
+                    ? "O link para o programador do site, Algarve WebCraft"
+                    : "The link to the developer of the website, Algarve WebCraft"
+                }
+                class="dev-logo"
+              />
+            </a>
+          </span>
         </div>
 
         <div class="footer-bottom-container">
@@ -265,6 +279,15 @@ const currentYear = new Date().getFullYear();
         max-width: 1rem;
         margin-right: 0.75rem;
         top: 0.25rem;
+      }
+
+      .dev-logo {
+        max-width: 2.5rem;
+        margin-inline: auto;
+
+        @media (width > 62.5rem) {
+          margin-inline: unset;
+        }
       }
     }
 

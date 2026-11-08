@@ -386,6 +386,13 @@ const pageDescription =
         padding: 2em;
       }
 
+      /* Blur out Social Media block until they have made them */
+      &:nth-child(3) {
+        opacity: 0.2;
+        user-select: none;
+        pointer-events: none;
+      }
+
       .contact-span-link {
         font-size: clamp(var(--fs-15), 0.8vw + 0.4rem, var(--fs-18));
         font-weight: var(--fw-semibold);

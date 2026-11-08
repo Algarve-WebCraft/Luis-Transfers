@@ -265,11 +265,7 @@ const { layout, locale } = Astro.props;
   </div>
 
   <div>
-    <span>
-      {Astro.currentLocale === "pt"
-        ? "Preço estimado (estimativa transparente):"
-        : "Estimated Fare (TRANSPARENT ESTIMATE):"}
-    </span>
+    <span>{Astro.currentLocale === "pt" ? "Preço estimado:" : "Estimated Fare:"}</span>
     <output id="price">--</output>
   </div>
 
@@ -514,10 +510,10 @@ const { layout, locale } = Astro.props;
 
     .cmp-main-btn {
       width: 100%;
-      max-width: 25rem;
+      max-width: 19rem;
       padding-block: 1.25rem;
       margin-top: -1rem;
-      place-self: center;
+      place-self: end;
 
       @media (width > 62.5rem) {
         padding-block: 0.625rem;
@@ -722,7 +718,7 @@ const { layout, locale } = Astro.props;
       }
 
       > div:nth-of-type(15) {
-        grid-column: 1 / 3;
+        grid-column: 1 / 2;
       }
 
       .location-swap-button {
@@ -732,7 +728,7 @@ const { layout, locale } = Astro.props;
       }
 
       .cmp-main-btn {
-        grid-column: 3 / 4;
+        grid-column: 2 / 4;
       }
 
       .whatsapp-button {
