@@ -24,6 +24,134 @@ const CONFIG = {
     .getProperty("WHATSAPP_OWNER_NUMBER"),
 };
 
+const RATE_LIMIT = {
+  MAX_PER_SENDER: 3,
+  WINDOW_SECONDS: 600,
+};
+
+function toWhatsAppParam(value, maxLength) {
+  let text = String(value === null || value === undefined ? "" : value)
+    .split(/\r\n|\r|\n/)
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .join(" | ");
+
+  if (maxLength && text.length > maxLength) {
+    text = text.slice(0, maxLength - 1).trimEnd() + "…";
+  }
+
+  return text || "-";
+}
+
+function escapeSheetText(value) {
+  if (typeof value !== "string") return value;
+
+  const startsLikeFormula =
+    /^[=@]/.test(value) ||
+    (/^[+\-]/.test(value) && !/^[+\-]?\d+(\.\d+)?$/.test(value));
+
+  return startsLikeFormula ? "'" + value : value;
+}
+
+function escapeHtml(value) {
+  return String(value === null || value === undefined ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function findRowByRequestId(sheet, requestId) {
+  const lastRow = sheet.getLastRow();
+
+  if (!requestId || lastRow < 2) return null;
+
+  const cell = sheet
+    .getRange(1, 1, lastRow, 1)
+    .createTextFinder(String(requestId))
+    .matchEntireCell(true)
+    .findNext();
+
+  return cell ? cell.getRow() : null;
+}
+
+function writeWhatsAppLog(sheet, rowNumber, message) {
+  if (!rowNumber) return;
+
+  const cell = sheet.getRange(rowNumber, 26);
+  const existing = String(cell.getValue() || "");
+
+  cell.setValue(existing ? existing + "\n" + message : message);
+}
+
+function isRateLimited(data) {
+  const cache = CacheService.getScriptCache();
+
+  const keys = [
+    "rl_email_" + String(data.email).trim().toLowerCase(),
+    "rl_phone_" + String(data.phone).replace(/\D/g, ""),
+  ].map((key) => key.slice(0, 200));
+
+  const counts = keys.map((key) => Number(cache.get(key)) || 0);
+
+  if (counts.some((count) => count >= RATE_LIMIT.MAX_PER_SENDER)) {
+    return true;
+  }
+
+  keys.forEach((key, index) => {
+    cache.put(key, String(counts[index] + 1), RATE_LIMIT.WINDOW_SECONDS);
+  });
+
+  return false;
+}
+
+function sendOwnerFallbackEmail(data, approveUrl, declineUrl, responseCode, responseText) {
+  const rows = [
+    ["Request ID", data.requestId],
+    ["Name", data.name],
+    ["Phone", data.phone],
+    ["Email", data.email],
+    ["Pickup", data.pickup],
+    ["Drop-off", data.dropoff],
+    ["Date", data.date],
+    ["Time", data.time],
+    ["Passengers", data.passengers],
+    ["Price", `€${data.price}`],
+    ["Flight Number", data.flightNumber || "-"],
+    ["Flight Departure Time", data.departTime || "-"],
+    ["Flight Arrival Time", data.arriveTime || "-"],
+    ["Luggage", data.bags || "-"],
+    ["Notes", data.notes || "-"],
+  ];
+
+  const details = rows
+    .map(
+      ([label, value]) =>
+        `<p><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value).replace(/\r\n|\r|\n/g, "<br>")}</p>`
+    )
+    .join("");
+
+  MailApp.sendEmail({
+    to: CONFIG.OWNER_EMAIL,
+    subject: `New transfer request ${data.requestId} (WhatsApp failed)`,
+    name: "Luis Ferreira Transfers",
+    htmlBody: `
+      <h2>New transfer request</h2>
+
+      <p>The WhatsApp notification could not be sent (code ${escapeHtml(responseCode)}), so this request is being sent by email instead.</p>
+
+      ${details}
+
+      <p>
+        <a href="${escapeHtml(approveUrl)}" style="display:inline-block;padding:12px 24px;margin:8px 8px 8px 0;background:#2e7d32;color:#ffffff;text-decoration:none;border-radius:6px;">Approve</a>
+        <a href="${escapeHtml(declineUrl)}" style="display:inline-block;padding:12px 24px;margin:8px 0;background:#c62828;color:#ffffff;text-decoration:none;border-radius:6px;">Decline</a>
+      </p>
+
+      <p style="color:#777;font-size:12px;">WhatsApp response: ${escapeHtml(responseText)}</p>
+    `,
+  });
+}
+
 function validateBooking(data) {
   const requiredFields = [
     "name",
@@ -107,7 +235,7 @@ function sendWhatsAppOwnerMessage(data, approveUrl, declineUrl) {
     to: CONFIG.WHATSAPP_OWNER_NUMBER,
     type: "template",
     template: {
-      name: "luis_transfer_template",
+      name: "luis_transfer_template_new",
       language: {
         code: "en"
       },
@@ -115,21 +243,21 @@ function sendWhatsAppOwnerMessage(data, approveUrl, declineUrl) {
         {
           type: "body",
           parameters: [
-            { type: "text", text: data.requestId },
-            { type: "text", text: data.name },
-            { type: "text", text: data.phone },
-            { type: "text", text: data.email },
-            { type: "text", text: data.pickup },
-            { type: "text", text: data.dropoff },
-            { type: "text", text: data.date },
-            { type: "text", text: data.time },
-            { type: "text", text: String(data.passengers) },
-            { type: "text", text: `${data.price}` },
-            { type: "text", text: data.flightNumber || "-" },
-            { type: "text", text: data.departTime || "-" },
-            { type: "text", text: data.arriveTime || "-" },
-            { type: "text", text: data.bags || "-" },
-            { type: "text", text: data.notes || "-" }
+            { type: "text", text: toWhatsAppParam(data.requestId, 150) },
+            { type: "text", text: toWhatsAppParam(data.name, 150) },
+            { type: "text", text: toWhatsAppParam(data.phone, 150) },
+            { type: "text", text: toWhatsAppParam(data.email, 150) },
+            { type: "text", text: toWhatsAppParam(data.pickup, 150) },
+            { type: "text", text: toWhatsAppParam(data.dropoff, 150) },
+            { type: "text", text: toWhatsAppParam(data.date, 150) },
+            { type: "text", text: toWhatsAppParam(data.time, 150) },
+            { type: "text", text: toWhatsAppParam(data.passengers, 150) },
+            { type: "text", text: toWhatsAppParam(data.price, 150) },
+            { type: "text", text: toWhatsAppParam(data.flightNumber, 150) },
+            { type: "text", text: toWhatsAppParam(data.departTime, 150) },
+            { type: "text", text: toWhatsAppParam(data.arriveTime, 150) },
+            { type: "text", text: toWhatsAppParam(data.bags, 150) },
+            { type: "text", text: toWhatsAppParam(data.notes, 300) }
           ]
         },
         {
@@ -158,29 +286,49 @@ function sendWhatsAppOwnerMessage(data, approveUrl, declineUrl) {
     }
   };
 
-  const response = UrlFetchApp.fetch(url, {
-    method: "post",
-    contentType: "application/json",
-    headers: {
-      Authorization: `Bearer ${CONFIG.WHATSAPP_ACCESS_TOKEN}`
-    },
-    payload: JSON.stringify(payload),
-    muteHttpExceptions: true
-  });
+  let responseCode = 0;
+  let responseText = "";
 
-  const responseCode = response.getResponseCode();
-  const responseText = response.getContentText();
+  try {
+    const response = UrlFetchApp.fetch(url, {
+      method: "post",
+      contentType: "application/json",
+      headers: {
+        Authorization: `Bearer ${CONFIG.WHATSAPP_ACCESS_TOKEN}`
+      },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    });
+
+    responseCode = response.getResponseCode();
+    responseText = response.getContentText();
+  } catch (error) {
+    responseText = `Request failed: ${error.message}`;
+  }
+
+  let logMessage = `WhatsApp ${responseCode}: ${responseText}`;
+
+  if (responseCode !== 200) {
+    try {
+      sendOwnerFallbackEmail(data, approveUrl, declineUrl, responseCode, responseText);
+      logMessage += " | Fallback email sent to owner";
+    } catch (error) {
+      logMessage += ` | Fallback email FAILED: ${error.message}`;
+    }
+  }
 
   const sheet = SpreadsheetApp
     .openById(CONFIG.SHEET_ID)
     .getSheetByName("Sheet1");
 
-  sheet.getRange(sheet.getLastRow(), 26).setValue(
-    `WhatsApp ${responseCode}: ${responseText}`
+  writeWhatsAppLog(
+    sheet,
+    findRowByRequestId(sheet, data.requestId),
+    logMessage
   );
 }
 
-function sendWhatsAppClientMessage(phone, templateName, parameters) {
+function sendWhatsAppClientMessage(phone, templateName, parameters, rowNumber) {
   const url =
     `https://graph.facebook.com/v26.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`;
 
@@ -198,7 +346,7 @@ function sendWhatsAppClientMessage(phone, templateName, parameters) {
           type: "body",
           parameters: parameters.map((value) => ({
             type: "text",
-            text: String(value)
+            text: toWhatsAppParam(value, 300)
           }))
         }
       ]
@@ -222,7 +370,9 @@ function sendWhatsAppClientMessage(phone, templateName, parameters) {
     .openById(CONFIG.SHEET_ID)
     .getSheetByName("Sheet1");
 
-  sheet.getRange(sheet.getLastRow(), 26).setValue(
+  writeWhatsAppLog(
+    sheet,
+    rowNumber,
     `TO: [${phone}] | Client WhatsApp ${templateName} ${responseCode}: ${responseText}`
   );
 }
@@ -237,6 +387,17 @@ function doPost(e) {
         JSON.stringify({
           success: false,
           error: validationError
+        })
+      )
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (isRateLimited(data)) {
+    return ContentService
+      .createTextOutput(
+        JSON.stringify({
+          success: false,
+          error: "Too many requests. Please try again later."
         })
       )
       .setMimeType(ContentService.MimeType.JSON);
@@ -285,8 +446,8 @@ function doPost(e) {
     data.pickupPlaceId,            
     data.dropoffPlaceId,            
     "",                             
-    approvalToken,                  
-  ]);
+    approvalToken,
+  ].map(escapeSheetText));
 
   const webAppUrl = CONFIG.WEB_APP_URL;
 
@@ -314,7 +475,6 @@ function doPost(e) {
     .createTextOutput("OK")
     .setMimeType(ContentService.MimeType.TEXT);
 }
-
 
 function doGet(e) {
   const lock = LockService.getScriptLock();
@@ -381,8 +541,8 @@ function doGet(e) {
               `Passengers: ${row[9]}\n` +
               `Luggage: ${row[10] || "-"}\n` +
               `Flight Number: ${row[11] || "-"}\n` +
-              `Flight Departure Time: ${row[12] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
-              `Flight Arrival Time: ${row[13] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
+              `Flight Departure Time: ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
+              `Flight Arrival Time: ${row[13] ? Utilities.formatDate(row[13], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
               `Notes: ${row[15] || "None"}`,
             start: {
               dateTime: start.toISOString()
@@ -398,6 +558,7 @@ function doGet(e) {
           MailApp.sendEmail({
             to: row[3],
             subject: `Transfer request ${requestId} confirmed`,
+            name: "Luis Ferreira Transfers",
             htmlBody: `
               <h2>Transfer Confirmed</h2>
 
@@ -445,20 +606,22 @@ function doGet(e) {
               row[11] || "-",
               row[12]
                 ? Utilities.formatDate(
-                    row[11],
+                    row[12],
                     Session.getScriptTimeZone(),
                     "HH:mm"
                   )
                 : "-",
               row[13]
                 ? Utilities.formatDate(
-                    row[12],
+                    row[13],
                     Session.getScriptTimeZone(),
                     "HH:mm"
                   )
                 : "-",
-              row[14]
-            ]
+              row[14],
+              row[15] || "-"
+            ],
+            i + 1
           );
 
           return HtmlService
@@ -498,6 +661,7 @@ function doGet(e) {
           MailApp.sendEmail({
             to: row[3],
             subject: `Transfer request ${requestId} declined`,
+            name: "Luis Ferreira Transfers",
             htmlBody: `
               <h2>Transfer Request</h2>
 
@@ -511,8 +675,8 @@ function doGet(e) {
               <p><strong>Time:</strong> ${Utilities.formatDate(row[8], Session.getScriptTimeZone(), "HH:mm")}</p>
               <p><strong>Passengers:</strong> ${row[9]}</p>
               <p><strong>Luggage:</strong> ${row[10] || "-"}</p>
-              <p><strong>Flight Departure Time:</strong> ${row[11] ? Utilities.formatDate(row[11], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
-              <p><strong>Flight Arrival Time:</strong> ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
+              <p><strong>Flight Departure Time:</strong> ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
+              <p><strong>Flight Arrival Time:</strong> ${row[13] ? Utilities.formatDate(row[13], Session.getScriptTimeZone(), "HH:mm") : "-"}</p>
 
               <p>Please feel free to contact us on Whatsapp if you would like to discuss an alternative (+351) 911 891 011.</p>
 
@@ -540,19 +704,20 @@ function doGet(e) {
               row[10] || "-",
               row[12]
                 ? Utilities.formatDate(
-                    row[11],
+                    row[12],
                     Session.getScriptTimeZone(),
                     "HH:mm"
                   )
                 : "-",
               row[13]
                 ? Utilities.formatDate(
-                    row[12],
+                    row[13],
                     Session.getScriptTimeZone(),
                     "HH:mm"
                   )
                 : "-"
-            ]
+            ],
+            i + 1
           );
 
           return HtmlService
@@ -766,7 +931,7 @@ function syncCalendarEventToSheet(event, sheet) {
 
   for (const [column, value] of updates) {
     if (value !== null && value !== undefined) {
-      sheet.getRange(sheetRow, column).setValue(value);
+      sheet.getRange(sheetRow, column).setValue(escapeSheetText(value));
     }
   }
 }

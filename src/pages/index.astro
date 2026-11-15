@@ -28,6 +28,7 @@ const pageDescription =
                 Private Transfers and Dedicated Services in the Algarve.
               </h1>
             </div>
+
             <div>
               <p class="cmp-main-text">
                 Private transfers to and from airports, hotels and other destinations throughout the Algarve and the
@@ -461,7 +462,12 @@ const pageDescription =
     <div class="wrapper wrapper--tablet-48" data-animate="fade-in">
       <div class="rental-container">
         <div class="rental-image">
-          <Image src={rentalPhoto} alt="Photo of the lounge of the rental apartment" format="webp" layout="constrained" />
+          <Image
+            src={rentalPhoto}
+            alt="Photo of the lounge of the rental apartment"
+            format="webp"
+            layout="constrained"
+          />
         </div>
 
         <div class="rental-text-container">
@@ -618,10 +624,10 @@ const pageDescription =
         flex-direction: row;
         margin-top: 2rem;
       }
+      max-height: clamp(200px, 45vw, 500px);
 
       img {
-        height: auto;
-        max-height: clamp(200px, 45vw, 500px);
+        max-height: 400px;
         border-radius: 0.35rem;
       }
     }
@@ -717,6 +723,10 @@ const pageDescription =
         min-width: 1rem;
         top: 0.25rem;
         fill: var(--clr-brown-10);
+      }
+
+      .moon-svg {
+        left: unset;
       }
 
       h3 {

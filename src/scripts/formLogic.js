@@ -497,15 +497,68 @@ function initPhoneInput() {
 }
 document.addEventListener("astro:page-load", initPhoneInput);
 
+// Current date and time in Portugal (where the transfers take place),
+// so the check is the same whatever time zone the customer's device is in.
+function getPortugalNow() {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Lisbon",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    })
+      .formatToParts(new Date())
+      .map((part) => [part.type, part.value]),
+  );
+
+  return {
+    date: `${parts.year}-${parts.month}-${parts.day}`,
+    time: `${parts.hour}:${parts.minute}`,
+  };
+}
+
+function validateBookingDateTime() {
+  const form = document.querySelector("#booking-form");
+  const dateInput = document.querySelector('#booking-form input[type="date"]');
+  const timeInput = document.querySelector('#booking-form input[type="time"]#time');
+
+  if (!form || !dateInput || !timeInput) return true;
+
+  const isPortuguese = form.dataset.locale === "pt";
+  const now = getPortugalNow();
+  const date = dateInput.value;
+  const time = timeInput.value;
+
+  dateInput.min = now.date;
+
+  let dateMessage = "";
+  let timeMessage = "";
+
+  if (date && date < now.date) {
+    dateMessage = isPortuguese ? "Por favor, escolha uma data futura." : "Please choose a date that is not in the past.";
+  } else if (date && time && date === now.date && time <= now.time) {
+    timeMessage = isPortuguese ? "Por favor, escolha uma hora futura." : "Please choose a time that is not in the past.";
+  }
+
+  dateInput.setCustomValidity(dateMessage);
+  timeInput.setCustomValidity(timeMessage);
+
+  return !dateMessage && !timeMessage;
+}
+
 function initDateInput() {
   const dateInput = document.querySelector('#booking-form input[type="date"]');
+  const timeInput = document.querySelector('#booking-form input[type="time"]#time');
 
   if (!dateInput) return;
 
-  const today = new Date();
-  const localDate = today.toLocaleDateString("en-CA");
+  dateInput.min = getPortugalNow().date;
 
-  dateInput.min = localDate;
+  dateInput.addEventListener("change", validateBookingDateTime);
+  timeInput?.addEventListener("change", validateBookingDateTime);
 }
 document.addEventListener("astro:page-load", initDateInput);
 
@@ -525,6 +578,12 @@ document.addEventListener("submit", async (event) => {
   const submitButton = form.querySelector('button[type="submit"]');
 
   if (!submitButton || submitButton.disabled) return;
+
+  // Re-check at submit time, as the chosen time may have passed while the form was open.
+  if (!validateBookingDateTime()) {
+    form.reportValidity();
+    return;
+  }
 
   submitButton.disabled = true;
 
@@ -577,6 +636,7 @@ document.addEventListener("submit", async (event) => {
       method: "POST",
       mode: "no-cors",
       redirect: "follow",
+      keepalive: true,
       headers: {
         "Content-Type": "text/plain;charset=utf-8",
       },

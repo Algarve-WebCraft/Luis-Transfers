@@ -463,7 +463,12 @@ const pageDescription =
     <div class="wrapper wrapper--tablet-48" data-animate="fade-in">
       <div class="rental-container">
         <div class="rental-image">
-          <Image src={rentalPhoto} alt="Foto da sala de estar do apartamento para arrendar" format="webp" layout="constrained" />
+          <Image
+            src={rentalPhoto}
+            alt="Foto da sala de estar do apartamento para arrendar"
+            format="webp"
+            layout="constrained"
+          />
         </div>
 
         <div class="rental-text-container">
@@ -713,12 +718,7 @@ const pageDescription =
         width: 1rem;
         min-width: 1rem;
         top: 0.25rem;
-        left: 0.85rem;
         fill: var(--clr-brown-10);
-
-        @media (width > 85rem) {
-          left: 1.5rem;
-        }
       }
 
       .moon-svg {

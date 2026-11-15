@@ -193,7 +193,7 @@
 
     /* Font-Family + Font-Weight */
 
-    --ff-news: "Newsreader", sans-serif;
+    --ff-news: "Newsreader", serif;
     --ff-jakarta: "Plus Jakarta Sans", sans-serif;
 
     --fw-regular: 400;
@@ -224,13 +224,6 @@
     --pd-28: 1.75em;
     --pd-32: 2em;
     --pd-36: 2.25em;
-
-    --wr-768: 48rem;
-    --wr-960: 60rem;
-    --wr-1080: 68rem;
-    --wr-1120: 70rem;
-    --wr-1190: 74rem;
-    --wr-1280: 80rem;
 
     /* Colours */
 
@@ -414,14 +407,12 @@
     grid-template-rows: auto 1fr auto;
     min-height: 100svh;
     background-color: var(--clr-white-10);
-    font-size: var(--fs-body-text);
+    font-size: var(--fs-16);
     font-family: var(--ff-jakarta);
     font-weight: var(--fw-regular);
     color: var(--clr-black-30);
     line-height: var(--lh-155);
     overflow-x: clip;
-    color: #0f1b2d;
-    color: #0d1624;
 
     > * {
       min-width: 0;

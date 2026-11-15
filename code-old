@@ -1,31 +1,15 @@
 const CONFIG = {
-  OWNER_EMAIL: PropertiesService
-    .getScriptProperties()
-    .getProperty("OWNER_EMAIL"),
+  OWNER_EMAIL: PropertiesService.getScriptProperties().getProperty("OWNER_EMAIL"),
 
-  SHEET_ID: PropertiesService
-    .getScriptProperties()
-    .getProperty("SHEET_ID"),
+  SHEET_ID: PropertiesService.getScriptProperties().getProperty("SHEET_ID"),
 
-  WEB_APP_URL: PropertiesService
-    .getScriptProperties()
-    .getProperty("WEB_APP_URL"),
+  WEB_APP_URL: PropertiesService.getScriptProperties().getProperty("WEB_APP_URL"),
 
-  WHATSAPP_PHONE_NUMBER_ID: PropertiesService
-    .getScriptProperties()
-    .getProperty("WHATSAPP_PHONE_NUMBER_ID"),
+  WHATSAPP_PHONE_NUMBER_ID: PropertiesService.getScriptProperties().getProperty("WHATSAPP_PHONE_NUMBER_ID"),
 
-  WHATSAPP_ACCESS_TOKEN: PropertiesService
-    .getScriptProperties()
-    .getProperty("WHATSAPP_ACCESS_TOKEN"),
+  WHATSAPP_ACCESS_TOKEN: PropertiesService.getScriptProperties().getProperty("WHATSAPP_ACCESS_TOKEN"),
 
-  WHATSAPP_OWNER_NUMBER: PropertiesService
-    .getScriptProperties()
-    .getProperty("WHATSAPP_OWNER_NUMBER"),
-
-  WHATSAPP_VERIFY_TOKEN: PropertiesService
-    .getScriptProperties()
-    .getProperty("WHATSAPP_VERIFY_TOKEN"),
+  WHATSAPP_OWNER_NUMBER: PropertiesService.getScriptProperties().getProperty("WHATSAPP_OWNER_NUMBER"),
 };
 
 function validateBooking(data) {
@@ -47,22 +31,11 @@ function validateBooking(data) {
   const price = Number(data.price);
   const requestedDate = new Date(`${data.date}T${data.time}`);
 
-  const coordinates = [
-    data.pickupLatitude,
-    data.pickupLongitude,
-    data.dropoffLatitude,
-    data.dropoffLongitude,
-  ];
+  const coordinates = [data.pickupLatitude, data.pickupLongitude, data.dropoffLatitude, data.dropoffLongitude];
 
-  const latitudeValues = [
-    Number(data.pickupLatitude),
-    Number(data.dropoffLatitude),
-  ];
+  const latitudeValues = [Number(data.pickupLatitude), Number(data.dropoffLatitude)];
 
-  const longitudeValues = [
-    Number(data.pickupLongitude),
-    Number(data.dropoffLongitude),
-  ];
+  const longitudeValues = [Number(data.pickupLongitude), Number(data.dropoffLongitude)];
 
   for (const field of requiredFields) {
     if (!data[field] || String(data[field]).trim() === "") {
@@ -103,17 +76,16 @@ function validateBooking(data) {
 }
 
 function sendWhatsAppOwnerMessage(data, approveUrl, declineUrl) {
-  const url =
-    `https://graph.facebook.com/v26.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+  const url = `https://graph.facebook.com/v26.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`;
 
   const payload = {
     messaging_product: "whatsapp",
     to: CONFIG.WHATSAPP_OWNER_NUMBER,
     type: "template",
     template: {
-      name: "luis_transfer_template",
+      name: "luis_transfer_template_new",
       language: {
-        code: "en"
+        code: "en",
       },
       components: [
         {
@@ -133,64 +105,55 @@ function sendWhatsAppOwnerMessage(data, approveUrl, declineUrl) {
             { type: "text", text: data.departTime || "-" },
             { type: "text", text: data.arriveTime || "-" },
             { type: "text", text: data.bags || "-" },
-            { type: "text", text: data.notes || "-" }
-          ]
+            { type: "text", text: data.notes || "-" },
+          ],
         },
         {
           type: "button",
-          sub_type: "quick_reply",
+          sub_type: "url",
           index: "0",
           parameters: [
             {
-              type: "payload",
-              payload: `ACCEPT_${data.requestId}`
-            }
-          ]
+              type: "text",
+              text: approveUrl.replace(CONFIG.WEB_APP_URL, ""),
+            },
+          ],
         },
         {
           type: "button",
-          sub_type: "quick_reply",
+          sub_type: "url",
           index: "1",
           parameters: [
             {
-              type: "payload",
-              payload: `DECLINE_${data.requestId}`
-            }
-          ]
-        }
-      ]
-    }
+              type: "text",
+              text: declineUrl.replace(CONFIG.WEB_APP_URL, ""),
+            },
+          ],
+        },
+      ],
+    },
   };
 
   const response = UrlFetchApp.fetch(url, {
     method: "post",
     contentType: "application/json",
     headers: {
-      Authorization: `Bearer ${CONFIG.WHATSAPP_ACCESS_TOKEN}`
+      Authorization: `Bearer ${CONFIG.WHATSAPP_ACCESS_TOKEN}`,
     },
     payload: JSON.stringify(payload),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
   });
 
   const responseCode = response.getResponseCode();
   const responseText = response.getContentText();
 
-  const sheet = SpreadsheetApp
-    .openById(CONFIG.SHEET_ID)
-    .getSheetByName("Sheet1");
+  const sheet = SpreadsheetApp.openById(CONFIG.SHEET_ID).getSheetByName("Sheet1");
 
-  if (responseCode < 200 || responseCode >= 300) {
-    sheet.getRange(sheet.getLastRow(), 26).setValue(
-      `WhatsApp ${responseCode}: ${responseText}`
-    );
-  } else {
-    sheet.getRange(sheet.getLastRow(), 26).clearContent();
-  }
+  sheet.getRange(sheet.getLastRow(), 26).setValue(`WhatsApp ${responseCode}: ${responseText}`);
 }
 
 function sendWhatsAppClientMessage(phone, templateName, parameters) {
-  const url =
-    `https://graph.facebook.com/v26.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+  const url = `https://graph.facebook.com/v26.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`;
 
   const payload = {
     messaging_product: "whatsapp",
@@ -199,147 +162,58 @@ function sendWhatsAppClientMessage(phone, templateName, parameters) {
     template: {
       name: templateName,
       language: {
-        code: "en"
+        code: "en",
       },
       components: [
         {
           type: "body",
           parameters: parameters.map((value) => ({
             type: "text",
-            text: String(value)
-          }))
-        }
-      ]
-    }
+            text: String(value),
+          })),
+        },
+      ],
+    },
   };
 
   const response = UrlFetchApp.fetch(url, {
     method: "post",
     contentType: "application/json",
     headers: {
-      Authorization: `Bearer ${CONFIG.WHATSAPP_ACCESS_TOKEN}`
+      Authorization: `Bearer ${CONFIG.WHATSAPP_ACCESS_TOKEN}`,
     },
     payload: JSON.stringify(payload),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
   });
 
   const responseCode = response.getResponseCode();
   const responseText = response.getContentText();
 
-  const sheet = SpreadsheetApp
-    .openById(CONFIG.SHEET_ID)
-    .getSheetByName("Sheet1");
+  const sheet = SpreadsheetApp.openById(CONFIG.SHEET_ID).getSheetByName("Sheet1");
 
-  sheet.getRange(sheet.getLastRow(), 26).setValue(
-    `TO: [${phone}] | Client WhatsApp ${templateName} ${responseCode}: ${responseText}`
-  );
+  sheet
+    .getRange(sheet.getLastRow(), 26)
+    .setValue(`TO: [${phone}] | Client WhatsApp ${templateName} ${responseCode}: ${responseText}`);
 }
 
 function doPost(e) {
-   const data = JSON.parse(e.postData.contents);
-
-  
-  if (data.object === "whatsapp_business_account") {
-    console.log("WhatsApp webhook received:");
-    console.log(JSON.stringify(data));
-
-    const sheet = SpreadsheetApp
-      .openById(CONFIG.SHEET_ID)
-      .getSheetByName("Sheet1");
-
-    const entries = data.entry || [];
-
-    entries.forEach(entry => {
-      (entry.changes || []).forEach(change => {
-        const messages =
-          (change.value && change.value.messages) || [];
-
-        messages.forEach(message => {
-
-          const buttonPayload =
-            (message.button && message.button.payload) ||
-            (message.interactive &&
-              message.interactive.button_reply &&
-              message.interactive.button_reply.id);
-
-          if (!buttonPayload) return;
-
-          const match = buttonPayload.match(
-            /^(ACCEPT|DECLINE)_(TR-.+)$/
-          );
-
-          if (!match) return;
-
-          const action =
-            match[1] === "ACCEPT" ? "approve" : "decline";
-
-          const requestId = match[2];
-
-          const bookingData = sheet.getDataRange().getValues();
-
-          let approvalToken = null;
-
-          for (let i = 1; i < bookingData.length; i++) {
-            const row = bookingData[i];
-
-            if (row[0] === requestId) {
-              approvalToken = row[24];
-              break;
-            }
-          }
-
-          if (!approvalToken) {
-            console.log(
-              `Booking not found for WhatsApp response: ${requestId}`
-            );
-            return;
-          }
-
-          console.log(
-            `Processing WhatsApp ${action} for ${requestId}`
-          );
-
-          doGet({
-            parameter: {
-              action: action,
-              requestId: requestId,
-              token: approvalToken
-            }
-          });
-
-        });
-      });
-    });
-
-    return ContentService
-      .createTextOutput("EVENT_RECEIVED")
-      .setMimeType(ContentService.MimeType.TEXT);
-  }
-
+  const data = JSON.parse(e.postData.contents);
   const validationError = validateBooking(data);
 
   if (validationError) {
-    return ContentService
-      .createTextOutput(
-        JSON.stringify({
-          success: false,
-          error: validationError
-        })
-      )
-      .setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        success: false,
+        error: validationError,
+      }),
+    ).setMimeType(ContentService.MimeType.JSON);
   }
 
-  const sheet = SpreadsheetApp
-    .openById(CONFIG.SHEET_ID)
-    .getSheetByName("Sheet1");
+  const sheet = SpreadsheetApp.openById(CONFIG.SHEET_ID).getSheetByName("Sheet1");
 
   const requestId =
     "TR-" +
-    Utilities.formatDate(
-      new Date(),
-      Session.getScriptTimeZone(),
-      "ddMM"
-    ) +
+    Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "ddMM") +
     "-" +
     Utilities.getUuid().slice(0, 6).toUpperCase();
 
@@ -348,31 +222,31 @@ function doPost(e) {
   data.requestId = requestId;
 
   sheet.appendRow([
-    requestId,               
-    new Date(),               
-    data.name,                  
-    data.email,                
-    data.phone,              
-    data.pickup,              
-    data.dropoff,             
-    data.date,                    
-    data.time,                 
-    data.passengers,            
-    data.bags || "",         
-    data.flightNumber || "",      
-    data.departTime || "",       
-    data.arriveTime || "",      
-    data.price,                   
-    data.notes,              
-    "PENDING",                  
-    data.pickupLatitude,          
-    data.pickupLongitude,       
-    data.dropoffLatitude,          
-    data.dropoffLongitude,         
-    data.pickupPlaceId,            
-    data.dropoffPlaceId,            
-    "",                             
-    approvalToken,                  
+    requestId,
+    new Date(),
+    data.name,
+    data.email,
+    data.phone,
+    data.pickup,
+    data.dropoff,
+    data.date,
+    data.time,
+    data.passengers,
+    data.bags || "",
+    data.flightNumber || "",
+    data.departTime || "",
+    data.arriveTime || "",
+    data.price,
+    data.notes,
+    "PENDING",
+    data.pickupLatitude,
+    data.pickupLongitude,
+    data.dropoffLatitude,
+    data.dropoffLongitude,
+    data.pickupPlaceId,
+    data.dropoffPlaceId,
+    "",
+    approvalToken,
   ]);
 
   const webAppUrl = CONFIG.WEB_APP_URL;
@@ -391,32 +265,12 @@ function doPost(e) {
     "&token=" +
     encodeURIComponent(approvalToken);
 
-  sendWhatsAppOwnerMessage(
-    data,
-    approveUrl,
-    declineUrl
-  );
+  sendWhatsAppOwnerMessage(data, approveUrl, declineUrl);
 
-  return ContentService
-    .createTextOutput("OK")
-    .setMimeType(ContentService.MimeType.TEXT);
+  return ContentService.createTextOutput("OK").setMimeType(ContentService.MimeType.TEXT);
 }
 
 function doGet(e) {
-  if (e.parameter["hub.mode"] === "subscribe") {
-
-    const verifyToken = e.parameter["hub.verify_token"];
-    const challenge = e.parameter["hub.challenge"];
-
-    if (verifyToken === CONFIG.WHATSAPP_VERIFY_TOKEN) {
-      return ContentService
-        .createTextOutput(challenge);
-    }
-
-    return ContentService
-      .createTextOutput("Verification failed");
-  }
-
   const lock = LockService.getScriptLock();
 
   try {
@@ -427,13 +281,10 @@ function doGet(e) {
     const token = e.parameter.token;
 
     if (!action || !requestId || !token) {
-      return HtmlService
-        .createHtmlOutput("<h2>Invalid request</h2>");
+      return HtmlService.createHtmlOutput("<h2>Invalid request</h2>");
     }
 
-    const sheet = SpreadsheetApp
-      .openById(CONFIG.SHEET_ID)
-      .getSheetByName("Sheet1");
+    const sheet = SpreadsheetApp.openById(CONFIG.SHEET_ID).getSheetByName("Sheet1");
 
     const data = sheet.getDataRange().getValues();
 
@@ -445,12 +296,8 @@ function doGet(e) {
       const storedToken = row[24];
 
       if (storedRequestId === requestId && storedToken === token) {
-
         if (status !== "PENDING") {
-          return HtmlService
-            .createHtmlOutput(
-              `<h2>This request has already been ${status.toLowerCase()}.</h2>`
-            );
+          return HtmlService.createHtmlOutput(`<h2>This request has already been ${status.toLowerCase()}.</h2>`);
         }
 
         if (action === "approve") {
@@ -464,33 +311,36 @@ function doGet(e) {
             time.getHours(),
             time.getMinutes(),
             0,
-            0
+            0,
           );
 
           const end = new Date(start.getTime() + 60 * 60 * 1000);
 
-          const event = Calendar.Events.insert({
-            summary: `Transfer - ${row[2]}`,
-            description:
-              `Request ID: ${row[0]}\n` +
-              `Customer: ${row[2]}\n` +
-              `Pick-up: ${row[5]}\n` +
-              `Drop-off: ${row[6]}\n` +
-              `Phone: ${row[4]}\n` +
-              `Email: ${row[3]}\n` +
-              `Passengers: ${row[9]}\n` +
-              `Luggage: ${row[10] || "-"}\n` +
-              `Flight Number: ${row[11] || "-"}\n` +
-              `Flight Departure Time: ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
-              `Flight Arrival Time: ${row[13] ? Utilities.formatDate(row[13], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
-              `Notes: ${row[15] || "None"}`,
-            start: {
-              dateTime: start.toISOString()
+          const event = Calendar.Events.insert(
+            {
+              summary: `Transfer - ${row[2]}`,
+              description:
+                `Request ID: ${row[0]}\n` +
+                `Customer: ${row[2]}\n` +
+                `Pick-up: ${row[5]}\n` +
+                `Drop-off: ${row[6]}\n` +
+                `Phone: ${row[4]}\n` +
+                `Email: ${row[3]}\n` +
+                `Passengers: ${row[9]}\n` +
+                `Luggage: ${row[10] || "-"}\n` +
+                `Flight Number: ${row[11] || "-"}\n` +
+                `Flight Departure Time: ${row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
+                `Flight Arrival Time: ${row[13] ? Utilities.formatDate(row[13], Session.getScriptTimeZone(), "HH:mm") : "-"}\n` +
+                `Notes: ${row[15] || "None"}`,
+              start: {
+                dateTime: start.toISOString(),
+              },
+              end: {
+                dateTime: end.toISOString(),
+              },
             },
-            end: {
-              dateTime: end.toISOString()
-            }
-          }, "primary");
+            "primary",
+          );
 
           sheet.getRange(i + 1, 17).setValue("APPROVED");
           sheet.getRange(i + 1, 24).setValue(event.id);
@@ -498,6 +348,7 @@ function doGet(e) {
           MailApp.sendEmail({
             to: row[3],
             subject: `Transfer request ${requestId} confirmed`,
+            name: "Luis Ferreira Transfers",
             htmlBody: `
               <h2>Transfer Confirmed</h2>
 
@@ -521,49 +372,24 @@ function doGet(e) {
               <p>Your transfer information, including driver details, will be sent to you at least 4 hours before your scheduled pick-up. If you have not received it by then, or if there are any issues or changes to your trip, please contact us on WhatsApp - (+351) 966 831 360</p>
 
               <p>A informaçãodo seu transfer, incluindo os dados do motorista, será enviada pelo menos 4 horas antes do horário agendado para o seu transfer. Caso não a receba até esse momento, ou se houver qualquer problema ou alteração em sua viagem, entre em contato conosco pelo WhatsApp - (+351) 966 831 360</p>
-            `
+            `,
           });
 
-          sendWhatsAppClientMessage(
-            row[4],
-            "luis_client_confirm_template",
-            [
-              row[5],
-              row[6],
-              Utilities.formatDate(
-                row[7],
-                Session.getScriptTimeZone(),
-                "dd/MM/yyyy"
-              ),
-              Utilities.formatDate(
-                row[8],
-                Session.getScriptTimeZone(),
-                "HH:mm"
-              ),
-              row[9],
-              row[10] || "-",
-              row[11] || "-",
-              row[12]
-                ? Utilities.formatDate(
-                    row[12],
-                    Session.getScriptTimeZone(),
-                    "HH:mm"
-                  )
-                : "-",
-              row[13]
-                ? Utilities.formatDate(
-                    row[13],
-                    Session.getScriptTimeZone(),
-                    "HH:mm"
-                  )
-                : "-",
-              row[14],
-              row[15] || "-"
-            ]
-          );
+          sendWhatsAppClientMessage(row[4], "luis_client_confirm_template", [
+            row[5],
+            row[6],
+            Utilities.formatDate(row[7], Session.getScriptTimeZone(), "dd/MM/yyyy"),
+            Utilities.formatDate(row[8], Session.getScriptTimeZone(), "HH:mm"),
+            row[9],
+            row[10] || "-",
+            row[11] || "-",
+            row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-",
+            row[13] ? Utilities.formatDate(row[13], Session.getScriptTimeZone(), "HH:mm") : "-",
+            row[14],
+            row[15] || "-",
+          ]);
 
-          return HtmlService
-            .createHtmlOutput(`
+          return HtmlService.createHtmlOutput(`
               <html>
                 <head>
                   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -599,6 +425,7 @@ function doGet(e) {
           MailApp.sendEmail({
             to: row[3],
             subject: `Transfer request ${requestId} declined`,
+            name: "Luis Ferreira Transfers",
             htmlBody: `
               <h2>Transfer Request</h2>
 
@@ -618,47 +445,21 @@ function doGet(e) {
               <p>Please feel free to contact us on Whatsapp if you would like to discuss an alternative (+351) 911 891 011.</p>
 
               <p>Sinta-se à vontade para nos contactar pelo WhatsApp, caso queira discutir uma alternativa. (+351) 911 891 011.</p>
-            `
+            `,
           });
 
-          sendWhatsAppClientMessage(
-            row[4],
-            "luis_client_decline_template",
-          
-            [
-              row[5],
-              row[6],
-              Utilities.formatDate(
-                row[7],
-                Session.getScriptTimeZone(),
-                "dd/MM/yyyy"
-              ),
-              Utilities.formatDate(
-                row[8],
-                Session.getScriptTimeZone(),
-                "HH:mm"
-              ),
-              row[9],
-              row[10] || "-",
-              row[12]
-                ? Utilities.formatDate(
-                    row[12],
-                    Session.getScriptTimeZone(),
-                    "HH:mm"
-                  )
-                : "-",
-              row[13]
-                ? Utilities.formatDate(
-                    row[13],
-                    Session.getScriptTimeZone(),
-                    "HH:mm"
-                  )
-                : "-"
-            ]
-          );
+          sendWhatsAppClientMessage(row[4], "luis_client_decline_template", [
+            row[5],
+            row[6],
+            Utilities.formatDate(row[7], Session.getScriptTimeZone(), "dd/MM/yyyy"),
+            Utilities.formatDate(row[8], Session.getScriptTimeZone(), "HH:mm"),
+            row[9],
+            row[10] || "-",
+            row[12] ? Utilities.formatDate(row[12], Session.getScriptTimeZone(), "HH:mm") : "-",
+            row[13] ? Utilities.formatDate(row[13], Session.getScriptTimeZone(), "HH:mm") : "-",
+          ]);
 
-          return HtmlService
-            .createHtmlOutput(`
+          return HtmlService.createHtmlOutput(`
               <html>
                 <head>
                   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -673,14 +474,11 @@ function doGet(e) {
             `);
         }
 
-        return HtmlService
-          .createHtmlOutput("<h2>Invalid action</h2>");
+        return HtmlService.createHtmlOutput("<h2>Invalid action</h2>");
       }
     }
 
-    return HtmlService
-      .createHtmlOutput("<h2>Request not found.</h2>");
-
+    return HtmlService.createHtmlOutput("<h2>Request not found.</h2>");
   } finally {
     lock.releaseLock();
   }
@@ -709,9 +507,7 @@ function initializeCalendarSync() {
     throw new Error("No sync token was returned.");
   }
 
-  PropertiesService
-    .getScriptProperties()
-    .setProperty("CALENDAR_SYNC_TOKEN", nextSyncToken);
+  PropertiesService.getScriptProperties().setProperty("CALENDAR_SYNC_TOKEN", nextSyncToken);
 
   Logger.log("Calendar sync initialized.");
 }
@@ -731,9 +527,7 @@ function syncCalendarChanges(e) {
     let pageToken;
     let latestSyncToken;
 
-    const sheet = SpreadsheetApp
-      .openById(CONFIG.SHEET_ID)
-      .getSheetByName("Sheet1");
+    const sheet = SpreadsheetApp.openById(CONFIG.SHEET_ID).getSheetByName("Sheet1");
 
     if (!syncToken) {
       console.log("No Calendar sync token found.");
@@ -756,9 +550,7 @@ function syncCalendarChanges(e) {
       try {
         response = Calendar.Events.list(calendarId, options);
       } catch (error) {
-        if (
-          String(error.message).includes("Sync token is no longer valid")
-        ) {
+        if (String(error.message).includes("Sync token is no longer valid")) {
           properties.deleteProperty("CALENDAR_SYNC_TOKEN");
           initializeCalendarSync();
 
@@ -779,16 +571,11 @@ function syncCalendarChanges(e) {
       if (response.nextSyncToken) {
         latestSyncToken = response.nextSyncToken;
       }
-
     } while (pageToken);
 
     if (latestSyncToken) {
-      properties.setProperty(
-        "CALENDAR_SYNC_TOKEN",
-        latestSyncToken
-      );
+      properties.setProperty("CALENDAR_SYNC_TOKEN", latestSyncToken);
     }
-
   } finally {
     lock.releaseLock();
   }
@@ -803,9 +590,7 @@ function syncCalendarEventToSheet(event, sheet) {
     return;
   }
 
-  const eventIdValues = sheet
-    .getRange(2, 24, lastRow - 1, 1)
-    .getValues();
+  const eventIdValues = sheet.getRange(2, 24, lastRow - 1, 1).getValues();
 
   for (let i = 0; i < eventIdValues.length; i++) {
     const sheetEventId = String(eventIdValues[i][0]).trim();
@@ -821,15 +606,13 @@ function syncCalendarEventToSheet(event, sheet) {
   }
 
   if (event.status === "cancelled") {
-  sheet.getRange(sheetRow, 17).setValue("CANCELLED");
-  return;
+    sheet.getRange(sheetRow, 17).setValue("CANCELLED");
+    return;
   }
 
   const start = event.start?.dateTime;
   const startDate = new Date(start);
-  const descriptionData = parseCalendarDescription(
-    event.description || ""
-  );
+  const descriptionData = parseCalendarDescription(event.description || "");
 
   if (!start) {
     return;
@@ -837,17 +620,9 @@ function syncCalendarEventToSheet(event, sheet) {
 
   const timeZone = Session.getScriptTimeZone();
 
-  const date = Utilities.formatDate(
-    startDate,
-    timeZone,
-    "yyyy-MM-dd"
-  );
+  const date = Utilities.formatDate(startDate, timeZone, "yyyy-MM-dd");
 
-  const time = Utilities.formatDate(
-    startDate,
-    timeZone,
-    "HH:mm"
-  );
+  const time = Utilities.formatDate(startDate, timeZone, "HH:mm");
 
   const updates = [
     [3, descriptionData.Customer],
@@ -880,7 +655,7 @@ function parseCalendarDescription(description) {
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]*>/g, "")
     .split("\n")
-    .forEach(line => {
+    .forEach((line) => {
       const [key, ...value] = line.split(":");
       fields[key.trim()] = value.join(":").trim();
     });
