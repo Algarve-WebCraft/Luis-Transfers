@@ -620,11 +620,18 @@ const pageDescription =
         flex-direction: row;
         margin-top: 2rem;
       }
-      max-height: clamp(200px, 45vw, 500px);
+
+      width: 100%;
+      max-width: 90%;
+      margin-inline: auto;
 
       img {
         max-height: 400px;
         border-radius: 0.35rem;
+
+        @media (width > 62.5rem) {
+          max-height: 600px;
+        }
       }
     }
   }
