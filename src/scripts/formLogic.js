@@ -68,7 +68,38 @@ const PRICING = {
   NIGHT_SURCHARGE_04_06: 10,
 
   FARO_AIRPORT_PLACE_ID: "ChIJm5mnTbBSBQ0RRztnYx5VRCE",
+  FARO_AIRPORT_LOCATION: { lat: 37.0144, lng: -7.9659 },
+  FARO_AIRPORT_RADIUS_KM: 3,
 };
+
+const FLIGHT_FIELDS = [
+  { id: "depart-time", en: "Flight departure time", pt: "Hora de partida do voo" },
+  { id: "arrive-time", en: "Flight arrival time", pt: "Hora de chegada do voo" },
+  { id: "flight-number", en: "Flight number", pt: "Número do voo" },
+];
+
+function getDistanceKm(from, to) {
+  const toRadians = (degrees) => (degrees * Math.PI) / 180;
+  const latDistance = toRadians(to.lat - from.lat);
+  const lngDistance = toRadians(to.lng - from.lng);
+
+  const a =
+    Math.sin(latDistance / 2) ** 2 +
+    Math.cos(toRadians(from.lat)) * Math.cos(toRadians(to.lat)) * Math.sin(lngDistance / 2) ** 2;
+
+  return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Google lists Faro Airport under several place IDs (terminal, arrivals...), so also match any airport-type place beside it.
+function isFaroAirport(place) {
+  if (!place) return false;
+  if (place.id === PRICING.FARO_AIRPORT_PLACE_ID) return true;
+  if (!place.types?.includes("airport") || !place.location) return false;
+
+  const placeLocation = { lat: place.location.lat(), lng: place.location.lng() };
+
+  return getDistanceKm(placeLocation, PRICING.FARO_AIRPORT_LOCATION) <= PRICING.FARO_AIRPORT_RADIUS_KM;
+}
 
 async function getDrivingDistanceKm(pickupPlace, dropoffPlace) {
   const { Route } = await google.maps.importLibrary("routes");
@@ -116,7 +147,7 @@ function calculatePrice(distanceKm, pickupPlace, pickupTime) {
 
   price = Math.max(PRICING.MINIMUM_PRICE, price);
 
-  if (pickupPlace?.id === PRICING.FARO_AIRPORT_PLACE_ID) {
+  if (isFaroAirport(pickupPlace)) {
     price += PRICING.FARO_AIRPORT_SURCHARGE;
   }
 
@@ -134,7 +165,7 @@ function calculateSelectedFixedRoutePrice(pickupTime) {
     price += calculateTimeSurcharge(pickupTime);
   }
 
-  if (pickupPlace?.id === PRICING.FARO_AIRPORT_PLACE_ID) {
+  if (isFaroAirport(pickupPlace)) {
     price += PRICING.FARO_AIRPORT_SURCHARGE;
   }
 
@@ -251,6 +282,7 @@ async function applySelectedFixedRoute(routeNameOverride) {
     dropoffPlace = airportDropoff;
     selectedFixedRoute = route;
     updateNotesForRoute();
+    updateFlightFieldsForPickup();
     updateFixedRouteSelectionUI();
 
     pickupInput.value = route.name;
@@ -271,6 +303,7 @@ async function applySelectedFixedRoute(routeNameOverride) {
     pickupPlace = null;
     dropoffPlace = null;
 
+    updateFlightFieldsForPickup();
     updateFixedRouteSelectionUI();
   }
 }
@@ -321,6 +354,7 @@ function setupLocationSwap() {
 
     validateLocations();
     updateNotesForRoute();
+    updateFlightFieldsForPickup();
 
     void calculateBookingPrice();
   });
@@ -352,6 +386,26 @@ function updateNotesForRoute() {
       ? "Necessita de cadeiras para criança (ISOFIX), uma paragem intermédia ou transporte de animais de estimação numa caixa de transporte?"
       : "Do you need child seats (ISOFIX), an intermediate stop or pet transport in a carrier?";
   }
+}
+
+function updateFlightFieldsForPickup() {
+  const form = document.querySelector("#booking-form");
+
+  if (!form) return;
+
+  const isPortuguese = form.dataset.locale === "pt";
+  const isRequired = isFaroAirport(pickupPlace);
+  const optionalText = isPortuguese ? "(opcional)" : "(optional)";
+
+  FLIGHT_FIELDS.forEach((field) => {
+    const input = form.querySelector(`#${field.id}`);
+    const label = form.querySelector(`label[for="${field.id}"]`);
+
+    if (!input || !label) return;
+
+    input.required = isRequired;
+    label.textContent = `${isPortuguese ? field.pt : field.en} ${isRequired ? "*" : optionalText}`;
+  });
 }
 
 function setupPopularRouteButtons() {
@@ -429,7 +483,7 @@ async function initMapsAuto() {
               const place = prediction.toPlace();
 
               await place.fetchFields({
-                fields: ["displayName", "formattedAddress", "location"],
+                fields: ["displayName", "formattedAddress", "location", "types"],
               });
 
               setPlace(place);
@@ -457,13 +511,17 @@ async function initMapsAuto() {
 
   setupAutocomplete(pickupInput, pickupSuggestions, (place) => {
     pickupPlace = place;
+    updateFlightFieldsForPickup();
   });
 
   setupAutocomplete(dropoffInput, dropoffSuggestions, (place) => {
     dropoffPlace = place;
   });
 
+  pickupPlace = null;
+  dropoffPlace = null;
   selectedFixedRoute = null;
+  updateFlightFieldsForPickup();
   updateFixedRouteSelectionUI();
 
   await applySelectedFixedRoute();
@@ -494,6 +552,11 @@ function initPhoneInput() {
     separateDialCode: true,
     loadUtils: () => import("intl-tel-input/utils"),
   });
+
+  const clearPhoneError = () => phoneInput.setCustomValidity("");
+
+  phoneInput.addEventListener("input", clearPhoneError);
+  phoneInput.addEventListener("countrychange", clearPhoneError);
 }
 document.addEventListener("astro:page-load", initPhoneInput);
 
@@ -538,9 +601,13 @@ function validateBookingDateTime() {
   let timeMessage = "";
 
   if (date && date < now.date) {
-    dateMessage = isPortuguese ? "Por favor, escolha uma data futura." : "Please choose a date that is not in the past.";
+    dateMessage = isPortuguese
+      ? "Por favor, escolha uma data futura."
+      : "Please choose a date that is not in the past.";
   } else if (date && time && date === now.date && time <= now.time) {
-    timeMessage = isPortuguese ? "Por favor, escolha uma hora futura." : "Please choose a time that is not in the past.";
+    timeMessage = isPortuguese
+      ? "Por favor, escolha uma hora futura."
+      : "Please choose a time that is not in the past.";
   }
 
   dateInput.setCustomValidity(dateMessage);
@@ -561,6 +628,13 @@ function initDateInput() {
   timeInput?.addEventListener("change", validateBookingDateTime);
 }
 document.addEventListener("astro:page-load", initDateInput);
+
+// A page restored with the Back button keeps its disabled submit button from the earlier booking.
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+
+  document.querySelector('#booking-form button[type="submit"]')?.removeAttribute("disabled");
+});
 
 // Form submission logic
 const appsScriptUrl =
@@ -595,8 +669,15 @@ document.addEventListener("submit", async (event) => {
     await iti.promise;
 
     if (!iti.isValidNumber()) {
+      const phoneInput = form.querySelector("#phone");
+
       submitButton.disabled = false;
-      console.error("Invalid phone number:", iti.getValidationError());
+      phoneInput.setCustomValidity(
+        form.dataset.locale === "pt"
+          ? "Por favor, introduza um número de telefone válido para o país selecionado."
+          : "Please enter a valid phone number for the selected country.",
+      );
+      phoneInput.reportValidity();
       return;
     }
 

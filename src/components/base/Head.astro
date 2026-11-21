@@ -7,13 +7,10 @@ const { pageTitle, pageDescription } = Astro.props;
 <meta name="generator" content={Astro.generator} />
 <meta name="description" content={pageDescription} />
 <meta name="theme-color" content="#0a0a0a" />
-<meta property="og:title" content="Luis Ferreira | Transfers and Services" />
-<meta
-  property="og:description"
-  content="Private transfers across the Algarve, professional property cleaning, and quality holiday accommodation. Direct, reliable service from Luis Ferreira."
-/>
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={pageDescription} />
 <meta property="og:image" content="https://luisferreira.pt/assets/logos/og-logo.webp" />
-<meta property="og:url" content="https://luisferreira.pt/" />
+<meta property="og:url" content={new URL(Astro.url.pathname, "https://luisferreira.pt")} />
 <meta property="og:type" content="website" />
 <link rel="icon" type="image/x-icon" href="/assets/logos/favicon.ico" />
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logos/favicon-logo-16.png" />
@@ -33,6 +30,7 @@ const { pageTitle, pageDescription } = Astro.props;
 
     if (isHome && sessionStorage.getItem("home-intro-complete") !== "true") {
       document.documentElement.classList.add("home-intro-pending");
+      setTimeout(() => document.documentElement.classList.remove("home-intro-pending"), 4000);
     }
   })();
 </script>

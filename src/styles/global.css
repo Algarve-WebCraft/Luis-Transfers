@@ -531,6 +531,9 @@
   .skip-to-content {
     position: absolute;
     color: #fff;
+    background-color: var(--clr-black-20);
+    padding: 0.5em 1em;
+    border-radius: 0.4rem;
     font-size: 1.5rem;
     font-weight: 700;
     left: 1rem;

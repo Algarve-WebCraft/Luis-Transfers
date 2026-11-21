@@ -95,12 +95,7 @@ const currentYear = new Date().getFullYear();
           </span>
 
           <span>
-            <a
-              href="https://wa.me/351966831360"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Contact us on WhatsApp"
-            >
+            <a href="https://wa.me/351966831360" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 15 15">
                 <path
                   d="M3 9H9V7.5H3V9ZM3 6.75H12V5.25H3V6.75ZM3 4.5H12V3H3V4.5ZM0 15V1.5C0 1.0875 0.146875 0.734375 0.440625 0.440625C0.734375 0.146875 1.0875 0 1.5 0H13.5C13.9125 0 14.2656 0.146875 14.5594 0.440625C14.8531 0.734375 15 1.0875 15 1.5V10.5C15 10.9125 14.8531 11.2656 14.5594 11.5594C14.2656 11.8531 13.9125 12 13.5 12H3L0 15ZM2.3625 10.5H13.5V1.5H1.5V11.3438L2.3625 10.5ZM1.5 10.5V1.5V10.5Z"
@@ -332,8 +327,12 @@ const currentYear = new Date().getFullYear();
       }
 
       a {
-        margin-left: 1.5rem;
+        margin-inline: 0.75rem;
         display: inline-block;
+
+        @media (width > 62.5rem) {
+          margin-inline: 1.5rem 0;
+        }
 
         &:last-of-type {
           display: block;

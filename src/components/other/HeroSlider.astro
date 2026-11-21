@@ -3,11 +3,11 @@ import { Image } from "astro:assets";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import heroOne from "@assets/images/car-one.webp";
-import heroTwo from "@assets/images/car-two.webp";
-import heroThree from "@assets/images/car-three.webp";
-import heroFour from "@assets/images/car-four.webp";
-import heroFive from "@assets/images/car-five.webp";
+import heroOne from "@assets/images/car-two.webp";
+import heroTwo from "@assets/images/car-one.webp";
+import heroThree from "@assets/images/car-five.webp";
+import heroFour from "@assets/images/car-three.webp";
+import heroFive from "@assets/images/car-four.webp";
 
 const isPortuguese = Astro.currentLocale === "pt";
 
@@ -15,26 +15,26 @@ const slides = [
   {
     src: heroOne,
     alt: isPortuguese
-      ? "Viagem confortável numa carrinha executiva no Algarve"
-      : "Comfortable journey in an executive van in the Algarve",
+      ? "Carro executivo branco estacionado junto a palmeiras no Algarve"
+      : "White executive car parked beside palm trees in the Algarve",
   },
   {
     src: heroTwo,
-    alt: isPortuguese
-      ? "Viagem confortável numa carrinha executiva no Algarve"
-      : "Comfortable journey in an executive van in the Algarve",
+    alt: isPortuguese ? "Vista frontal do carro executivo branco" : "Front view of the white executive car",
   },
   {
     src: heroThree,
-    alt: isPortuguese ? "Paisagem costeira do Algarve" : "Algarve coastline",
+    alt: isPortuguese ? "Carro executivo branco pronto para o transfer" : "White executive car ready for the transfer",
   },
   {
     src: heroFour,
-    alt: isPortuguese ? "Paisagem costeira do Algarve" : "Algarve coastline",
+    alt: isPortuguese ? "Carro executivo branco estacionado" : "White executive car parked",
   },
   {
     src: heroFive,
-    alt: isPortuguese ? "Paisagem costeira do Algarve" : "Algarve coastline",
+    alt: isPortuguese
+      ? "Bancos traseiros em pele com água engarrafada e ecrã traseiro"
+      : "Leather rear seats with bottled water and a rear screen",
   },
 ];
 ---

@@ -24,6 +24,10 @@ const navItems = [
 ---
 
 <header id="header" class="home-header header">
+  <a href="#skip-link" class="skip-to-content">
+    {locale === "pt" ? "Saltar para o conteúdo principal" : "Skip to main content"}
+  </a>
+
   <div class="header__container">
     <div class="wrapper wrapper--header">
       <div class="business-logo-container">
@@ -72,7 +76,7 @@ const navItems = [
         <button
           class="hamburger-btn"
           id="hamburger"
-          aria-label="Toggle The Navigation Menu"
+          aria-label={locale === "pt" ? "Abrir ou fechar o menu de navegação" : "Toggle The Navigation Menu"}
           aria-controls="navigation"
           aria-expanded="false"
         >
@@ -230,7 +234,7 @@ const navItems = [
     display: grid;
     place-content: center;
     background-color: var(--clr-white-10);
-    font-size: var(--fs-nav-text);
+    font-size: var(--fs-16);
     font-family: var(--ff-jakarta);
     font-weight: var(--fw-medium);
     padding: 2em;
@@ -326,9 +330,10 @@ const navItems = [
       const isReachable = isOpen || desktopQuery.matches;
 
       hamburgerBtn.setAttribute("aria-expanded", String(isOpen));
-
-      navBar.querySelectorAll("a").forEach((link) => {
-        link.tabIndex = isReachable ? 0 : -1;
+      navBar.inert = !isReachable;
+      document.documentElement.classList.toggle("no-scroll", isOpen);
+      document.querySelectorAll("main, footer").forEach((element) => {
+        element.inert = isOpen;
       });
 
       if (!isReachable && navBar.contains(document.activeElement)) {
@@ -378,6 +383,15 @@ const navItems = [
       setNavAttributes();
     });
 
+    hamburgerBtn.closest("header").addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !navBar.classList.contains("hamburger-btn__open")) return;
+
+      hamburgerBtn.classList.remove("active");
+      navBar.classList.remove("hamburger-btn__open");
+      setNavAttributes();
+      hamburgerBtn.focus();
+    });
+
     desktopQuery.addEventListener("change", setNavAttributes);
     setNavAttributes();
   }
@@ -394,6 +408,12 @@ const navItems = [
       link.classList.remove("animate-underline");
 
       if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+
+      if (isActive) {
         requestAnimationFrame(() => {
           link.classList.add("animate-underline");
         });
@@ -401,13 +421,15 @@ const navItems = [
     });
   }
 
+  let isStickyHeaderInitialized = false;
+
   function initStickyHeader() {
-    const hamburgerBtn = document.querySelector(".hamburger-btn");
-    const navBar = document.querySelector(".nav-bar");
+    if (isStickyHeaderInitialized) return;
+    isStickyHeaderInitialized = true;
 
     function closeMenuSafely() {
-      navBar.classList.remove("hamburger-btn__open");
-      hamburgerBtn.classList.remove("active");
+      document.querySelector(".nav-bar").classList.remove("hamburger-btn__open");
+      document.querySelector(".hamburger-btn").classList.remove("active");
     }
 
     window.addEventListener("scroll", () => {

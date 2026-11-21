@@ -209,11 +209,12 @@ const { layout } = Astro.props;
   </div>
 
   <div>
-    <label for="bags">{Astro.currentLocale === "pt" ? "BAGAGEM (OPCIONAL)" : "LUGGAGE (OPTIONAL)"}</label>
-    <select id="bags" name="bags">
-      <option value="" selected>
-        {Astro.currentLocale === "pt" ? "Sem bagagem" : "No luggage"}
+    <label for="bags">{Astro.currentLocale === "pt" ? "BAGAGEM *" : "LUGGAGE *"}</label>
+    <select id="bags" name="bags" required>
+      <option value="" selected disabled>
+        {Astro.currentLocale === "pt" ? "Selecione a bagagem" : "Select luggage"}
       </option>
+      <option value="0">{Astro.currentLocale === "pt" ? "Sem bagagem" : "No luggage"}</option>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -704,15 +705,15 @@ const { layout } = Astro.props;
       }
 
       > div:nth-of-type(11) {
-        grid-column: 1 / 3;
+        grid-column: 1 / 2;
       }
 
       > div:nth-of-type(12) {
-        grid-column: 3 / 4;
+        grid-column: 2 / 3;
       }
 
       > div:nth-of-type(13) {
-        grid-column: 4 / 5;
+        grid-column: 3 / 5;
       }
 
       > div:nth-of-type(14) {
