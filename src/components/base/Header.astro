@@ -16,7 +16,7 @@ const portugueseURL = getLocalizedPath("pt", currentPage);
 
 const navItems = [
   { page: "home", label: locale === "pt" ? "Início" : "Home" },
-  { page: "transfers", label: locale === "pt" ? "Transferencias" : "Transfers" },
+  { page: "transfers", label: locale === "pt" ? "Transferências" : "Transfers" },
   { page: "cleaning", label: locale === "pt" ? "Limpeza" : "Cleaning" },
   { page: "rental", label: locale === "pt" ? "Alojamento" : "Rental" },
   { page: "contact", label: locale === "pt" ? "Contacto" : "Contact" },
@@ -65,7 +65,7 @@ const navItems = [
         href={`${Astro.currentLocale === "pt" ? "/pt/transferencias/" : "/transfers/"}#jump-to-transfer`}
         class="cmp-main-btn"
       >
-        Reservar
+        {locale === "pt" ? "Reservar" : "Book"}
       </a>
 
       <div class="hamburger-btn-box">
@@ -186,9 +186,6 @@ const navItems = [
     background-clip: padding-box;
     box-sizing: content-box;
     touch-action: manipulation;
-    transition: transform 1.2s;
-    /* prettier-ignore */
-    transition-timing-function: linear(0, -0.001 6.9%, -0.004 9.1%, -0.008 11%, -0.016 12.9%, -0.025 14.6%, -0.038 16.3%, -0.054 17.9%, -0.073 19.5%, -0.095 21%, -0.152 24.1%, -0.217 27%, -0.358 32.6%, -0.408 35%, -0.428 36.3%, -0.439 37.5%, -0.441 38.6%, -0.436 39.6%, -0.423 40.5%, -0.405 41.3%, -0.35 42.8%, -0.27 44.2%, -0.156 45.6%, -0.014 46.9%, 0.153 48.1%, 0.766 51.4%, 1.05 53.4%, 1.184 54.7%, 1.284 56%, 1.359 57.4%, 1.39 58.2%, 1.413 59%, 1.434 60.2%, 1.439 60.8%, 1.441 61.5%, 1.44 62.2%, 1.436 62.9%, 1.418 64.4%, 1.395 65.7%, 1.365 67.1%, 1.212 73.2%, 1.146 76.2%, 1.089 79.4%, 1.067 81%, 1.047 82.7%, 1.034 84.2%, 1.023 85.8%, 1.014 87.5%, 1.008 89.3%, 1.004 91.2%, 1.001 93.3%, 1);
 
     span {
       display: block;
@@ -199,21 +196,20 @@ const navItems = [
       opacity: 1;
       pointer-events: none !important;
       transition:
-        transform 0.6s ease,
-        opacity 0.3s;
+        transform 0.35s ease,
+        opacity 0.25s ease;
     }
 
     &.active {
-      transform: scale(1.15);
-
       span:first-child {
-        transform: rotate(410deg) translate(0.5rem, 0.44rem);
+        transform: translateY(calc((1.5rem - 2.5px) / 2)) rotate(45deg);
       }
       span:nth-child(2) {
+        transform: translateX(-0.75rem);
         opacity: 0;
       }
       span:last-child {
-        transform: rotate(-410deg) translate(0.5rem, -0.44rem);
+        transform: translateY(calc((1.5rem - 2.5px) / -2)) rotate(-45deg);
       }
     }
 
@@ -313,6 +309,8 @@ const navItems = [
     initStickyHeader();
   });
 
+  const desktopQuery = window.matchMedia("(width > 68.75rem)");
+
   function activateHamburgerMenu() {
     const hamburgerBtn = document.querySelector(".hamburger-btn");
     const navBar = document.querySelector(".nav-bar");
@@ -325,14 +323,15 @@ const navItems = [
 
     function setNavAttributes() {
       const isOpen = navBar.classList.contains("hamburger-btn__open");
+      const isReachable = isOpen || desktopQuery.matches;
 
       hamburgerBtn.setAttribute("aria-expanded", String(isOpen));
 
       navBar.querySelectorAll("a").forEach((link) => {
-        link.tabIndex = isOpen ? 0 : -1;
+        link.tabIndex = isReachable ? 0 : -1;
       });
 
-      if (!isOpen && navBar.contains(document.activeElement)) {
+      if (!isReachable && navBar.contains(document.activeElement)) {
         document.activeElement.blur();
       }
     }
@@ -340,7 +339,7 @@ const navItems = [
     hamburgerBtn.addEventListener("click", () => {
       if (isAnimating) return;
 
-      isAnimating = true;
+      isAnimating = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       const isOpen = navBar.classList.contains("hamburger-btn__open");
 
@@ -379,6 +378,7 @@ const navItems = [
       setNavAttributes();
     });
 
+    desktopQuery.addEventListener("change", setNavAttributes);
     setNavAttributes();
   }
 

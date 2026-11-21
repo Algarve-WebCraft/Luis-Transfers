@@ -3,8 +3,6 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import RoutesCards from "@components/other/RoutesCards.astro";
 import TransferForm from "@components/other/TransferForm.astro";
 
-const { locale } = Astro.props;
-
 const pageTitle = "Transferências | Luis Ferreira Transferências e Serviços";
 const pageDescription =
   "Reserve transfers privativos por toda a Península Ibérica, incluindo embarques no Aeroporto de Faro e viagens para Lisboa e Sevilha. Um serviço direto e confiável.";
@@ -78,7 +76,7 @@ const pageDescription =
             Solicite o Seu Transfer
           </h2>
 
-          <TransferForm locale={locale} layout="compact" />
+          <TransferForm layout="compact" />
           <p id="status" aria-live="polite"></p>
         </div>
 

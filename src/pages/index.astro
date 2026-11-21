@@ -1,13 +1,10 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
 import { Image } from "astro:assets";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import rentalPhoto from "@assets/images/apart-two.webp";
 import RoutesCards from "@components/other/RoutesCards.astro";
 import TransferForm from "@components/other/TransferForm.astro";
 import HeroSlider from "@components/other/HeroSlider.astro";
-
-const { locale } = Astro.props;
 
 const pageTitle = "Home | Luis Ferreira Transfers & Services";
 const pageDescription =
@@ -60,7 +57,7 @@ const pageDescription =
           Book Your Transfer Now
         </h2>
 
-        <TransferForm locale={locale} layout="full" />
+        <TransferForm layout="full" />
 
         <div class="hero-bottom-container">
           <span>
@@ -743,10 +740,6 @@ const pageDescription =
 
       p {
         margin-top: 0.25rem;
-      }
-
-      &:last-child {
-        background-color: red;
       }
     }
 

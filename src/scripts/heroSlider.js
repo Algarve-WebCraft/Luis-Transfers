@@ -1,7 +1,13 @@
 import Swiper from "swiper";
 import { A11y, Autoplay, Navigation } from "swiper/modules";
 
+let sliderInstances = [];
+
 function initSliders() {
+  sliderInstances.forEach((instance) => instance.destroy());
+  sliderInstances = [];
+
+  const isPortuguese = document.documentElement.lang === "pt";
   const sliders = document.querySelectorAll(".hero-slider");
 
   sliders.forEach((slider) => {
@@ -40,16 +46,18 @@ function initSliders() {
           },
 
       a11y: {
-        prevSlideMessage: "Imagem anterior",
-        nextSlideMessage: "Imagem seguinte",
+        prevSlideMessage: isPortuguese ? "Imagem anterior" : "Previous image",
+        nextSlideMessage: isPortuguese ? "Imagem seguinte" : "Next image",
       },
     });
+
+    sliderInstances.push(swiper);
 
     if (!prefersReducedMotion) {
       swiper.autoplay.stop();
 
       setTimeout(() => {
-        swiper.autoplay.start();
+        if (!swiper.destroyed) swiper.autoplay.start();
       }, 3000);
     }
   });

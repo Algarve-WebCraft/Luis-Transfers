@@ -7,6 +7,7 @@ import apartThree from "@assets/images/apart-three.webp";
 import apartFour from "@assets/images/apart-four.webp";
 import apartFive from "@assets/images/apart-five.webp";
 import apartSix from "@assets/images/apart-six.webp";
+import apartSeven from "@assets/images/apart-seven.webp";
 import rentalMap from "@assets/images/rental-map.png";
 import "glightbox/dist/css/glightbox.css";
 
@@ -18,12 +19,10 @@ const lightboxImages = await Promise.all(
       src: image,
       width: Math.min(image.width, 2000),
       format: "webp",
-      quality: 85,
+      quality: 100,
     }),
   ),
 );
-
-const { locale } = Astro.props;
 
 const pageTitle = "Accommodation | Luis Ferreira Transfers & Services";
 const pageDescription =
@@ -36,9 +35,7 @@ const pageDescription =
       <div class="hero-container">
         <div class="hero__text-container">
           <div>
-            <span class="cmp-topper-heading">
-              CARVOEIRO, ALGARVE &nbsp;&nbsp;•&nbsp;&nbsp; RIGHT ON THE BEACH
-            </span>
+            <span class="cmp-topper-heading">CARVOEIRO, ALGARVE &nbsp;&nbsp;•&nbsp;&nbsp; RIGHT ON THE BEACH</span>
             <h1 id="hero-section" class="cmp-hero-heading">
               Holiday Apartment in Carvoeiro
             </h1>
@@ -325,7 +322,13 @@ const pageDescription =
         </p>
 
         <div class="map__inner-container">
-          <Image src={rentalMap} alt="Google Maps image of the area of Carveiro " format="webp" layout="constrained" class="map-image" />
+          <Image
+            src={rentalMap}
+            alt="Google Maps image of the area of Carveiro "
+            format="webp"
+            layout="constrained"
+            class="map-image"
+          />
 
           <div class="map-text">
             <div class="map-text__text">
